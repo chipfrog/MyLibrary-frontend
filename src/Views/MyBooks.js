@@ -1,5 +1,6 @@
-import { useSelector  } from 'react-redux'
-import { Container, Media } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { Container } from 'react-bootstrap'
+import OwnedBook from '../Components/OwnedBook'
 import '../custom-css.css'
 
 const MyBooks = () => {
@@ -11,14 +12,7 @@ const MyBooks = () => {
       {books.map(book => {
         return (
           <ul>
-            <Media as="li" >
-              <img src={book.linkToCoverImage} alt="book cover" />
-              <Media.Body>
-                <h5>{book.title}</h5>
-                <h6>{book.author}</h6>
-                <p>rating: {book.rating}/10</p>
-              </Media.Body>
-            </Media>
+            <OwnedBook info={book} key={book.id} />
           </ul>
         )
       })}

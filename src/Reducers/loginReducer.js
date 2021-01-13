@@ -70,7 +70,8 @@ export const addBookToLibrary = (book, token) => {
         author: book.volumeInfo.authors[0],
         linkToCoverImage: book.volumeInfo.imageLinks.thumbnail,
         rating: book.rating,
-        quotes: book.quotes
+        quotes: book.quotes,
+        review: book.review
       }
       dispatch({
         type: 'ADD_BOOK',

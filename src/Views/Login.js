@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, Row, Col, Modal, Container, Card, Alert } from 'react-bootstrap'
+import { Button, Form, Row, Col, Modal, Container, Card } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { tryLogin, tryUserCreation } from '../Reducers/loginReducer'
 import Notification from '../Components/Notification'

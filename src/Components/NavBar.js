@@ -14,15 +14,15 @@ const Navigation = () => {
   }
 
   return (
-      <Navbar bg="dark" variant="dark">
-        <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
-          <Nav.Link as={Link} to={"/user"} >User</Nav.Link>
-          <Nav.Link as={Link} to={"/"} onClick={handleLogout} >Logout</Nav.Link>
-       </Nav>
-      </Navbar>
-    
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
+      <Nav className="mr-auto">
+        <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
+      </Nav>
+      <Nav className="ml-auto">
+        <Nav.Link as={Link} to={"/"} onClick={handleLogout} >Logout</Nav.Link>
+      </Nav>
+    </Navbar>  
   )
 }
 
