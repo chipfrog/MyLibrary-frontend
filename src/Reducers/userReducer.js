@@ -67,7 +67,6 @@ export const tryLogin = ({ username, password }) => {
         type: 'LOGIN',
         data: user
       })
-
     } catch(error) {
       dispatch(setNotification('Wrong credentials!'))
     }
@@ -77,8 +76,7 @@ export const tryLogin = ({ username, password }) => {
 export const tryBookUpdate = (book, token) => {
   return async dispatch => {
     try {
-      await updateBook(book, token)
-       
+      await updateBook(book, token) 
       dispatch({
         type: 'UPDATE_BOOK',
         data: book
@@ -87,7 +85,6 @@ export const tryBookUpdate = (book, token) => {
       console.log(error)
     }
   }
-
 }
 
 export const addBookToLibrary = (book, token) => {

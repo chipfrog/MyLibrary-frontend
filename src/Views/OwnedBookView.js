@@ -1,28 +1,15 @@
-import React from 'react'
-import { Carousel, Container, Jumbotron, Row, Col } from 'react-bootstrap'
+import { React, useState } from 'react'
+import { Container, Jumbotron, Row, Col, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import StarRating from '../Components/StarRating'
+import BookReviewForm from '../Components/BookReviewForm'
 
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
-
-  const quoteCarousel = () => {
-    return (
-      <Carousel>
-        {book.quotes.map(quote => {
-          return (
-          <Carousel.Item>
-            <Carousel.Caption>
-              <p>{quote}</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          )
-        })}
-      </Carousel>
-    )
-  }
-  
   return (
     <div>
       <Jumbotron fluid>
@@ -48,8 +35,10 @@ const OwnedBookView = () => {
         <Row className="text-justify">
           <Col>
             <p>{book.review}</p>
+            <Button onClick={handleShow} >Edit</Button>
           </Col>
         </Row>
+        <BookReviewForm bookInfo={book} handleClose={handleClose} show={show} />
       </Container>
     </div>    
   )
