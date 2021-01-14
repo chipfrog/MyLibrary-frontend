@@ -8,6 +8,7 @@ const StarRating = ({ book }) => {
   const dispatch = useDispatch()
   const token = useSelector(state => state.login.token)
   const [score, setScore] = useState(book.rating)
+  const [paintedStars, setPaintedStars] = useState(book.rating)
 
   const handleScore = (value) => {
     setScore(value)
@@ -20,7 +21,15 @@ const StarRating = ({ book }) => {
       {[...Array(10)].map((value, i) => {
         const currentScore = i + 1
         return (
-          <FaStar className="star" size={30} color={score >= currentScore ? 'orange' : 'gray'} onClick={() => handleScore(currentScore)} key={i} />
+          <FaStar 
+            className="star" 
+            key={i} 
+            size={30} 
+            color={paintedStars >= currentScore  ? 'orange' : 'gray'} 
+            onClick={() => handleScore(currentScore)} 
+            onMouseEnter={() => setPaintedStars(currentScore)}
+            onMouseLeave={() => setPaintedStars(score)}
+          />
         )
       })}
     </div>

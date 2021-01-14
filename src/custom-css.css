@@ -6,6 +6,10 @@ html, body {
   margin: 40% 20%;
 }
 
+.star {
+  cursor: pointer 
+}
+
 .notification {
   position: absolute;
 }
