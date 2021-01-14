@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import { Container, Row, Col, Image, Button, Form, Modal } from 'react-bootstrap'
 import { useDispatch ,useSelector } from 'react-redux'
-import { addBookToLibrary } from '../Reducers/loginReducer'
+import { addBookToLibrary } from '../Reducers/userReducer'
 
 const BookInfo = () => {
   const dispatch = useDispatch()

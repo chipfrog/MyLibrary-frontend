@@ -1,5 +1,5 @@
 import { login } from '../Services/login'
-import { addBook } from '../Services/books'
+import { addBook, updateBook } from '../Services/books'
 import { createUser } from '../Services/user'
 import { setNotification } from './notificationReducer'
 
@@ -7,7 +7,7 @@ const initialState = {
   user: null,
 }
 
-const loginReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN':
       return action.data
@@ -20,7 +20,21 @@ const loginReducer = (state = initialState, action) => {
         ...state, 
         user_books: [...state.user_books, action.data]}
     case 'UPDATE_BOOK':
-      return state
+      return {
+        ...state,
+        user_books: state.user_books.map((book) => {
+          if (book.id === action.data.id) {
+            return {
+              ...book,
+              rating: action.data.rating,
+              review: action.data.review,
+              quotes: action.data.quotes,
+              read: action.data.read
+            }
+          }
+          return book
+        })
+      }
     case 'DELETE_BOOK':
       return state
     case 'RESET':
@@ -60,11 +74,27 @@ export const tryLogin = ({ username, password }) => {
   }
 }
 
+export const tryBookUpdate = (book, token) => {
+  return async dispatch => {
+    try {
+      await updateBook(book, token)
+       
+      dispatch({
+        type: 'UPDATE_BOOK',
+        data: book
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+}
+
 export const addBookToLibrary = (book, token) => {
   return async dispatch => {
     try {
       await addBook(book, token)
-      
+
       const bookInfo = {
         title: book.volumeInfo.title,
         author: book.volumeInfo.authors[0],
@@ -90,4 +120,4 @@ export const tryLogout = () => {
   }
 }
 
-export default loginReducer
+export default userReducer

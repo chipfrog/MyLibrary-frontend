@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from 'react-icons/fa'
+import { tryBookUpdate } from '../Reducers/userReducer'
 import '../custom-css.css'
 
-const StarRating = ({ rating }) => {
-  const [score, setScore] = useState(rating)
+const StarRating = ({ book }) => {
+  const dispatch = useDispatch()
+  const token = useSelector(state => state.login.token)
+  const [score, setScore] = useState(book.rating)
 
   const handleScore = (value) => {
     setScore(value)
+    book.rating = value
+    dispatch(tryBookUpdate(book, token))
   }
 
   return (

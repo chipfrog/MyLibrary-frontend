@@ -31,7 +31,7 @@ const OwnedBookView = () => {
             <Col xs={8} >
               <h1>{book.title}</h1>
               <h5><i>{book.author}</i></h5>
-              <StarRating rating={book.rating} />
+              <StarRating book={book} />
             </Col>
             <Col xs={4} >
               <img src={book.linkToCoverImage} alt="cover"/>

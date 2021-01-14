@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import bookSearchReducer from './Reducers/bookSearchReducer'
 import bookInfoReducer from './Reducers/bookInfoReducer'
-import loginReducer from './Reducers/loginReducer'
+import userReducer from './Reducers/userReducer'
 import notificationReducer from './Reducers/notificationReducer'
 import ownedBookReducer from './Reducers/ownedBookReducer'
 
@@ -12,7 +12,7 @@ const reducer = combineReducers({
   bookSearch: bookSearchReducer,
   bookInfo: bookInfoReducer,
   ownedBook: ownedBookReducer,
-  login: loginReducer,
+  login: userReducer,
   notification: notificationReducer
 })
 

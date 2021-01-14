@@ -6,6 +6,26 @@ export const getBooks = async (filter) => {
   return result.data
 }
 
+export const updateBook = async (bookInfo, token) => {
+  const bearerToken = `bearer ${token}`
+
+  const config = {
+    headers: { Authorization: bearerToken }
+  }
+
+  const bookData = {
+    id: bookInfo.id,
+    review: bookInfo.review,
+    rating: bookInfo.rating,
+    read: bookInfo.read,
+    quotes: bookInfo.quotes
+  }
+
+  const response = await axios.put(`/api/googleBooks/edit`, bookData, config)
+  console.log(response)
+
+}
+
 export const addBook = async ( bookInfo, token ) => {
   const bearerToken = `bearer ${token}`
 
@@ -21,7 +41,6 @@ export const addBook = async ( bookInfo, token ) => {
     rating: bookInfo.rating,
     read: bookInfo.read,
     quotes: bookInfo.quotes
-
   }
 
   const response = await axios.post(`/api/googlebooks`, bookData, config)
