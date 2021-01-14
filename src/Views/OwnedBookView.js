@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { Container, Jumbotron, Row, Col, Button } from 'react-bootstrap'
+import { Container, Jumbotron, Row, Col, Button, Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import StarRating from '../Components/StarRating'
 import BookReviewForm from '../Components/BookReviewForm'
@@ -39,6 +39,17 @@ const OwnedBookView = () => {
           </Col>
         </Row>
         <BookReviewForm bookInfo={book} handleClose={handleClose} show={show} />
+        {book.quotes.map((quote) => {
+          return (
+            <Row className="pt-3">
+              <Col>
+                <Card>
+                  <Card.Body>{quote}</Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          )
+        })}
       </Container>
     </div>    
   )
