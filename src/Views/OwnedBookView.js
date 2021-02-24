@@ -39,12 +39,28 @@ const OwnedBookView = () => {
           </Col>
         </Row>
         <BookReviewForm bookInfo={book} handleClose={handleClose} show={show} />
+        <Row className="pt-3" >
+          <Col>
+            <h4>Quotes</h4>
+          </Col>
+        </Row>
         {book.quotes.map((quote) => {
           return (
             <Row className="pt-3">
               <Col>
                 <Card>
-                  <Card.Body>{quote}</Card.Body>
+                  <Card.Header>
+                    <Button className="close"></Button>
+                  </Card.Header>
+                  <Card.Body>
+                    {quote}
+                  </Card.Body>
+                  <Card.Footer>
+                    <Row>
+                      <Button>Edit</Button>
+                      <Button className="ml-1" variant="danger">Delete</Button>
+                    </Row>
+                  </Card.Footer>
                 </Card>
               </Col>
             </Row>

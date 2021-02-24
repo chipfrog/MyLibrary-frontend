@@ -30,34 +30,29 @@ const Login = () => {
   }
 
   return (
-    <Container >
+    <Container fluid className="testi">
       <Notification />
-      <Row >
-        <Col className="login">
-          <Card className="card" bg="light" border="dark">
-            <Card.Header className="text-center"><h2>Login</h2></Card.Header>
-            <Card.Body>
-              <Form onSubmit={handleLogin}>
-                <Form.Group controlId="formBasicText">
-                  <Form.Label>Username</Form.Label>             
-                    <Form.Control type="text" name="usernameLogin" placeholder="Username" /> 
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name="passwordLogin" placeholder="Password"  />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                  Login
-                </Button>{' '}
-                <Button variant="success" onClick={handleShow} >
-                  Create User
-                </Button>
-              </Form>
-                
-            </Card.Body>
-          </Card>
-      </Col>
-      </Row>
+        <Card className="card" bg="light" border="dark">
+          <Card.Header className="text-center"><h2>Login</h2></Card.Header>
+          <Card.Body>
+            <Form onSubmit={handleLogin}>
+              <Form.Group controlId="formBasicText">
+                <Form.Label>Username</Form.Label>             
+                  <Form.Control type="text" name="usernameLogin" placeholder="Username" /> 
+              </Form.Group>
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" name="passwordLogin" placeholder="Password"  />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Login
+              </Button>{' '}
+              <Button variant="success" onClick={handleShow} >
+                Create User
+              </Button>
+            </Form> 
+          </Card.Body>
+        </Card>
       <Modal
         show={show}
         onHide={handleClose}

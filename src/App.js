@@ -15,9 +15,7 @@ const App = () => {
 
   if (user === null) {
     return (
-      <Container fluid className="testi">
-        <Login />
-      </Container>
+      <Login />
     )
   }
 
