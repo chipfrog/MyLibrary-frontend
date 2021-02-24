@@ -26,18 +26,18 @@ const Login = () => {
   const [usernameError, setUsernameError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
 
-  const correctInput = (input, minLength) => {
-    if (input.length >= minLength) {
-      return true
-    }
-    return false
-  }
-
   const handleLogin = async (event) => {
     event.preventDefault()
     dispatch(tryLogin({ username, password }))
     setUsername('')
     setPassword('')
+  }
+
+  const correctInput = (input, minLength) => {
+    if (input.length >= minLength) {
+      return true
+    }
+    return false
   }
 
   const handleUserCreation = async (event) => {
@@ -52,6 +52,24 @@ const Login = () => {
       console.log(`Username: ${newUsername}, Password: ${newPassword}`)
       dispatch(tryUserCreation({ newUsername, newPassword }))
       handleClose()
+    }
+  }
+
+  const handleNewUsernameInput = (input) => {
+    setNewUsername(input)
+    if (correctInput(input, 5)) {
+      setUsernameError(false)
+    } else {
+      setUsernameError(true)
+    }
+  }
+
+  const handleNewPasswordInput = (input) => {
+    setNewPassword(input)
+    if(correctInput(input, 5)) {
+      setPasswordError(false)
+    } else {
+      setPasswordError(true)
     }
   }
 
@@ -112,7 +130,7 @@ const Login = () => {
                   name="usernameRegister" 
                   value={newUsername} 
                   placeholder="Choose your username" 
-                  onChange={({ target }) => setNewUsername(target.value)} 
+                  onChange={({ target }) => handleNewUsernameInput(target.value)} 
                 />
               </Form.Row>
               {usernameError && 
@@ -129,7 +147,7 @@ const Login = () => {
                   name="passwordRegister" 
                   value={newPassword} 
                   placeholder="Choose a secure password" 
-                  onChange={({ target }) => setNewPassword(target.value)} 
+                  onChange={({ target }) => handleNewPasswordInput(target.value)} 
                 />
               </Form.Row>
               {passwordError && 
