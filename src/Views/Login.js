@@ -8,41 +8,79 @@ import '../custom-css.css'
 const Login = () => {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+  const handleClose = () => {
+    setShow(false)
+    setNewUsername('')
+    setNewPassword('')
+    setUsernameError(false)
+    setPasswordError(false)
+  }  
   const handleShow = () => setShow(true)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const [newUsername, setNewUsername] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+
+  const [usernameError, setUsernameError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+
+  const correctInput = (input, minLength) => {
+    if (input.length >= minLength) {
+      return true
+    }
+    return false
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
-    const username = event.target.usernameLogin.value
-    const password = event.target.passwordLogin.value
     dispatch(tryLogin({ username, password }))
+    setUsername('')
+    setPassword('')
   }
 
   const handleUserCreation = async (event) => {
     event.preventDefault()
-    dispatch(tryUserCreation({ username, password }))
-    setUsername('')
-    setPassword('')
-    handleClose()
+    if (!correctInput(newUsername, 5)) {
+      setUsernameError(true)
+    }
+    if (!correctInput(newPassword, 5)) {
+      setPasswordError(true)
+    }
+    else {
+      console.log(`Username: ${newUsername}, Password: ${newPassword}`)
+      dispatch(tryUserCreation({ newUsername, newPassword }))
+      handleClose()
+    }
   }
 
   return (
     <Container fluid className="testi">
-      <Notification />
+      <Notification className="notify"/>
         <Card className="card" bg="light" border="dark">
           <Card.Header className="text-center"><h2>Login</h2></Card.Header>
           <Card.Body>
             <Form onSubmit={handleLogin}>
               <Form.Group controlId="formBasicText">
                 <Form.Label>Username</Form.Label>             
-                  <Form.Control type="text" name="usernameLogin" placeholder="Username" /> 
+                <Form.Control 
+                  type="text" 
+                  name="usernameLogin"
+                  value={username} 
+                  placeholder="Username"
+                  onChange={({ target }) => setUsername(target.value)}
+                />
               </Form.Group>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" name="passwordLogin" placeholder="Password"  />
+                <Form.Control 
+                  type="password" 
+                  name="passwordLogin"
+                  value={password} 
+                  placeholder="Password"
+                  onChange={({ target }) => setPassword(target.value)}
+                />
               </Form.Group>
               <Button variant="primary" type="submit">
                 Login
@@ -72,10 +110,14 @@ const Login = () => {
                 <Form.Control 
                   type="text" 
                   name="usernameRegister" 
-                  value={username} 
+                  value={newUsername} 
                   placeholder="Choose your username" 
-                  onChange={({ target }) => setUsername(target.value)} />
+                  onChange={({ target }) => setNewUsername(target.value)} 
+                />
               </Form.Row>
+              {usernameError && 
+                <Form.Row style={{color: 'red'}}>Username must be at least 5 characters long!</Form.Row>
+              }    
             </Form.Group>
             <Form.Group>
               <Form.Row>
@@ -85,14 +127,18 @@ const Login = () => {
                 <Form.Control 
                   type="password" 
                   name="passwordRegister" 
-                  value={password} 
+                  value={newPassword} 
                   placeholder="Choose a secure password" 
-                  onChange={({ target }) => setPassword(target.value)} />
+                  onChange={({ target }) => setNewPassword(target.value)} 
+                />
               </Form.Row>
+              {passwordError && 
+                <Form.Row style={{color: 'red'}}>Password must be at least 5 characters long!</Form.Row>
+              } 
             </Form.Group>
             <Form.Group as={Row} >
               <Col xs={3}>
-                <Button type="submit" >Submit</Button>
+                <Button type="submit">Submit</Button>
               </Col>
               <Col xs={3} >
                 <Button variant="danger" onClick={handleClose} >Cancel</Button>

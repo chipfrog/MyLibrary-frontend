@@ -1,4 +1,3 @@
-import { Container } from 'react-bootstrap';
 import Searchbar from './Components/SearchBar'
 import BookGrid from './Components/BookGrid'
 import Navigation from './Components/NavBar'

@@ -1,6 +1,7 @@
 import { Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetNotification } from '../Reducers/notificationReducer'
+import '../custom-css.css'
 
 const Notification = () => {
   const dispatch = useDispatch()
@@ -14,7 +15,7 @@ const Notification = () => {
     return (
       <Alert className="notification" variant="danger" onClose={handleShow} dismissible>
         <Alert.Heading>
-          <strong>Notification!</strong>
+          <strong>Oops!</strong>
         </Alert.Heading>
         <p>
           {message}

@@ -44,22 +44,21 @@ const userReducer = (state = initialState, action) => {
   }
 }
 
-export const tryUserCreation = ({ username, password }) => {
+export const tryUserCreation = ({ newUsername, newPassword }) => {
   return async dispatch => {
     try {
-      await createUser({ username, password })
+      await createUser({ newUsername, newPassword })
       dispatch({
         type: 'CREATE_USER',
         data: initialState
       })
     } catch (error) {
-      dispatch(setNotification('User already exists!'))
+      dispatch(setNotification(error.response.data.error))
     }
   }
 }
 
 export const tryLogin = ({ username, password }) => {
-  console.log(`username: ${username}, password: ${password}`)
   return async dispatch => {
     try {
       const user = await login({ username, password })
@@ -68,7 +67,7 @@ export const tryLogin = ({ username, password }) => {
         data: user
       })
     } catch(error) {
-      dispatch(setNotification('Wrong credentials!'))
+      dispatch(setNotification(error.response.data.error))
     }
   }
 }
