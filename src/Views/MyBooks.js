@@ -1,38 +1,150 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Container, Table, Button } from 'react-bootstrap'
+import { Container, Table, Button, Row, Col } from 'react-bootstrap'
+import { FaSortNumericDown, FaSortNumericUpAlt, FaSortAlphaDown, FaSortAlphaUpAlt } from 'react-icons/fa'
 import '../custom-css.css'
 
 const MyBooks = () => {
   const books = useSelector(state => state.login.user_books)
   const [sortedBooks, setSortedBooks] = useState([...books])
+  const [sortType, setSortType] = useState('rating')
+  const [asc, setAsc] = useState('rating')
 
-  const sortByTitle = () => {
-    const kirjat = [...sortedBooks].sort((bookA, bookB) => {
-      return bookA.title.localeCompare(bookB.title)
-    })
-    setSortedBooks(kirjat)
+  const [ratingAsc, setRatingAsc] = useState(true)
+  const [titleAsc, setTitleAsc] = useState(true)
+  const [authorAsc, setAuthorAsc] = useState(true)
+
+  useEffect(() => {
+    const sortBooks = () => {
+      let kirjat = []
+      
+      const sortTypes = {
+        title: 'title',
+        author: 'author',
+        rating: 'rating'
+      }
+
+      const ascTypes = {
+        title: titleAsc,
+        author: authorAsc,
+        rating: ratingAsc
+      }
+
+      const test = sortTypes[sortType]
+      const ascBy = ascTypes[asc]
+      if (ascBy) {
+        kirjat = [...sortedBooks].sort((bookA, bookB) => {
+          if (bookA[test] > bookB[test]) {
+            return -1
+          } else if (bookA[test] < bookB[test]) {
+            return 1
+          }
+          return 0
+        })
+      } else {
+        kirjat = [...sortedBooks].sort((bookA, bookB) => {
+          if (bookB[test] > bookA[test]) {
+            return -1
+          } else if (bookB[test] < bookA[test]) {
+            return 1
+          }
+          return 0
+        })
+      }
+      setSortedBooks(kirjat)
+    }
+    sortBooks()
+  }, [sortType, ratingAsc, titleAsc, authorAsc])
+
+  const handleSortType = (type) => {
+    setAsc(type)
+    setSortType(type)
+    handleAscType(type)
   }
 
-  const sortByRating = () => {
-    const kirjat = [...sortedBooks].sort((bookA, bookB) => {
-      return bookB.rating - bookA.rating
-    })
-    setSortedBooks(kirjat)
+  const handleAscType = (type) => {
+    switch(type) {
+      case 'rating':
+        setRatingAsc(!ratingAsc)
+        break
+      case 'title':
+        setTitleAsc(!titleAsc)
+        break
+      case 'author':
+        setAuthorAsc(!authorAsc)
+        break    
+      default:
+        break
+    }
   }
 
   return (
     <Container>
       <h1 className="pt-3 pb-5 text-center">My Library</h1>
-      <Button onClick={sortByTitle}>Title</Button>
-      <Button onClick={sortByRating}>Rating</Button>
-      <Table bordered hover style={{overflowX: 'auto'}}>
+      <Table bordered hover >
         <thead>
           <tr>
             <th>Cover</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Stars</th>
+            <th>
+              <Row>
+                <Col xs={10}>
+                  Title
+                </Col>
+                <Col xs={2}>
+                  {titleAsc ?
+                    <FaSortAlphaDown 
+                      className="sortIcon"
+                      onClick={() => handleSortType('title')}
+                    />
+                    :
+                    <FaSortAlphaUpAlt 
+                      className="sortIcon"
+                      onClick={() => handleSortType('title')}
+                    />
+                }
+                </Col>
+              </Row>   
+            </th>
+            <th>
+              <Row>
+                <Col xs={10}>
+                  Author
+                </Col>
+                <Col xs={2}>
+                  {authorAsc ?
+                    <FaSortAlphaDown 
+                      className="sortIcon"
+                      onClick={() => handleSortType('author')}
+                    />
+                    :
+                    <FaSortAlphaUpAlt 
+                      className="sortIcon"
+                      onClick={() => handleSortType('author')}
+                    />
+                  }
+                </Col>
+              </Row>  
+            </th>
+            <th>
+              <Row>
+                <Col xs={9}>
+                  Stars
+                </Col>
+                <Col xs={1}>
+                  {ratingAsc ? 
+                    <FaSortNumericDown 
+                      className="sortIcon" 
+                      onClick={() => handleSortType('rating')}
+                    />
+                    :
+                    <FaSortNumericUpAlt 
+                      className="sortIcon" 
+                      onClick={() => handleSortType('rating')}
+                    />
+                  }
+                </Col>
+              </Row>
+            </th>
           </tr>
         </thead>
         <tbody>

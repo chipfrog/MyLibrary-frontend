@@ -22,6 +22,10 @@ html, body {
   cursor: pointer 
 }
 
+.sortIcon {
+  cursor: pointer
+}
+
 .notification {
   position: absolute;
 }
