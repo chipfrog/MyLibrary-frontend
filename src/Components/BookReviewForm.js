@@ -24,8 +24,7 @@ const BookReviewForm = ({ bookInfo, handleClose, show }) => {
     setQuoteCount(quoteCount + 1)
   }
 
-  const handleBookAdding = async (event) => {
-    event.preventDefault()
+  const handleBookAdding = () => {
   
     const book = {
       ...bookInfo,
@@ -60,6 +59,14 @@ const BookReviewForm = ({ bookInfo, handleClose, show }) => {
     // setQuoteList(quoteList)
     // setQuoteCount(quoteCount)
     handleClose()
+  }
+
+  const handleBook = () => {
+    if (isNewBook) {
+      handleBookAdding()
+    } else {
+      handleBookUpdate()
+    }
   }
 
   return (
@@ -136,14 +143,7 @@ const BookReviewForm = ({ bookInfo, handleClose, show }) => {
         </Form.Row>
         <Form.Row>
           <Form.Group as={Col} >
-            <Button onClick={() => {
-              if (isNewBook) {
-                handleBookAdding()
-              } else {
-                handleBookUpdate()
-              }
-              }}
-            >
+            <Button onClick={handleBook}>
               Submit
             </Button>
           </Form.Group>
