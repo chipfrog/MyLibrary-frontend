@@ -22,6 +22,10 @@ html, body {
   cursor: pointer 
 }
 
+.table td{
+  text-align: left;
+}
+
 .sortIcon {
   cursor: pointer
 }
@@ -37,4 +41,15 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.bookshelf {
+  background-image: url('./Images/wood.jpeg');
+  min-width: 100%;
+  width: 100%;
+}
+
+.taulukko {
+  position: relative;
+  left: 50%;  
 }

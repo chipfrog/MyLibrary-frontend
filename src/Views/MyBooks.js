@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { Container, Table, Button, Row, Col } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Container, Table, Row, Col } from 'react-bootstrap'
 import { FaSortNumericDown, FaSortNumericUpAlt, FaSortAlphaDown, FaSortAlphaUpAlt } from 'react-icons/fa'
+import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
 import '../custom-css.css'
+import { alignPropType } from 'react-bootstrap/esm/DropdownMenu'
 
 const MyBooks = () => {
   const books = useSelector(state => state.login.user_books)
@@ -14,7 +17,14 @@ const MyBooks = () => {
   const [titleAsc, setTitleAsc] = useState(true)
   const [authorAsc, setAuthorAsc] = useState(true)
 
+  const dispatch = useDispatch()
+  
+  const setInfo = async (info) => {
+    dispatch(setOwnedBookInfo(info))
+  }
+
   useEffect(() => {
+    console.log(sortedBooks)
     const sortBooks = () => {
       let kirjat = []
       
@@ -79,10 +89,11 @@ const MyBooks = () => {
   }
 
   return (
-    <Container>
-      <h1 className="pt-3 pb-5 text-center">My Library</h1>
-      <Table bordered hover >
-        <thead>
+    <Container fluid className="bookshelf" >
+      <Row >
+        <Col xs={2} md={6}>
+        <Table bordered hover className="taulukko">
+        <thead bgcolor="#d1975c">
           <tr>
             <th>Cover</th>
             <th>
@@ -147,19 +158,25 @@ const MyBooks = () => {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody bgcolor= "#edc9a4">
           {sortedBooks.map(book => {
             return (
-              <tr>
-                <td><img src={book.linkToCoverImage} alt="book cover"/></td>
-                <td><b>{book.title}</b></td>
-                <td><b>{book.author}</b></td>
-                <td><b>{book.rating}</b></td>
+              <tr key={book.google_id}>
+                <td>
+                  <Link to={`/${book.title}`} onClick={() => setInfo(book)} >
+                    <img src={book.linkToCoverImage} alt="book cover"/>
+                  </Link>
+                </td>
+                <td className="align-middle"><b>{book.title}</b></td>
+                <td className="align-middle"><b>{book.author}</b></td>
+                <td className="align-middle"><b>{book.rating}</b></td>
               </tr>
             )
           })}
         </tbody>
       </Table>
+      </Col>
+      </Row>
     </Container>
   )
 }
