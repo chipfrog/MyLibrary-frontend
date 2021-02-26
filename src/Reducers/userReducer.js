@@ -89,19 +89,20 @@ export const tryBookUpdate = (book, token) => {
 export const addBookToLibrary = (book, token) => {
   return async dispatch => {
     try {
-      await addBook(book, token)
+      const addedBook = await addBook(book, token)
+      console.log(addedBook.data)
 
-      const bookInfo = {
-        title: book.volumeInfo.title,
-        author: book.volumeInfo.authors[0],
-        linkToCoverImage: book.volumeInfo.imageLinks.thumbnail,
-        rating: book.rating,
-        quotes: book.quotes,
-        review: book.review
-      }
+      // const bookInfo = {
+      //   title: book.volumeInfo.title,
+      //   author: book.volumeInfo.authors[0],
+      //   linkToCoverImage: book.volumeInfo.imageLinks.thumbnail,
+      //   rating: book.rating,
+      //   quotes: book.quotes,
+      //   review: book.review
+      // }
       dispatch({
         type: 'ADD_BOOK',
-        data: bookInfo
+        data: addedBook.data
       })
     } catch (error) {
       console.log(error)

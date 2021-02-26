@@ -161,7 +161,7 @@ const MyBooks = () => {
         <tbody bgcolor= "#edc9a4">
           {sortedBooks.map(book => {
             return (
-              <tr key={book.google_id}>
+              <tr key={book.id}>
                 <td>
                   <Link to={`/${book.title}`} onClick={() => setInfo(book)} >
                     <img src={book.linkToCoverImage} alt="book cover"/>

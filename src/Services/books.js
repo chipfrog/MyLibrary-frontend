@@ -44,7 +44,8 @@ export const addBook = async ( bookInfo, token ) => {
   }
 
   const response = await axios.post(`/api/googlebooks`, bookData, config)
-  console.log(response)
+  console.log(`Lisätty kirja: ${response.data.title}`)
+  return response
 }
 
 
