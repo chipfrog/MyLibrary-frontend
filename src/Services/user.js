@@ -8,7 +8,6 @@ export const getUser = async (token) => {
     headers: { Authorization: bearerToken }
   }
   const user = await axios.get(`/api/user`, config)
-  // console.log(`requested user: ${user.data}`)
   return user.data
 }
 

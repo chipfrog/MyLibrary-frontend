@@ -3,7 +3,7 @@ import { Container, Jumbotron, Row, Col, Button, Card } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import StarRating from '../Components/StarRating'
 import BookReviewForm from '../Components/BookReviewForm'
-import { deleteBook } from '../Reducers/userReducer'
+import { deleteBookFromLibrary } from '../Reducers/userReducer'
 
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
@@ -12,9 +12,10 @@ const OwnedBookView = () => {
   const handleShow = () => setShow(true)
 
   const dispatch = useDispatch()
+  const token = useSelector(state => state.login.token)
 
   const handleBookDelete = async () => {
-    dispatch(deleteBook(book.id))
+    dispatch(deleteBookFromLibrary(book.id, token))
   }
 
   return (

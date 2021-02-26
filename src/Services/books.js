@@ -26,7 +26,7 @@ export const updateBook = async (bookInfo, token) => {
 
 }
 
-export const addBook = async ( bookInfo, token ) => {
+export const addBook = async (bookInfo, token) => {
   const bearerToken = `bearer ${token}`
 
   const config = {
@@ -46,6 +46,16 @@ export const addBook = async ( bookInfo, token ) => {
   const response = await axios.post(`/api/googlebooks`, bookData, config)
   console.log(`Lisätty kirja: ${response.data.title}`)
   return response
+}
+
+export const deleteBook = async (id, token) => {
+  const bearerToken = `bearer ${token}`
+
+  const config = {
+    headers: { Authorization: bearerToken }
+  }
+  const response = await axios.delete(`/api/googlebooks/delete`, { data: { config, id } })
+  console.log(response)
 }
 
 

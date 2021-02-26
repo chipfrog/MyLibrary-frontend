@@ -1,5 +1,5 @@
 import { login } from '../Services/login'
-import { addBook, updateBook } from '../Services/books'
+import { addBook, updateBook, deleteBook } from '../Services/books'
 import { createUser } from '../Services/user'
 import { setNotification } from './notificationReducer'
 
@@ -103,11 +103,10 @@ export const addBookToLibrary = (book, token) => {
   }
 }
 
-export const deleteBook = (id) => {
-  console.log(`book_id: ${id}`)
+export const deleteBookFromLibrary = (id, token) => {
   return async dispatch => {
     try {
-
+      await deleteBook(id, token)
       dispatch({
         type: 'DELETE_BOOK',
         data: id
