@@ -1,14 +1,21 @@
 import { React, useState } from 'react'
 import { Container, Jumbotron, Row, Col, Button, Card } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import StarRating from '../Components/StarRating'
 import BookReviewForm from '../Components/BookReviewForm'
+import { deleteBook } from '../Reducers/userReducer'
 
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const dispatch = useDispatch()
+
+  const handleBookDelete = async () => {
+    dispatch(deleteBook(book.id))
+  }
 
   return (
     <div>
@@ -22,6 +29,9 @@ const OwnedBookView = () => {
             </Col>
             <Col xs={4} >
               <img src={book.linkToCoverImage} alt="cover"/>
+              <Row>
+                <Button onClick={handleBookDelete} variant='danger'>Delete</Button>
+              </Row>
             </Col>
           </Row>
         </Container>

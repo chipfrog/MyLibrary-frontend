@@ -36,7 +36,10 @@ const userReducer = (state = initialState, action) => {
         })
       }
     case 'DELETE_BOOK':
-      return state
+      return {
+        ...state,
+        user_books: state.user_books.filter((book) => book.id !== action.data)
+      }
     case 'RESET':
       return initialState  
     default:
@@ -90,21 +93,27 @@ export const addBookToLibrary = (book, token) => {
   return async dispatch => {
     try {
       const addedBook = await addBook(book, token)
-      console.log(addedBook.data)
-
-      // const bookInfo = {
-      //   title: book.volumeInfo.title,
-      //   author: book.volumeInfo.authors[0],
-      //   linkToCoverImage: book.volumeInfo.imageLinks.thumbnail,
-      //   rating: book.rating,
-      //   quotes: book.quotes,
-      //   review: book.review
-      // }
       dispatch({
         type: 'ADD_BOOK',
         data: addedBook.data
       })
     } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteBook = (id) => {
+  console.log(`book_id: ${id}`)
+  return async dispatch => {
+    try {
+
+      dispatch({
+        type: 'DELETE_BOOK',
+        data: id
+      })
+    }
+    catch (error) {
       console.log(error)
     }
   }

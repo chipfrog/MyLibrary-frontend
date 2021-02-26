@@ -5,7 +5,6 @@ import { Container, Table, Row, Col } from 'react-bootstrap'
 import { FaSortNumericDown, FaSortNumericUpAlt, FaSortAlphaDown, FaSortAlphaUpAlt } from 'react-icons/fa'
 import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
 import '../custom-css.css'
-import { alignPropType } from 'react-bootstrap/esm/DropdownMenu'
 
 const MyBooks = () => {
   const books = useSelector(state => state.login.user_books)
@@ -24,7 +23,6 @@ const MyBooks = () => {
   }
 
   useEffect(() => {
-    console.log(sortedBooks)
     const sortBooks = () => {
       let kirjat = []
       
