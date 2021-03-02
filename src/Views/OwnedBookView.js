@@ -1,14 +1,19 @@
-import { React, useState } from 'react'
-import { Container, Jumbotron, Row, Col, Button, Tabs, Tab, Form } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
+import { React } from 'react'
+import { Container, Jumbotron, Row, Col, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import StarRating from '../Components/StarRating'
-import { deleteBookFromLibrary, tryBookUpdate } from '../Reducers/userReducer'
-import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
 import Review from '../Components/Review'
+import { deleteBookFromLibrary } from '../Reducers/userReducer'
 
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
+  const token = useSelector(state => state.login.token)
+  const dispatch = useDispatch()
  
+  const handleBookDelete = async () => {
+    dispatch(deleteBookFromLibrary(book.id, token))
+  }
+
   return (
     <>
     <Jumbotron fluid>
@@ -22,11 +27,14 @@ const OwnedBookView = () => {
             <Col xs={4} >
               <img src={book.linkToCoverImage} alt="cover"/>
             </Col>
+            <Button variant="danger" onClick={() => handleBookDelete()} >
+              Delete
+            </Button>
           </Row>
       </Container>
     </Jumbotron>
     <Container>
-      <Review book={book}/>
+      <Review/>
     </Container>
     </>
   )

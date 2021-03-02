@@ -23,6 +23,20 @@ export const updateBook = async (bookInfo, token) => {
 
   const response = await axios.put(`/api/googleBooks/edit`, bookData, config)
   console.log(response)
+}
+
+export const addQuote = async (id, quote, token) => {
+  const bearerToken = `bearer ${token}`
+  const config = {
+    headers: { Authorization: bearerToken }
+  }
+  const data = {
+    book_id: id,
+    quote: quote
+  }
+
+  const response = await axios.post(`/api/googleBooks/addquote`, data, config)
+  return response
 
 }
 

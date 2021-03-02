@@ -1,7 +1,8 @@
 import { login } from '../Services/login'
-import { addBook, updateBook, deleteBook } from '../Services/books'
+import { addBook, updateBook, deleteBook, addQuote } from '../Services/books'
 import { createUser } from '../Services/user'
 import { setNotification } from './notificationReducer'
+import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
 
 const initialState = {
   user: null,
@@ -28,7 +29,7 @@ const userReducer = (state = initialState, action) => {
               ...book,
               rating: action.data.rating,
               review: action.data.review,
-              quotes: action.data.quotes,
+              // quotes: action.data.quotes,
               read: action.data.read
             }
           }
@@ -40,10 +41,39 @@ const userReducer = (state = initialState, action) => {
         ...state,
         user_books: state.user_books.filter((book) => book.id !== action.data)
       }
+    case 'ADD_QUOTE':
+      return {
+        ...state,
+        user_books: state.user_books.map((book) => {
+          if (book.id === action.data.id) {
+            return {
+              ...book,
+              quotes: action.data.quotes
+            }
+          }
+          return book
+        })
+      }  
     case 'RESET':
       return initialState  
     default:
       return state
+  }
+}
+
+export const addQuoteToBook = (id, quote, token) => {
+  return async dispatch => {
+    try {
+      const updatedBook = await addQuote(id, quote, token)
+      await dispatch(setOwnedBookInfo(updatedBook.data))
+      dispatch({
+        type: 'ADD_QUOTE',
+        data: updatedBook.data
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
