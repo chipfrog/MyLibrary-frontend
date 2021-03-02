@@ -29,7 +29,7 @@ const userReducer = (state = initialState, action) => {
               ...book,
               rating: action.data.rating,
               review: action.data.review,
-              // quotes: action.data.quotes,
+              quotes: action.data.quotes,
               read: action.data.read
             }
           }

@@ -33,6 +33,22 @@ const Review = () => {
     setNewQuote(null)
   }
 
+  const handleQuoteDelete = (id) => {
+    let filteredQuotes = book.quotes
+    for (let i = 0; i < filteredQuotes.length; i ++) {
+      if (filteredQuotes[i].id === id) {
+        filteredQuotes.splice(i, 1)
+        break
+      }
+    }
+    const updatedBook = {
+      ...book,
+      quotes: filteredQuotes
+    }
+    dispatch(tryBookUpdate(updatedBook, token))
+    dispatch(setOwnedBookInfo(updatedBook))
+  }
+
   return (
     <Tabs>
       <Tab eventKey="review" title="Review">
@@ -66,7 +82,7 @@ const Review = () => {
                 <Col key={quote.id}>
                   <Card>
                     <Card.Header>
-                      <Button variant="link">Delete</Button>
+                      <Button variant="link" onClick={() => handleQuoteDelete(quote.id)} >Delete</Button>
                     </Card.Header>
                     <Card.Body>
                       {quote.quote}
