@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Tabs, Tab, Form, Button, Card } from 'react-bootstrap'
 import { tryBookUpdate, addQuoteToBook } from '../Reducers/userReducer'
 import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
+import { AiOutlineClose } from 'react-icons/ai'
 
 const Review = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
@@ -54,10 +55,12 @@ const Review = () => {
       <Tab eventKey="review" title="Review">
         {!editReview ?
           <Row className="pt-2">
-            <Col>
+            <Col xs={2} sm={1}>
+              <Button variant="link" onClick={() => setEditReview(!editReview)}>Edit</Button>
+            </Col>
+            <Col xs={10} sm={11}>
               {review}
             </Col>
-            <Button variant="link" onClick={() => setEditReview(!editReview)}>Edit</Button>
           </Row>
           :
           <Form onSubmit={handleReview} >
@@ -77,12 +80,19 @@ const Review = () => {
       <Tab eventKey="quotes" title="Quotes">
           {!quoteAdding ?
           <Row className="pt-2">
+            <Col>
+              <Button variant="link" onClick={() => setQuoteAdding(!quoteAdding)} >Add quote</Button>
+            </Col>
             {book.quotes.map(quote => {
               return (
                 <Col key={quote.id}>
                   <Card>
                     <Card.Header>
-                      <Button variant="link" onClick={() => handleQuoteDelete(quote.id)} >Delete</Button>
+                      <Row>
+                        <Col className="pr-0 text-right">
+                          <AiOutlineClose className="pointer" onClick={() => handleQuoteDelete(quote.id)} />
+                        </Col>
+                      </Row>
                     </Card.Header>
                     <Card.Body>
                       {quote.quote}
@@ -91,7 +101,6 @@ const Review = () => {
                 </Col>
               )
             })}
-            <Button variant="link" onClick={() => setQuoteAdding(!quoteAdding)} >Add quote</Button>
           </Row>
             :
             <Form onSubmit={handleNewQuote}>

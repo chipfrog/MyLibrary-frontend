@@ -22,7 +22,7 @@ const StarRating = ({ book }) => {
         const currentScore = i + 1
         return (
           <FaStar 
-            className="star" 
+            className="pointer" 
             key={i} 
             size={30} 
             color={paintedStars >= currentScore  ? 'orange' : 'gray'} 

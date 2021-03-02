@@ -27,7 +27,7 @@ const OwnedBookView = () => {
             <Col xs={4} >
               <img src={book.linkToCoverImage} alt="cover"/>
             </Col>
-            <Button variant="danger" onClick={() => handleBookDelete()} >
+            <Button xsOffset={10} variant="danger" onClick={() => handleBookDelete()} >
               Delete
             </Button>
           </Row>
