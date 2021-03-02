@@ -80,27 +80,31 @@ const Review = () => {
       <Tab eventKey="quotes" title="Quotes">
           {!quoteAdding ?
           <Row className="pt-2">
-            <Col>
+            <Col xs={12} sm={2}>
               <Button variant="link" onClick={() => setQuoteAdding(!quoteAdding)} >Add quote</Button>
             </Col>
-            {book.quotes.map(quote => {
-              return (
-                <Col key={quote.id}>
-                  <Card>
-                    <Card.Header>
-                      <Row>
-                        <Col className="pr-0 text-right">
-                          <AiOutlineClose className="pointer" onClick={() => handleQuoteDelete(quote.id)} />
-                        </Col>
-                      </Row>
-                    </Card.Header>
-                    <Card.Body>
-                      {quote.quote}
-                    </Card.Body>
-                  </Card>
-                </Col>
-              )
-            })}
+            <Col xs={12} sm={10}>
+              {book.quotes.map(quote => {
+                return (
+                  <Row className="mb-3">
+                    <Col key={quote.id}>
+                      <Card >
+                        <Card.Header>
+                          <Row>
+                            <Col className="pr-0 text-right">
+                              <AiOutlineClose className="pointer" onClick={() => handleQuoteDelete(quote.id)} />
+                            </Col>
+                          </Row>
+                        </Card.Header>
+                        <Card.Body className="overflow-auto" >
+                          <i> {quote.quote}</i>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                )
+              })}
+            </Col>
           </Row>
             :
             <Form onSubmit={handleNewQuote}>
