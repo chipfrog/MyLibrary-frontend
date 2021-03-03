@@ -9,6 +9,7 @@ const StarRating = ({ book }) => {
   const token = useSelector(state => state.login.token)
   const [score, setScore] = useState(book.rating)
   const [paintedStars, setPaintedStars] = useState(book.rating)
+  const stars = 5
 
   const handleScore = (value) => {
     setScore(value)
@@ -18,7 +19,7 @@ const StarRating = ({ book }) => {
 
   return (
     <div>
-      {[...Array(10)].map((value, i) => {
+      {[...Array(stars)].map((value, i) => {
         const currentScore = i + 1
         return (
           <FaStar 

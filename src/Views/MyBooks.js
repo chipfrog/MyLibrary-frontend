@@ -62,7 +62,7 @@ const MyBooks = () => {
       setSortedBooks(kirjat)
     }
     sortBooks()
-  }, [sortType, ratingAsc, titleAsc, authorAsc])
+  }, [sortType, ratingAsc, titleAsc, authorAsc, books])
 
   const handleSortType = (type) => {
     setAsc(type)

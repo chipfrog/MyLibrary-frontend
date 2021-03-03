@@ -2,7 +2,7 @@ import { login } from '../Services/login'
 import { addBook, updateBook, deleteBook, addQuote } from '../Services/books'
 import { createUser } from '../Services/user'
 import { setNotification } from './notificationReducer'
-import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
+import { setOwnedBookInfo, resetOwnedBookInfo } from '../Reducers/ownedBookReducer'
 
 const initialState = {
   user: null,
@@ -137,6 +137,7 @@ export const deleteBookFromLibrary = (id, token) => {
   return async dispatch => {
     try {
       await deleteBook(id, token)
+      await dispatch(resetOwnedBookInfo())
       dispatch({
         type: 'DELETE_BOOK',
         data: id
