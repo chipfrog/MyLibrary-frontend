@@ -6,7 +6,6 @@ import Review from '../Components/Review'
 import { deleteBookFromLibrary } from '../Reducers/userReducer'
 import DeleteConfirmation from '../Components/DeleteConfirmation'
 import { Redirect } from 'react-router-dom'
-import { resetOwnedBookInfo } from '../Reducers/ownedBookReducer'
 
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
@@ -16,7 +15,6 @@ const OwnedBookView = () => {
 
   const handleDelete = async () => {
     dispatch(deleteBookFromLibrary(book.id, token))
-    // dispatch(resetOwnedBookInfo())
     setShow(false)
   }
 

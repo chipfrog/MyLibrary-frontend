@@ -8,7 +8,6 @@ import '../custom-css.css'
 
 const MyBooks = () => {
   const books = useSelector(state => state.login.user_books)
-  // const [sortedBooks, setSortedBooks] = useState(books)
   const [sortType, setSortType] = useState('rating')
   const [asc, setAsc] = useState('rating')
 
@@ -24,8 +23,6 @@ const MyBooks = () => {
 
   useEffect(() => {
     const sortBooks = () => {
-      let kirjat = []
-      
       const sortTypes = {
         title: 'title',
         author: 'author',
@@ -59,7 +56,6 @@ const MyBooks = () => {
           return 0
         })
       }
-      // setSortedBooks(kirjat)
     }
     sortBooks()
   }, [sortType, ratingAsc, titleAsc, authorAsc])

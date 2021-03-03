@@ -109,7 +109,6 @@ export const tryBookUpdate = (book, token) => {
   return async dispatch => {
     try {
       const updatedBook = await updateBook(book, token)
-      console.log(updatedBook)
       await dispatch(setOwnedBookInfo(updatedBook.data)) 
       dispatch({
         type: 'UPDATE_BOOK',
@@ -125,6 +124,7 @@ export const addBookToLibrary = (book, token) => {
   return async dispatch => {
     try {
       const addedBook = await addBook(book, token)
+      await dispatch(setOwnedBookInfo(addedBook.data))
       dispatch({
         type: 'ADD_BOOK',
         data: addedBook.data

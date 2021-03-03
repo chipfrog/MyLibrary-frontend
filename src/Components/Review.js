@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Tabs, Tab, Form, Button, Card } from 'react-bootstrap'
 import { tryBookUpdate, addQuoteToBook } from '../Reducers/userReducer'
-import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
 import { AiOutlineClose } from 'react-icons/ai'
 
 const Review = ({ setShow }) => {
@@ -22,7 +21,6 @@ const Review = ({ setShow }) => {
       review: review,
     }
     dispatch(tryBookUpdate(updatedBook, token))
-    // dispatch(setOwnedBookInfo(updatedBook))
     setEditReview(false)
     setQuoteAdding(false)
   }
@@ -47,7 +45,6 @@ const Review = ({ setShow }) => {
       quotes: filteredQuotes
     }
     dispatch(tryBookUpdate(updatedBook, token))
-    // dispatch(setOwnedBookInfo(updatedBook))
   }
 
   return (

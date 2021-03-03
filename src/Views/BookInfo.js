@@ -1,25 +1,33 @@
 import { React, useState } from 'react'
 import { Container, Row, Col, Image, Button } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
-import BookReviewForm from '../Components/BookReviewForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { addBookToLibrary } from '../Reducers/userReducer'
 
 const BookInfo = () => {
   const info = useSelector(state => state.bookInfo)
+  const token = useSelector(state => state.login.token)
   const bookInfo = info.bookInfo
+  const [bookAdded, setAddedBook] = useState(false)
+  const dispatch = useDispatch()
 
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const handleBookAdding = () => {
+    dispatch(addBookToLibrary(bookInfo, token))
+    setAddedBook(true)
+  }
 
-  
   if (bookInfo === null) {
     return (
       <h2>undefined</h2>
     )
   }
+  if (bookAdded) {
+    return (
+      <Redirect to={`/${bookInfo.volumeInfo.title}`}/>
+    )
+  }
 
   // Korjaa näkymä, kun kirjalijoita enemmän kuin yksi!
-
   return (
     <Container className="pt-4 text-center">
       <h2>{bookInfo.volumeInfo.title}</h2>
@@ -35,12 +43,11 @@ const BookInfo = () => {
       </Row>
       <Row className="pt-4">
         <Col>
-          <Button onClick={handleShow}>Add book</Button>
+          <Button onClick={() => handleBookAdding()}>Add book</Button>
         </Col>
         <Col>
         </Col>
       </Row>
-      <BookReviewForm bookInfo={bookInfo} handleClose={handleClose} show={show} />      
     </Container>  
   )
 }
