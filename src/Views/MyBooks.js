@@ -8,7 +8,7 @@ import '../custom-css.css'
 
 const MyBooks = () => {
   const books = useSelector(state => state.login.user_books)
-  const [sortedBooks, setSortedBooks] = useState([...books])
+  // const [sortedBooks, setSortedBooks] = useState(books)
   const [sortType, setSortType] = useState('rating')
   const [asc, setAsc] = useState('rating')
 
@@ -41,7 +41,7 @@ const MyBooks = () => {
       const test = sortTypes[sortType]
       const ascBy = ascTypes[asc]
       if (ascBy) {
-        kirjat = [...sortedBooks].sort((bookA, bookB) => {
+        books.sort((bookA, bookB) => {
           if (bookA[test] > bookB[test]) {
             return -1
           } else if (bookA[test] < bookB[test]) {
@@ -50,7 +50,7 @@ const MyBooks = () => {
           return 0
         })
       } else {
-        kirjat = [...sortedBooks].sort((bookA, bookB) => {
+        books.sort((bookA, bookB) => {
           if (bookB[test] > bookA[test]) {
             return -1
           } else if (bookB[test] < bookA[test]) {
@@ -59,10 +59,10 @@ const MyBooks = () => {
           return 0
         })
       }
-      setSortedBooks(kirjat)
+      // setSortedBooks(kirjat)
     }
     sortBooks()
-  }, [sortType, ratingAsc, titleAsc, authorAsc, books])
+  }, [sortType, ratingAsc, titleAsc, authorAsc])
 
   const handleSortType = (type) => {
     setAsc(type)
@@ -157,7 +157,7 @@ const MyBooks = () => {
           </tr>
         </thead>
         <tbody bgcolor= "#edc9a4">
-          {sortedBooks.map(book => {
+          {books.map(book => {
             return (
               <tr key={book.id}>
                 <td>

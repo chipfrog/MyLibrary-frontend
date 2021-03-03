@@ -137,7 +137,7 @@ export const deleteBookFromLibrary = (id, token) => {
   return async dispatch => {
     try {
       await deleteBook(id, token)
-      await dispatch(resetOwnedBookInfo())
+      // await dispatch(resetOwnedBookInfo())
       dispatch({
         type: 'DELETE_BOOK',
         data: id
