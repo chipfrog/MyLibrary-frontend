@@ -108,7 +108,9 @@ export const tryLogin = ({ username, password }) => {
 export const tryBookUpdate = (book, token) => {
   return async dispatch => {
     try {
-      await updateBook(book, token) 
+      const updatedBook = await updateBook(book, token)
+      console.log(updatedBook)
+      await dispatch(setOwnedBookInfo(updatedBook.data)) 
       dispatch({
         type: 'UPDATE_BOOK',
         data: book
@@ -137,7 +139,7 @@ export const deleteBookFromLibrary = (id, token) => {
   return async dispatch => {
     try {
       await deleteBook(id, token)
-      // await dispatch(resetOwnedBookInfo())
+      await dispatch(resetOwnedBookInfo())
       dispatch({
         type: 'DELETE_BOOK',
         data: id

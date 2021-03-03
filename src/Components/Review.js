@@ -22,7 +22,7 @@ const Review = ({ setShow }) => {
       review: review,
     }
     dispatch(tryBookUpdate(updatedBook, token))
-    dispatch(setOwnedBookInfo(updatedBook))
+    // dispatch(setOwnedBookInfo(updatedBook))
     setEditReview(false)
     setQuoteAdding(false)
   }
@@ -47,7 +47,7 @@ const Review = ({ setShow }) => {
       quotes: filteredQuotes
     }
     dispatch(tryBookUpdate(updatedBook, token))
-    dispatch(setOwnedBookInfo(updatedBook))
+    // dispatch(setOwnedBookInfo(updatedBook))
   }
 
   return (

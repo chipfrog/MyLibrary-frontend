@@ -16,7 +16,7 @@ const OwnedBookView = () => {
 
   const handleDelete = async () => {
     dispatch(deleteBookFromLibrary(book.id, token))
-    dispatch(resetOwnedBookInfo())
+    // dispatch(resetOwnedBookInfo())
     setShow(false)
   }
 
