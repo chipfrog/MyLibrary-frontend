@@ -1,15 +1,16 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import { Container, Jumbotron, Row, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import StarRating from '../Components/StarRating'
 import Review from '../Components/Review'
-import { deleteBookFromLibrary } from '../Reducers/userReducer'
+import { deleteBookFromLibrary, tryBookUpdate } from '../Reducers/userReducer'
 import DeleteConfirmation from '../Components/DeleteConfirmation'
 import { Redirect } from 'react-router-dom'
 
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
   const token = useSelector(state => state.login.token)
+  const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
   const [show, setShow] = useState(false)
   const dispatch = useDispatch()
 
@@ -17,6 +18,16 @@ const OwnedBookView = () => {
     dispatch(deleteBookFromLibrary(book.id, token))
     setShow(false)
   }
+
+  useEffect(() => {
+    console.log('in useEffect')
+    const updatedBook = {
+      ...book,
+      read: bookRead
+    }
+    dispatch(tryBookUpdate(updatedBook, token))
+
+  }, [bookRead])
 
   if (book === null) {
     return (
@@ -28,30 +39,32 @@ const OwnedBookView = () => {
     <>
     <Jumbotron fluid>
       <Container>
-          <Row>
-            <Col xs={7}>
-              <h1>{book.title}</h1>
-              <h5><i>{book.author}</i></h5>
-              <StarRating book={book} />
-              <Form className="pt-3">
-                <Form.Check
-                  inline 
-                  type="checkbox"
-                  id="read"
-                  label="Read"
-                />
-                <Form.Check
-                  inline 
-                  type="checkbox"
-                  id="owned"
-                  label="Owned"
-                />
-              </Form>
-            </Col>
-            <Col xs={5} >
-              <img src={book.linkToCoverImage} alt="cover"/>
-            </Col>
-          </Row>
+        <Row>
+          <Col xs={7}>
+            <h1>{book.title}</h1>
+            <h5><i>{book.author}</i></h5>
+            <StarRating book={book} />
+            <Form className="pt-3">
+              <Form.Check
+                inline 
+                type="checkbox"
+                id="read"
+                label="Read"
+                checked={bookRead}
+                onChange={() => setBookRead(!bookRead)}
+              />
+              <Form.Check
+                inline 
+                type="checkbox"
+                id="owned"
+                label="Owned"
+              />
+            </Form>
+          </Col>
+          <Col xs={5} >
+            <img src={book.linkToCoverImage} alt="cover"/>
+          </Col>
+        </Row>
       </Container>
 
     </Jumbotron>

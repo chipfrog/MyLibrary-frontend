@@ -21,6 +21,8 @@ export const updateBook = async (bookInfo, token) => {
     quotes: bookInfo.quotes
   }
 
+  console.log(bookData)
+
   const response = await axios.put(`/api/googleBooks/edit`, bookData, config)
   return response
 }
