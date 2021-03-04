@@ -30,7 +30,8 @@ const userReducer = (state = initialState, action) => {
               rating: action.data.rating,
               review: action.data.review,
               quotes: action.data.quotes,
-              read: action.data.read
+              read: action.data.read,
+              owned: action.data.owned
             }
           }
           return book
@@ -109,6 +110,9 @@ export const tryBookUpdate = (book, token) => {
   return async dispatch => {
     try {
       const updatedBook = await updateBook(book, token)
+      console.log('EROT')
+      console.log(book)
+      console.log(updatedBook.data)
       await dispatch(setOwnedBookInfo(updatedBook.data)) 
       dispatch({
         type: 'UPDATE_BOOK',

@@ -11,6 +11,7 @@ const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
   const token = useSelector(state => state.login.token)
   const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
+  const [bookOwned, setBookOwned] = useState(() => book === null ? null : book.owned)
   const [show, setShow] = useState(false)
   const dispatch = useDispatch()
 
@@ -20,14 +21,13 @@ const OwnedBookView = () => {
   }
 
   useEffect(() => {
-    console.log('in useEffect')
     const updatedBook = {
       ...book,
-      read: bookRead
+      read: bookRead,
+      owned: bookOwned
     }
     dispatch(tryBookUpdate(updatedBook, token))
-
-  }, [bookRead])
+  }, [bookRead, bookOwned])
 
   if (book === null) {
     return (
@@ -58,6 +58,8 @@ const OwnedBookView = () => {
                 type="checkbox"
                 id="owned"
                 label="Owned"
+                checked={bookOwned}
+                onChange={() => setBookOwned(!bookOwned)}
               />
             </Form>
           </Col>
