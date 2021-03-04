@@ -21,12 +21,16 @@ const OwnedBookView = () => {
   }
 
   useEffect(() => {
-    const updatedBook = {
-      ...book,
-      read: bookRead,
-      owned: bookOwned
-    }
-    dispatch(tryBookUpdate(updatedBook, token))
+    if (book !== null) {
+      if (bookRead !== book.read || bookOwned !== book.owned) {
+        const updatedBook = {
+          ...book,
+          read: bookRead,
+          owned: bookOwned
+        }
+        dispatch(tryBookUpdate(updatedBook, token))
+      }
+    }    
   }, [bookRead, bookOwned])
 
   if (book === null) {
