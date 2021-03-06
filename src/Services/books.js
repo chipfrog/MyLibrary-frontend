@@ -18,11 +18,11 @@ export const updateBook = async (bookInfo, token) => {
     review: bookInfo.review,
     rating: bookInfo.rating,
     read: bookInfo.read,
+    owned: bookInfo.owned,
     quotes: bookInfo.quotes
   }
-
   const response = await axios.put(`/api/googleBooks/edit`, bookData, config)
-  console.log(response)
+  return response
 }
 
 export const addQuote = async (id, quote, token) => {

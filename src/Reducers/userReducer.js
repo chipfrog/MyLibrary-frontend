@@ -2,7 +2,7 @@ import { login } from '../Services/login'
 import { addBook, updateBook, deleteBook, addQuote } from '../Services/books'
 import { createUser } from '../Services/user'
 import { setNotification } from './notificationReducer'
-import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
+import { setOwnedBookInfo, resetOwnedBookInfo } from '../Reducers/ownedBookReducer'
 
 const initialState = {
   user: null,
@@ -30,7 +30,8 @@ const userReducer = (state = initialState, action) => {
               rating: action.data.rating,
               review: action.data.review,
               quotes: action.data.quotes,
-              read: action.data.read
+              read: action.data.read,
+              owned: action.data.owned
             }
           }
           return book
@@ -108,7 +109,8 @@ export const tryLogin = ({ username, password }) => {
 export const tryBookUpdate = (book, token) => {
   return async dispatch => {
     try {
-      await updateBook(book, token) 
+      const updatedBook = await updateBook(book, token)
+      await dispatch(setOwnedBookInfo(updatedBook.data)) 
       dispatch({
         type: 'UPDATE_BOOK',
         data: book
@@ -123,6 +125,7 @@ export const addBookToLibrary = (book, token) => {
   return async dispatch => {
     try {
       const addedBook = await addBook(book, token)
+      await dispatch(setOwnedBookInfo(addedBook.data))
       dispatch({
         type: 'ADD_BOOK',
         data: addedBook.data
@@ -137,6 +140,7 @@ export const deleteBookFromLibrary = (id, token) => {
   return async dispatch => {
     try {
       await deleteBook(id, token)
+      await dispatch(resetOwnedBookInfo())
       dispatch({
         type: 'DELETE_BOOK',
         data: id
