@@ -10,8 +10,8 @@ import { Redirect } from 'react-router-dom'
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
   const token = useSelector(state => state.login.token)
-  const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
-  const [bookOwned, setBookOwned] = useState(() => book === null ? null : book.owned)
+  // const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
+  // const [bookOwned, setBookOwned] = useState(() => book === null ? null : book.owned)
   const [show, setShow] = useState(false)
   const dispatch = useDispatch()
 
@@ -20,18 +20,34 @@ const OwnedBookView = () => {
     setShow(false)
   }
 
-  useEffect(() => {
-    if (book !== null) {
-      if (bookRead !== book.read || bookOwned !== book.owned) {
-        const updatedBook = {
-          ...book,
-          read: bookRead,
-          owned: bookOwned
-        }
-        dispatch(tryBookUpdate(updatedBook, token))
-      }
-    }    
-  }, [bookRead, bookOwned])
+  const handleRead = () => {
+    const updatedBook = {
+      ...book,
+      read: !book.read
+    }
+    dispatch(tryBookUpdate(updatedBook, token))
+  }
+
+  const handleOwned = () => {
+    const updatedBook = {
+      ...book,
+      owned: !book.owned
+    }
+    dispatch(tryBookUpdate(updatedBook, token))
+  }
+
+  // useEffect(() => {
+  //   if (book !== null) {
+  //     if (bookRead !== book.read || bookOwned !== book.owned) {
+  //       const updatedBook = {
+  //         ...book,
+  //         read: bookRead,
+  //         owned: bookOwned
+  //       }
+  //       dispatch(tryBookUpdate(updatedBook, token))
+  //     }
+  //   }    
+  // }, [bookRead, bookOwned, book])
 
   if (book === null) {
     return (
@@ -54,16 +70,16 @@ const OwnedBookView = () => {
                 type="checkbox"
                 id="read"
                 label="Read"
-                checked={bookRead}
-                onChange={() => setBookRead(!bookRead)}
+                checked={book.read}
+                onChange={handleRead}
               />
               <Form.Check
                 inline 
                 type="checkbox"
                 id="owned"
                 label="Owned"
-                checked={bookOwned}
-                onChange={() => setBookOwned(!bookOwned)}
+                checked={book.owned}
+                onChange={handleOwned}
               />
             </Form>
           </Col>

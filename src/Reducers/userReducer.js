@@ -110,9 +110,6 @@ export const tryBookUpdate = (book, token) => {
   return async dispatch => {
     try {
       const updatedBook = await updateBook(book, token)
-      console.log('EROT')
-      console.log(book)
-      console.log(updatedBook.data)
       await dispatch(setOwnedBookInfo(updatedBook.data)) 
       dispatch({
         type: 'UPDATE_BOOK',

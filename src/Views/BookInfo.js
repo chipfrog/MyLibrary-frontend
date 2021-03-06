@@ -21,9 +21,10 @@ const BookInfo = () => {
       <h2>undefined</h2>
     )
   }
+  
   if (bookAdded) {
     return (
-      <Redirect to={`/${bookInfo.volumeInfo.title}`}/>
+      <Redirect to={`/info/${bookInfo.volumeInfo.title}`}/>
     )
   }
 
