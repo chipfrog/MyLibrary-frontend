@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Tabs, Tab, Form, Button, Card } from 'react-bootstrap'
 import { tryBookUpdate, addQuoteToBook } from '../Reducers/userReducer'
@@ -6,13 +6,17 @@ import { AiOutlineClose } from 'react-icons/ai'
 
 const Review = ({ setShow }) => {
   const book = useSelector(state => state.ownedBook.bookInfo)
-  const dispatch = useDispatch()
-  
   const token = useSelector(state => state.login.token)
-  const [editReview, setEditReview] = useState(false)
+  
   const [review, setReview] = useState(book.review)
+  const [editReview, setEditReview] = useState(false)
   const [quoteAdding, setQuoteAdding] = useState(false)
   const [newQuote, setNewQuote] = useState(null)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setReview(book.review)
+  }, [book])
 
   const handleReview = async (event) => {
     event.preventDefault()

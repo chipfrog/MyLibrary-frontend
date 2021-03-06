@@ -63,7 +63,7 @@ const OwnedBookView = () => {
           <Col xs={7}>
             <h1>{book.title}</h1>
             <h5><i>{book.author}</i></h5>
-            <StarRating book={book} />
+            <StarRating />
             <Form className="pt-3">
               <Form.Check
                 inline 
