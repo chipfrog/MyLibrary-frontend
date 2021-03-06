@@ -10,10 +10,15 @@ import { Redirect } from 'react-router-dom'
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
   const token = useSelector(state => state.login.token)
-  // const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
-  // const [bookOwned, setBookOwned] = useState(() => book === null ? null : book.owned)
+  const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
+  const [bookOwned, setBookOwned] = useState(() => book === null ? null : book.owned)
   const [show, setShow] = useState(false)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    setBookRead(book.read)
+    setBookOwned(book.owned)
+  }, [book])
 
   const handleDelete = async () => {
     dispatch(deleteBookFromLibrary(book.id, token))
@@ -25,6 +30,7 @@ const OwnedBookView = () => {
       ...book,
       read: !book.read
     }
+    setBookRead(!book.read)
     dispatch(tryBookUpdate(updatedBook, token))
   }
 
@@ -33,21 +39,9 @@ const OwnedBookView = () => {
       ...book,
       owned: !book.owned
     }
+    setBookOwned(!book.owned)
     dispatch(tryBookUpdate(updatedBook, token))
   }
-
-  // useEffect(() => {
-  //   if (book !== null) {
-  //     if (bookRead !== book.read || bookOwned !== book.owned) {
-  //       const updatedBook = {
-  //         ...book,
-  //         read: bookRead,
-  //         owned: bookOwned
-  //       }
-  //       dispatch(tryBookUpdate(updatedBook, token))
-  //     }
-  //   }    
-  // }, [bookRead, bookOwned, book])
 
   if (book === null) {
     return (
@@ -70,7 +64,7 @@ const OwnedBookView = () => {
                 type="checkbox"
                 id="read"
                 label="Read"
-                checked={book.read}
+                checked={bookRead}
                 onChange={handleRead}
               />
               <Form.Check
@@ -78,7 +72,7 @@ const OwnedBookView = () => {
                 type="checkbox"
                 id="owned"
                 label="Owned"
-                checked={book.owned}
+                checked={bookOwned}
                 onChange={handleOwned}
               />
             </Form>
