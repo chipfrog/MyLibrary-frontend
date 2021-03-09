@@ -16,8 +16,10 @@ const OwnedBookView = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    setBookRead(book.read)
-    setBookOwned(book.owned)
+    if (book !== null) {
+      setBookRead(book.read)
+      setBookOwned(book.owned)
+    }
   }, [book])
 
   const handleDelete = async () => {
