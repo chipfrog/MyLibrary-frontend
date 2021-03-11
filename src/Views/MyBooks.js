@@ -11,7 +11,7 @@ const MyBooks = () => {
 
   useEffect(() => {
     sortDesc('rating')
-  }, [])
+  }, [books])
 
   const types = {
     title: 'title',
@@ -21,7 +21,7 @@ const MyBooks = () => {
 
   const sortDesc= (field) => {
     const type = types[field]
-    const tempArr = [...sortedBooks]
+    const tempArr = [...books]
     tempArr.sort((bookA, bookB) => {
       if (bookA[type] > bookB[type]) {
         return -1
@@ -31,12 +31,11 @@ const MyBooks = () => {
       return 0
     })
     setSortedBooks(tempArr)
-    console.log(sortedBooks)
   }
 
   const sortAsc = (field) => {
     const type = types[field]
-    const tempArr = [...sortedBooks]
+    const tempArr = [...books]
     tempArr.sort((bookA, bookB) => {
       if (bookA[type] > bookB[type]) {
         return 1
@@ -46,7 +45,6 @@ const MyBooks = () => {
       return 0
     })
     setSortedBooks(tempArr)
-    console.log(sortedBooks)
   }
 
   return (

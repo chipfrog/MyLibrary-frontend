@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { tryLogout } from '../Reducers/userReducer'
@@ -30,7 +30,11 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
         <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
       </Nav>
       <Nav className="ml-auto">
-        <Nav.Link as={Link} to={"/"} onClick={handleLogout} >Logout</Nav.Link>
+        <Form inline>
+          <Form.Control type="text" placeholder="Search from Google Books" className="mr-2" />
+          <Button>Search</Button>
+        </Form>
+        <Nav.Link className="pl-5" as={Link} to={"/"} onClick={handleLogout}>Logout</Nav.Link>
       </Nav>
     </Navbar>  
   )
