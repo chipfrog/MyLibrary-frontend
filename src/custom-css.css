@@ -18,6 +18,10 @@ html, body {
   min-width: 300px;
 }
 
+.genre {
+  /* background-color: rgb(53, 170, 170); */
+}
+
 .pointer {
   cursor: pointer 
 }

@@ -20,17 +20,19 @@ const App = () => {
 
   return (
     <Router>
-      <Navigation />
       <Switch>
         <Route path="/search/:etag">
+          <Navigation showSort={false} />
           <BookInfo />
         </Route>
         <Route path="/search">
-          <h2 className="mt-3 text-center">Google Books Search</h2>
-          <Searchbar />
+          <Navigation showSort={false}/>
+          {/* <h2 className="mt-3 text-center">Google Books Search</h2>
+          <Searchbar /> */}
           <BookGrid />
         </Route>
         <Route path="/:title">
+          <Navigation showSort={false}/>
           <OwnedBookView />
         </Route>
         <Route path="/">

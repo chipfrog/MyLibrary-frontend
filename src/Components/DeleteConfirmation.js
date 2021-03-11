@@ -16,7 +16,7 @@ const DeleteConfirmation = ({ show, setShow, book, handleDelete }) => {
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Button variant="danger" onClick={handleDelete}>Delete</Button>
+          <Button className="mr-1" variant="danger" onClick={handleDelete}>Delete</Button>
           <Button variant="secondary" onClick={() => setShow(false)}>Cancel</Button>
         </Row>
       </Modal.Body>

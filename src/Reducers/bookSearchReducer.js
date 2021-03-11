@@ -1,9 +1,17 @@
 import { getBooks } from '../Services/books'
 
-const bookSearchReducer = (state = [], action) => {
+const initialState = {
+  books: [],
+  filter: undefined
+}
+
+const bookSearchReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'BOOK_SEARCH':
-      return action.data
+      return {
+        books: action.data.books,
+        filter: action.data.filter
+      }
     case 'INIT_SEARCH_RESULTS':
       return action.data
     default:
@@ -14,7 +22,7 @@ const bookSearchReducer = (state = [], action) => {
 export const initSearchResults = () => {
   return {
     type: 'INIT_SEARCH_RESULTS',
-    data: []
+    data: initialState
   }
 }
 
@@ -23,7 +31,7 @@ export const searchBooks = (filter) => {
     const books = await getBooks(filter)
     dispatch({
       type: 'BOOK_SEARCH',
-      data: books,
+      data: { books, filter }
     })
   }
 }

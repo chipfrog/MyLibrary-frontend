@@ -1,11 +1,11 @@
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 import Book from './Book'
 
 const BookGrid = () => {
-  const books = useSelector(state => state.bookSearch)
+  const bookSearch = useSelector(state => state.bookSearch)
 
-  let size = Object.keys(books).length
+  let size = Object.keys(bookSearch.books).length
   let rows = []
   let rowCounter = 0
   let itemCounter = 0
@@ -18,14 +18,15 @@ const BookGrid = () => {
     }
 
     // Adds only books with cover image
-    if (books[i].volumeInfo.imageLinks !== undefined) {
-      rows[rowCounter].push(books[i])
+    if (bookSearch.books[i].volumeInfo.imageLinks !== undefined) {
+      rows[rowCounter].push(bookSearch.books[i])
       itemCounter ++
     }
   }
   
   return (
-    <div >
+    <Container fluid className="pt-3">
+      <h3 className="text-center pb-5">Search results for <i>"{bookSearch.filter}"</i></h3>
       {rows.map(row => {
         return (
         <Row className='text-center' key={rowKey ++}>
@@ -39,7 +40,7 @@ const BookGrid = () => {
         </Row>
         )
       })}
-    </div>
+    </Container>
   )
 }
 

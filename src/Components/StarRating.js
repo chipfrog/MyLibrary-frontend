@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from 'react-icons/fa'
 import { tryBookUpdate } from '../Reducers/userReducer'
 import '../custom-css.css'
 
-const StarRating = () => {
-  const book = useSelector(state => state.ownedBook.bookInfo)
+const StarRating = ({ book }) => {
+  // const book = useSelector(state => state.ownedBook.bookInfo)
   const dispatch = useDispatch()
   const token = useSelector(state => state.login.token)
   const [score, setScore] = useState(book.rating)
   const [paintedStars, setPaintedStars] = useState(book.rating)
   const stars = 5
 
-  useEffect(() => {
-    setPaintedStars(book.rating)
-    setScore(book.rating)
-  }, [book])
+  // useEffect(() => {
+  //   setPaintedStars(book.rating)
+  //   setScore(book.rating)
+  // }, [book])
 
   const handleScore = (value) => {
     setScore(value)
