@@ -1,99 +1,69 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Container, Table, Row, Col } from 'react-bootstrap'
-import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Container, Row, Col } from 'react-bootstrap'
 import '../custom-css.css'
 import BookCard from '../Components/BookCard'
+import Navigation from '../Components/NavBar'
 
 const MyBooks = () => {
   const books = useSelector(state => state.login.user_books)
-  const [sortType, setSortType] = useState('rating')
-  const [asc, setAsc] = useState('rating')
+  const [sortedBooks, setSortedBooks] = useState([...books])
 
-  const [ratingAsc, setRatingAsc] = useState(true)
-  const [titleAsc, setTitleAsc] = useState(true)
-  const [authorAsc, setAuthorAsc] = useState(true)
+  useEffect(() => {
+    sortDesc('rating')
+  }, [])
 
-  // const dispatch = useDispatch()
-  
-  // const setInfo = async (info) => {
-  //   dispatch(setOwnedBookInfo(info))
-  // }
-
-  // useEffect(() => {
-  //   const sortBooks = () => {
-  //     const sortTypes = {
-  //       title: 'title',
-  //       author: 'author',
-  //       rating: 'rating'
-  //     }
-
-  //     const ascTypes = {
-  //       title: titleAsc,
-  //       author: authorAsc,
-  //       rating: ratingAsc
-  //     }
-
-  //     const test = sortTypes[sortType]
-  //     const ascBy = ascTypes[asc]
-  //     if (ascBy) {
-  //       books.sort((bookA, bookB) => {
-  //         if (bookA[test] > bookB[test]) {
-  //           return -1
-  //         } else if (bookA[test] < bookB[test]) {
-  //           return 1
-  //         }
-  //         return 0
-  //       })
-  //     } else {
-  //       books.sort((bookA, bookB) => {
-  //         if (bookB[test] > bookA[test]) {
-  //           return -1
-  //         } else if (bookB[test] < bookA[test]) {
-  //           return 1
-  //         }
-  //         return 0
-  //       })
-  //     }
-  //   }
-  //   sortBooks()
-  // }, [sortType, ratingAsc, titleAsc, authorAsc, books])
-
-  const handleSortType = (type) => {
-    setAsc(type)
-    setSortType(type)
-    handleAscType(type)
+  const types = {
+    title: 'title',
+    author: 'author',
+    rating: 'rating'
   }
 
-  const handleAscType = (type) => {
-    switch(type) {
-      case 'rating':
-        setRatingAsc(!ratingAsc)
-        break
-      case 'title':
-        setTitleAsc(!titleAsc)
-        break
-      case 'author':
-        setAuthorAsc(!authorAsc)
-        break    
-      default:
-        break
-    }
+  const sortDesc= (field) => {
+    const type = types[field]
+    const tempArr = [...sortedBooks]
+    tempArr.sort((bookA, bookB) => {
+      if (bookA[type] > bookB[type]) {
+        return -1
+      } else if (bookA[type] < bookB[type]) {
+        return 1
+      }
+      return 0
+    })
+    setSortedBooks(tempArr)
+    console.log(sortedBooks)
+  }
+
+  const sortAsc = (field) => {
+    const type = types[field]
+    const tempArr = [...sortedBooks]
+    tempArr.sort((bookA, bookB) => {
+      if (bookA[type] > bookB[type]) {
+        return 1
+      } else if (bookA[type] < bookB[type]) {
+        return -1
+      }
+      return 0
+    })
+    setSortedBooks(tempArr)
+    console.log(sortedBooks)
   }
 
   return (
+    <>
+    <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
     <Container fluid className="bookshelf" >
       <Row className="pb-3">
-        {books.map((book => {
+        {sortedBooks.map((book => {
           return (
-            <Col sm={12} md={6} xl={4} className="pt-3">
+            <Col sm={12} md={6} xl={4} className="pt-3" key={book.id} >
               <BookCard book={book} />
             </Col>
           )
         }))}
       </Row>
     </Container>
+    </>
   )
 }
 

@@ -6,7 +6,6 @@ import '../custom-css.css'
 
 const StarRating = ({ book }) => {
   // const book = useSelector(state => state.ownedBook.bookInfo)
-  console.log(book)
   const dispatch = useDispatch()
   const token = useSelector(state => state.login.token)
   const [score, setScore] = useState(book.rating)
