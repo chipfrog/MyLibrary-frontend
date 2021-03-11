@@ -3,8 +3,7 @@ import { Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { tryLogout } from '../Reducers/userReducer'
-import { initSearchResults } from '../Reducers/bookSearchReducer'
-import { searchBooks } from '../Reducers/bookSearchReducer'
+import { searchBooks, startSearch, initSearchResults } from '../Reducers/bookSearchReducer'
 
 const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const dispatch = useDispatch()
@@ -18,9 +17,10 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const fetchBooks = (event) => {
     event.preventDefault()
     const filter = event.target.filter.value
+    dispatch(startSearch())
+    history.push('/search')
     dispatch(searchBooks(filter))
     clearSearhBar()
-    history.push('/search')
   }
 
   const clearSearhBar = () => {

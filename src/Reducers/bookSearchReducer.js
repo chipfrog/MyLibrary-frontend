@@ -2,7 +2,8 @@ import { getBooks } from '../Services/books'
 
 const initialState = {
   books: [],
-  filter: undefined
+  filter: undefined,
+  searching: false
 }
 
 const bookSearchReducer = (state = initialState, action) => {
@@ -10,7 +11,14 @@ const bookSearchReducer = (state = initialState, action) => {
     case 'BOOK_SEARCH':
       return {
         books: action.data.books,
-        filter: action.data.filter
+        filter: action.data.filter,
+        searching: false
+      }
+    case 'SEARCH_STARTED':
+      return {
+        books: [],
+        filter: undefined,
+        searching: true
       }
     case 'INIT_SEARCH_RESULTS':
       return action.data
@@ -18,6 +26,12 @@ const bookSearchReducer = (state = initialState, action) => {
       return state
   }
 }
+
+export const startSearch = () => {
+  return {
+    type: 'SEARCH_STARTED'
+  }
+} 
 
 export const initSearchResults = () => {
   return {

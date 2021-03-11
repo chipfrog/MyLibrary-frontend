@@ -1,4 +1,4 @@
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Spinner } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 import Book from './Book'
 
@@ -17,7 +17,6 @@ const BookGrid = () => {
       rows[rowCounter] = []
     }
 
-    // Adds only books with cover image
     if (bookSearch.books[i].volumeInfo.imageLinks !== undefined) {
       rows[rowCounter].push(bookSearch.books[i])
       itemCounter ++
@@ -26,7 +25,33 @@ const BookGrid = () => {
   
   return (
     <Container fluid className="pt-3">
-      <h3 className="text-center pb-5">Search results for <i>"{bookSearch.filter}"</i></h3>
+      {bookSearch.searching ?
+        <div 
+          style={{ 
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }}>
+          <Spinner animation="border" variant="info"  />
+        </div>
+        :
+        <div>
+          <h3 className="text-center pb-5">Search results for <i>"{bookSearch.filter}"</i></h3>
+          {rows.map(row => {
+            return (
+              <Row className='text-center' key={rowKey ++}>
+                {row.map(book => {
+                  return (
+                    <Col sm={6} md={4} lg={2} key={book.etag}>
+                      <Book info={book} key={book.etag}/>
+                    </Col>
+                  )
+                })}
+              </Row>
+            )
+          })}
+        </div>
+      }
+      {/* <h3 className="text-center pb-5">Search results for <i>"{bookSearch.filter}"</i></h3>
       {rows.map(row => {
         return (
         <Row className='text-center' key={rowKey ++}>
@@ -39,7 +64,7 @@ const BookGrid = () => {
           })}
         </Row>
         )
-      })}
+      })} */}
     </Container>
   )
 }
