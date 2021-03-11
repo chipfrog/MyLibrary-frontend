@@ -1,16 +1,30 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { tryLogout } from '../Reducers/userReducer'
 import { initSearchResults } from '../Reducers/bookSearchReducer'
+import { searchBooks } from '../Reducers/bookSearchReducer'
 
 const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const dispatch = useDispatch()
+  const history = useHistory()
   
   const handleLogout = () => {
     dispatch(initSearchResults())
     dispatch(tryLogout())
+  }
+
+  const fetchBooks = (event) => {
+    event.preventDefault()
+    const filter = event.target.filter.value
+    dispatch(searchBooks(filter))
+    clearSearhBar()
+    history.push('/search')
+  }
+
+  const clearSearhBar = () => {
+    document.getElementById('search bar').reset()
   }
 
   return (
@@ -30,9 +44,9 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
         <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
       </Nav>
       <Nav className="ml-auto">
-        <Form inline>
-          <Form.Control type="text" placeholder="Search from Google Books" className="mr-2" />
-          <Button>Search</Button>
+        <Form onSubmit={fetchBooks} inline id={'search bar'}>
+          <Form.Control name="filter" type="text" placeholder="Search from Google Books" className="mr-2" />
+          <Button type="submit">Search</Button>
         </Form>
         <Nav.Link className="pl-5" as={Link} to={"/"} onClick={handleLogout}>Logout</Nav.Link>
       </Nav>
