@@ -16,15 +16,7 @@ const BookCard = ({ book }) => {
 
   return (
     <Card className="h-100 w-100">
-      {/* <Card.Header className="genre">
-        <Row>
-          <h5>{book.title}</h5>
-        </Row>
-        <Row>
-          <h6><i>by {book.author}</i></h6>
-        </Row>
-      </Card.Header> */}
-      <Card.Body>
+      <Card.Body className="genre">
         <Row>
           <Col className="pr-0">
             <Link to={`/${book.title}`} onClick={() => setInfo(book)} >
@@ -36,14 +28,16 @@ const BookCard = ({ book }) => {
               <h5>{book.title}</h5>
             </Row>
             <Row>
-              <h6><i>by {book.author}</i></h6>
-            </Row>
-            <Row className="pt-5">
-              <StarRating book={book} />
+              <h6 className="text-muted" ><i>by {book.author}</i></h6>
             </Row>
           </Col>
         </Row>
       </Card.Body>
+      <Card.Footer>
+        <Row className="float-right pr-2">
+          <StarRating book={book} />
+        </Row>
+      </Card.Footer>
     </Card>
   )
 }
