@@ -24,8 +24,11 @@ const BookInfo = () => {
   
   if (bookAdded) {
     return (
-      <Redirect to={`/info/${bookInfo.volumeInfo.title}`}/>
+      <Redirect to={'/'}/>
     )
+    // return (
+    //   <Redirect to={`/info/${bookInfo.volumeInfo.title}`}/>
+    // )
   }
 
   // Korjaa näkymä, kun kirjalijoita enemmän kuin yksi!

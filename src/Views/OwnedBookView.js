@@ -6,6 +6,7 @@ import Review from '../Components/Review'
 import { deleteBookFromLibrary, tryBookUpdate } from '../Reducers/userReducer'
 import DeleteConfirmation from '../Components/DeleteConfirmation'
 import { Redirect } from 'react-router-dom'
+import Notification from '../Components/Notification'
 
 const OwnedBookView = () => {
   const book = useSelector(state => state.ownedBook.bookInfo)
@@ -55,6 +56,9 @@ const OwnedBookView = () => {
     <>
     <Jumbotron fluid>
       <Container>
+        {/* <Row>
+          <Notification />
+        </Row> */}
         <Row>
           <Col xs={7}>
             <h1>{book.title}</h1>

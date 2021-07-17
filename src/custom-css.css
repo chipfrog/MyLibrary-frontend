@@ -34,9 +34,9 @@ html, body {
   cursor: pointer
 }
 
-.notification {
+/* .notification {
   position: absolute;
-}
+} */
 
 .testi {
   background-image: url('./Images/kirja.jpg');

@@ -7,13 +7,15 @@ import bookInfoReducer from './Reducers/bookInfoReducer'
 import userReducer from './Reducers/userReducer'
 import notificationReducer from './Reducers/notificationReducer'
 import ownedBookReducer from './Reducers/ownedBookReducer'
+import libraryReducer from './Reducers/libraryReducer'
 
 const reducer = combineReducers({
   bookSearch: bookSearchReducer,
   bookInfo: bookInfoReducer,
   ownedBook: ownedBookReducer,
   login: userReducer,
-  notification: notificationReducer
+  notification: notificationReducer,
+  library: libraryReducer
 })
 
 const saveUserState = (state) => {

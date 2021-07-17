@@ -3,6 +3,7 @@ import { addBook, updateBook, deleteBook, addQuote } from '../Services/books'
 import { createUser } from '../Services/user'
 import { setNotification } from './notificationReducer'
 import { setOwnedBookInfo, resetOwnedBookInfo } from '../Reducers/ownedBookReducer'
+import { targetAddedBook } from './libraryReducer'
 
 const initialState = {
   user: null,
@@ -131,6 +132,10 @@ export const addBookToLibrary = (book, token) => {
         type: 'ADD_BOOK',
         data: addedBook.data
       })
+      console.log(addedBook.data)
+      dispatch(setNotification('success', `${addedBook.data.title} added to the library!`))
+      dispatch(targetAddedBook(addedBook.data.id))
+
     } catch (error) {
       console.log(error)
     }

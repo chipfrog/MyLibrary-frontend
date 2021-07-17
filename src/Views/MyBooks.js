@@ -1,18 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Container, Row, Col } from 'react-bootstrap'
+import React, { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import '../custom-css.css'
 import BookCard from '../Components/BookCard'
 import Navigation from '../Components/NavBar'
 import Notification from '../Components/Notification'
+import { resetLibraryView } from '../Reducers/libraryReducer'
 
 const MyBooks = () => {
+  const dispatch = useDispatch()
   const books = useSelector(state => state.login.user_books)
+  const targetedBook = useSelector(state => state.library)
   const [sortedBooks, setSortedBooks] = useState([...books])
+  const bottomRef = useRef()
 
   useEffect(() => {
     sortDesc('rating')
-  }, [books])
+    highlightBook()
+  }, [books, targetedBook])
+
+  const highlightBook = () => {
+    if (bottomRef.current !== undefined && targetedBook.scrollToBottom === true) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth' })
+      dispatch(resetLibraryView())
+    }
+  }
 
   const types = {
     title: 'title',
@@ -52,6 +64,9 @@ const MyBooks = () => {
     <>
     <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
     <Container fluid className="bookshelf" >
+      <Row>
+        <Notification className="notify"/>
+      </Row>
       <Row className="pb-3">
         {sortedBooks.map((book => {
           return (
@@ -60,6 +75,9 @@ const MyBooks = () => {
             </Col>
           )
         }))}
+      </Row>
+      <Row>
+        <h1 ref={bottomRef} >Tänne!</h1>
       </Row>
     </Container>
     </>
