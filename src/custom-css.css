@@ -12,7 +12,8 @@ html, body {
 }
 
 .notification {
-  position: relative;
+  position: fixed;
+  z-index: 999;
   left: 50%;
   transform: translate(-50%, 10%);
   min-width: 300px;
@@ -33,10 +34,6 @@ html, body {
 .sortIcon {
   cursor: pointer
 }
-
-/* .notification {
-  position: absolute;
-} */
 
 .testi {
   background-image: url('./Images/kirja.jpg');

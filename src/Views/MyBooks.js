@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import '../custom-css.css'
 import BookCard from '../Components/BookCard'
 import Navigation from '../Components/NavBar'
@@ -65,7 +65,7 @@ const MyBooks = () => {
     <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
     <Container fluid className="bookshelf" >
       <Row>
-        <Notification className="notify"/>
+        <Notification/>
       </Row>
       <Row className="pb-3">
         {sortedBooks.map((book => {
