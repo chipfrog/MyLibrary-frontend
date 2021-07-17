@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col } from 'react-bootstrap'
 import '../custom-css.css'
 import BookCard from '../Components/BookCard'
-import Navigation from '../Components/NavBar'
+import Navigation from '../Components/Navigation'
 import Notification from '../Components/Notification'
 import { resetLibraryView } from '../Reducers/libraryReducer'
 
@@ -62,8 +62,9 @@ const MyBooks = () => {
 
   return (
     <>
-    <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
-    <Container fluid className="bookshelf" >
+    
+    <Container fluid className="bookshelf mt-5" >
+      <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
       <Row>
         <Notification/>
       </Row>
@@ -76,9 +77,8 @@ const MyBooks = () => {
           )
         }))}
       </Row>
-      <Row>
-        <h1 ref={bottomRef} >Tänne!</h1>
-      </Row>
+      <div ref={bottomRef}>
+      </div>
     </Container>
     </>
   )

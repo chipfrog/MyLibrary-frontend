@@ -26,14 +26,11 @@ const BookInfo = () => {
     return (
       <Redirect to={'/'}/>
     )
-    // return (
-    //   <Redirect to={`/info/${bookInfo.volumeInfo.title}`}/>
-    // )
   }
 
   // Korjaa näkymä, kun kirjalijoita enemmän kuin yksi!
   return (
-    <Container className="pt-4 text-center">
+    <Container className="mt-5 text-center">
       <h2>{bookInfo.volumeInfo.title}</h2>
       <h3>{bookInfo.volumeInfo.subtitle}</h3>
       <h5><i>{bookInfo.volumeInfo.authors}</i></h5>

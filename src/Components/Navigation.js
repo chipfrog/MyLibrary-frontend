@@ -28,7 +28,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   }
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar fixed="top" bg="dark" variant="dark" >
       <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
       <Nav className="mr-auto">
         {showSort && 

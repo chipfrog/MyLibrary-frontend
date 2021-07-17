@@ -1,5 +1,5 @@
 import BookGrid from './Components/BookGrid'
-import Navigation from './Components/NavBar'
+import Navigation from './Components/Navigation'
 import Login from './Views/Login'
 import BookInfo from './Views/BookInfo'
 import MyBooks from './Views/MyBooks'
