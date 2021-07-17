@@ -17,10 +17,13 @@ export const resetNotification = () => {
   }
 }
 
-export const setNotification = (message) => {
+export const setNotification = (type, message) => {
   return {
     type: 'SHOW_NOTIFICATION',
-    data: message
+    data: {
+      type: type,
+      message: message
+    }
   }
 }
 

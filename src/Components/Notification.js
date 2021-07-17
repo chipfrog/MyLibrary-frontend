@@ -3,22 +3,22 @@ import { useDispatch, useSelector } from 'react-redux'
 import { resetNotification } from '../Reducers/notificationReducer'
 import '../custom-css.css'
 
-const Notification = () => {
+const Notification = ({ variant }) => {
   const dispatch = useDispatch()
-  const message = useSelector(state => state.notification)
+  const notifState = useSelector(state => state.notification)
   
   const handleShow = () => {
     dispatch(resetNotification())
   }
 
-  if (message !== null) {
+  if (notifState !== null) {
     return (
-      <Alert className="notification" variant="danger" onClose={handleShow} dismissible>
+      <Alert className="notification" variant={notifState.type} onClose={handleShow} dismissible>
         <Alert.Heading>
           <strong>Oops!</strong>
         </Alert.Heading>
         <p>
-          {message}
+          {notifState.message}
         </p>
       </Alert>
     )

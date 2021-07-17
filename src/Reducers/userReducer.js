@@ -86,8 +86,9 @@ export const tryUserCreation = ({ newUsername, newPassword }) => {
         type: 'CREATE_USER',
         data: initialState
       })
+      dispatch(setNotification('success', 'User was successfully created!'))
     } catch (error) {
-      dispatch(setNotification(error.response.data.error))
+      dispatch(setNotification('danger', error.response.data.error))
     }
   }
 }
@@ -101,7 +102,7 @@ export const tryLogin = ({ username, password }) => {
         data: user
       })
     } catch(error) {
-      dispatch(setNotification(error.response.data.error))
+      dispatch(setNotification('danger', error.response.data.error))
     }
   }
 }
