@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { Container, Row, Col, Jumbotron, Image, Button } from 'react-bootstrap'
+import { Container, Row, Col, Jumbotron, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { addBookToLibrary } from '../Reducers/userReducer'
@@ -39,10 +39,20 @@ const BookInfo = () => {
               <h2>{bookInfo.volumeInfo.title}</h2>
               <h3>{bookInfo.volumeInfo.subtitle}</h3>
               <h5 className="pb-5"><i>{bookInfo.volumeInfo.authors}</i></h5>
+              {bookInfo.volumeInfo.averageRating === undefined
+              ? <h6>No reviews yet...</h6>
+              :
+              <>
+                <h5>Score {bookInfo.volumeInfo.averageRating}/5</h5>
+                <h6><i>Based on {bookInfo.volumeInfo.ratingsCount} reviews</i></h6>
+              </>
+                
+            }
               <Button onClick={() => handleBookAdding()}>Add book to library</Button>
             </Col>
             <Col xs={5} >
               <img src={bookInfo.volumeInfo.imageLinks.thumbnail} alt="cover"/>
+              <h6>Published in {bookInfo.volumeInfo.publishedDate} </h6>
             </Col>
           </Row>
         </Container>
