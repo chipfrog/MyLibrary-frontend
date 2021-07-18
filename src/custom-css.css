@@ -3,7 +3,7 @@ html, body {
 }
 
 .navigation {
-  margin-bottom: 50px;
+  z-index: 998;
 }
 
 .jumbo {

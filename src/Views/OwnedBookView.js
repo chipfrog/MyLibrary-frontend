@@ -85,7 +85,6 @@ const OwnedBookView = () => {
           </Col>
         </Row>
       </Container>
-
     </Jumbotron>
     <Container>
       <DeleteConfirmation show={show} setShow={setShow} book={book} handleDelete={handleDelete} />

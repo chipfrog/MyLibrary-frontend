@@ -64,7 +64,6 @@ const MyBooks = () => {
 
   return (
     <>
-    
     <Container fluid className="bookshelf" >
       <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
       <Row>
