@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { tryLogout } from '../Reducers/userReducer'
 import { searchBooks, startSearch, initSearchResults } from '../Reducers/bookSearchReducer'
+import '../custom-css.css'
 
 const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   }
 
   return (
-    <Navbar fixed="top" bg="dark" variant="dark" >
+    <Navbar className="navigation" fixed="top" bg="dark" variant="dark" >
       <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
       <Nav className="mr-auto">
         {showSort && 

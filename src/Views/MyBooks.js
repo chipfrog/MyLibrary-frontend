@@ -12,6 +12,7 @@ const MyBooks = () => {
   const books = useSelector(state => state.login.user_books)
   const targetedBook = useSelector(state => state.library)
   const [sortedBooks, setSortedBooks] = useState([...books])
+  const [showAlert, setShowAlert] = useState(false)
   const bottomRef = useRef()
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const MyBooks = () => {
     if (bottomRef.current !== undefined && targetedBook.scrollToBottom === true) {
       bottomRef.current.scrollIntoView({ behavior: 'smooth' })
       dispatch(resetLibraryView())
+      setShowAlert(true)
     }
   }
 
@@ -63,12 +65,14 @@ const MyBooks = () => {
   return (
     <>
     
-    <Container fluid className="bookshelf mt-5" >
+    <Container fluid className="bookshelf" >
       <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
       <Row>
-        <Notification/>
+        {showAlert === true &&
+          <Notification setShowAlert={setShowAlert} />
+        }
       </Row>
-      <Row className="pb-3">
+      <Row  className="library">
         {sortedBooks.map((book => {
           return (
             <Col sm={12} md={6} xl={4} className="pt-3" key={book.id} >

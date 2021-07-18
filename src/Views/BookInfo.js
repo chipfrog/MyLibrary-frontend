@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { addBookToLibrary } from '../Reducers/userReducer'
+import '../custom-css.css'
 
 const BookInfo = () => {
   const info = useSelector(state => state.bookInfo)
@@ -30,7 +31,7 @@ const BookInfo = () => {
 
   // Korjaa näkymä, kun kirjalijoita enemmän kuin yksi!
   return (
-    <Container className="mt-5 text-center">
+    <Container className="bookinfo">
       <h2>{bookInfo.volumeInfo.title}</h2>
       <h3>{bookInfo.volumeInfo.subtitle}</h3>
       <h5><i>{bookInfo.volumeInfo.authors}</i></h5>

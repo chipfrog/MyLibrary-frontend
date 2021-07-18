@@ -2,6 +2,25 @@ html, body {
   height: 100%;
 }
 
+.navigation {
+  margin-bottom: 50px;
+}
+
+.jumbo {
+  margin-top: 4rem;
+}
+
+.bookinfo {
+  text-align: center;
+  padding-top: 7rem;
+}
+
+.library {
+  padding-bottom: 3rem;
+  margin-top: 5rem;
+
+}
+
 .card {
   position: relative;
   top: 50%;
