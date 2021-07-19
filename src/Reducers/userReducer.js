@@ -31,6 +31,7 @@ const userReducer = (state = initialState, action) => {
               rating: action.data.rating,
               review: action.data.review,
               quotes: action.data.quotes,
+              categories: action.data.categories,
               read: action.data.read,
               owned: action.data.owned
             }

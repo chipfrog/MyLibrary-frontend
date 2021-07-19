@@ -1,10 +1,16 @@
+const initialState = {
+  type: null,
+  show: false,
+  message: ''
+}
 
-const notificationReducer = (state = null, action) => {
+
+const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SHOW_NOTIFICATION':
+    case 'SET_NOTIFICATION':
       return action.data
-    case 'RESET_MESSAGE':
-      return null 
+    case 'RESET_NOTIFICATION':
+      return action.data 
     default:
       return state  
   }
@@ -12,16 +18,21 @@ const notificationReducer = (state = null, action) => {
 
 export const resetNotification = () => {
   return {
-    type: 'RESET_MESSAGE',
-    data: null
+    type: 'RESET_NOTIFICATION',
+    data: {
+      type: null,
+      show: false,
+      message: ''
+    }
   }
 }
 
 export const setNotification = (type, message) => {
   return {
-    type: 'SHOW_NOTIFICATION',
+    type: 'SET_NOTIFICATION',
     data: {
       type: type,
+      show: true,
       message: message
     }
   }

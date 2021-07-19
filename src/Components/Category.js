@@ -4,7 +4,6 @@ import { AiOutlineClose } from 'react-icons/ai'
 
 const Category = ({ name, handleCategoryDelete }) => {
 
-
   return (
     <h4>
       <Badge className="mr-2" variant="success">

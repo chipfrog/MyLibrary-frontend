@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Tabs, Tab, Form, Button, Card } from 'react-bootstrap'
+import { Row, Col, Tabs, Tab, Form, Button, Card, Container } from 'react-bootstrap'
 import { tryBookUpdate, addQuoteToBook } from '../Reducers/userReducer'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaPlus } from 'react-icons/fa'
@@ -40,7 +40,7 @@ const Review = ({ setShow }) => {
     setNewQuote(null)
   }
 
-  const handleQuoteDelete = (id) => {
+  const handleQuoteDelete = async (id) => {
     let filteredQuotes = book.quotes
     for (let i = 0; i < filteredQuotes.length; i ++) {
       if (filteredQuotes[i].id === id) {
@@ -66,7 +66,7 @@ const Review = ({ setShow }) => {
     setNewCategory(null)
   }
 
-  const handleCategoryDelete = (category) => {
+  const handleCategoryDelete = async (category) => {
     let filteredCategories = book.categories
     for (let i = 0; i < filteredCategories.length; i ++) {
       if (filteredCategories[i] === category) {
@@ -176,9 +176,15 @@ const Review = ({ setShow }) => {
             </Button>
           </Col>
           <Col xs={12} sm={10} className='mt-3' >
-            {book.categories.map(category => {
-              return <Category key={category} name={category} handleCategoryDelete={() => handleCategoryDelete(category)} />
-            })}
+            <Container>
+              <Row>
+                {book.categories.map(category => {
+                  return (
+                    <Category key={category} name={category} handleCategoryDelete={() => handleCategoryDelete(category)} />
+                  )
+                })}
+              </Row>
+            </Container>
           </Col>
         </Row>
         :
