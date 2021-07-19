@@ -1,10 +1,10 @@
 import { React, useState } from 'react'
-import { Container, Row, Col, Jumbotron, Button, Badge } from 'react-bootstrap'
+import { Container, Row, Col, Jumbotron, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { addBookToLibrary } from '../Reducers/userReducer'
 import '../custom-css.css'
-import Genre from '../Components/Genre'
+import Category from '../Components/Category'
 
 const BookInfo = () => {
   const info = useSelector(state => state.bookInfo)
@@ -28,16 +28,6 @@ const BookInfo = () => {
     return (
       <Redirect to={'/'}/>
     )
-  }
-
-  const Genres = () => {
-    const genres = bookInfo.volumeInfo.categories
-    const genreItems = genres.map((name) => {
-      return (
-        <Genre name={name} />
-      )
-    })
-    return genreItems
   }
 
   // Korjaa näkymä, kun kirjalijoita enemmän kuin yksi!
@@ -74,9 +64,9 @@ const BookInfo = () => {
           </Col>
           {bookInfo.volumeInfo.categories !== undefined &&
             <Col xs={2} >
-              <h3 className="pb-2" >Genres</h3>
+              <h4 className="pb-2" >Categories</h4>
               {bookInfo.volumeInfo.categories.map(name => {
-                return <Genre key={name} name={name} />
+                return <Category key={name} name={name} />
               })}
           </Col>
           }

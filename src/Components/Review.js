@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Tabs, Tab, Form, Button, Card } from 'react-bootstrap'
 import { tryBookUpdate, addQuoteToBook } from '../Reducers/userReducer'
 import { AiOutlineClose } from 'react-icons/ai'
+import { FaPlus } from 'react-icons/fa'
+import Category from './Category'
 
 const Review = ({ setShow }) => {
   const book = useSelector(state => state.ownedBook.bookInfo)
@@ -12,6 +14,8 @@ const Review = ({ setShow }) => {
   const [editReview, setEditReview] = useState(false)
   const [quoteAdding, setQuoteAdding] = useState(false)
   const [newQuote, setNewQuote] = useState(null)
+  const [categoryAdding, setCategoryAdding] = useState(false)
+  const [newCategory, setNewCategory] = useState(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -51,6 +55,17 @@ const Review = ({ setShow }) => {
     dispatch(tryBookUpdate(updatedBook, token))
   }
 
+  const handleNewCategory = async (event) => {
+    event.preventDefault()
+    const updatedBook = {
+      ...book,
+      categories: book.categories.concat(newCategory)
+    }
+    dispatch(tryBookUpdate(updatedBook, token))
+    setCategoryAdding(false)
+    setNewCategory(null)
+  }
+
   return (
     <Tabs>
       <Tab eventKey="review" title="Review">
@@ -82,12 +97,14 @@ const Review = ({ setShow }) => {
         {!quoteAdding ?
         <Row className="pt-2">
           <Col xs={12} sm={2}>
-            <Button variant="link" onClick={() => setQuoteAdding(!quoteAdding)} >Add quote</Button>
+            <Button variant="link" onClick={() => setQuoteAdding(!quoteAdding)} >
+              <FaPlus size={35} />
+            </Button>
           </Col>
           <Col xs={12} sm={10}>
             {book.quotes.map(quote => {
               return (
-                <Row className="mb-3">
+                <Row className="mb-3 mt-3">
                   <Col key={quote.id}>
                     <Card >
                       <Card.Header>
@@ -120,6 +137,33 @@ const Review = ({ setShow }) => {
             <Button variant="secondary" onClick={() => setQuoteAdding(false)}>Cancel</Button>
           </Form>
         }
+      </Tab>
+      <Tab eventKey="categories" title="Categories" >
+        {!categoryAdding ?
+        <Row className="pt-2">
+          <Col xs={12} sm={2}>
+            <Button variant="link" onClick={() => setCategoryAdding(!categoryAdding)} >
+              <FaPlus size={35} />
+            </Button>
+          </Col>
+          <Col className='mt-3' >
+            {book.categories.map(category => {
+              return <Category name={category} />
+            })}
+          </Col>
+        </Row>
+        :
+          <Form onSubmit={handleNewCategory} >
+            <Form.Group>
+              <Form.Control 
+                type="input"
+                onChange={e => setNewCategory(e.target.value)}
+              />
+            </Form.Group>
+            <Button type="submit" className="mr-1">Save category</Button>
+            <Button variant="secondary" onClick={() => setCategoryAdding(!categoryAdding)} >Back</Button>
+          </Form>
+        }  
       </Tab>
       <Tab eventKey="options" title="Options">
         <Row>

@@ -1,11 +1,12 @@
 import { React, useEffect, useState } from 'react'
 import { Container, Jumbotron, Row, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
+import { deleteBookFromLibrary, tryBookUpdate } from '../Reducers/userReducer'
+import { Redirect } from 'react-router-dom'
 import StarRating from '../Components/StarRating'
 import Review from '../Components/Review'
-import { deleteBookFromLibrary, tryBookUpdate } from '../Reducers/userReducer'
 import DeleteConfirmation from '../Components/DeleteConfirmation'
-import { Redirect } from 'react-router-dom'
+import Category from '../Components/Category'
 import '../custom-css.css'
 
 const OwnedBookView = () => {
@@ -88,7 +89,16 @@ const OwnedBookView = () => {
     </Jumbotron>
     <Container>
       <DeleteConfirmation show={show} setShow={setShow} book={book} handleDelete={handleDelete} />
-      <Review setShow={setShow} />
+      <Row>
+        <Col xs={9} >
+          <Review setShow={setShow} />
+        </Col>
+        {/* <Col xs={3} className="pr-5" >
+          {book.categories.map(name => {
+            return <Category name={name}/>
+          })}
+        </Col> */}
+      </Row>
     </Container>
     </>
   )
