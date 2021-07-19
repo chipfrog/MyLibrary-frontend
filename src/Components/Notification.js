@@ -11,11 +11,10 @@ const Notification = () => {
     dispatch(resetNotification())
   }
 
-  if (notifState.show) {
+  if (notifState !== null && notifState.show) {
     setTimeout(() => {
       dispatch(resetNotification())
     }, 3000)
-
 
     return (
       <Alert className="notification" variant={notifState.type} onClose={handleShow} dismissible>
