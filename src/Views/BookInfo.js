@@ -66,7 +66,7 @@ const BookInfo = () => {
             <Col xs={2} >
               <h4 className="pb-2" >Categories</h4>
               {bookInfo.volumeInfo.categories.map(name => {
-                return <Category key={name} name={name} />
+                return <Category key={name} name={name} owned={false}  />
               })}
           </Col>
           }

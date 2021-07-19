@@ -180,7 +180,7 @@ const Review = ({ setShow }) => {
               <Row>
                 {book.categories.map(category => {
                   return (
-                    <Category key={category} name={category} handleCategoryDelete={() => handleCategoryDelete(category)} />
+                    <Category key={category} name={category} handleCategoryDelete={() => handleCategoryDelete(category)} owned={true} />
                   )
                 })}
               </Row>

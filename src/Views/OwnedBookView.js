@@ -93,11 +93,6 @@ const OwnedBookView = () => {
         <Col xs={9} >
           <Review setShow={setShow} />
         </Col>
-        {/* <Col xs={3} className="pr-5" >
-          {book.categories.map(name => {
-            return <Category name={name}/>
-          })}
-        </Col> */}
       </Row>
     </Container>
     </>
