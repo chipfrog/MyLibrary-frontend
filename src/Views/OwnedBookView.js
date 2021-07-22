@@ -3,7 +3,7 @@ import { Container, Jumbotron, Row, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteBookFromLibrary, tryBookUpdate } from '../Reducers/userReducer'
 import { Redirect } from 'react-router-dom'
-import StarRating from '../Components/StarRating'
+import StarRatingUser from '../Components/StarRatingUser'
 import Review from '../Components/Review'
 import DeleteConfirmation from '../Components/DeleteConfirmation'
 import '../custom-css.css'
@@ -60,7 +60,7 @@ const OwnedBookView = () => {
           <Col xs={7}>
             <h1>{book.title}</h1>
             <h5><i>{book.author}</i></h5>
-            <StarRating book={book} />
+            <StarRatingUser book={book} />
             <Form className="pt-3">
               <Form.Check
                 inline 

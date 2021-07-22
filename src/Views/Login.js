@@ -74,7 +74,7 @@ const Login = () => {
   }
 
   return (
-    <Container fluid className="testi">
+    <Container fluid className="login_screen">
       <Notification className="notify"/>
         <Card className="card" bg="light" border="dark">
           <Card.Header className="text-center"><h2>Login</h2></Card.Header>

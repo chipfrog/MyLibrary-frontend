@@ -50,7 +50,7 @@ html, body {
   cursor: pointer
 }
 
-.testi {
+.login_screen {
   background-image: url('./Images/kirja_smaller.jpg');
   height: 100vh;
   min-height: 100%;

@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import { addBookToLibrary } from '../Reducers/userReducer'
 import '../custom-css.css'
 import Category from '../Components/Category'
+import StarRating from '../Components/StarRating'
 
 const BookInfo = () => {
   const info = useSelector(state => state.bookInfo)
@@ -43,8 +44,8 @@ const BookInfo = () => {
               {bookInfo.volumeInfo.averageRating === undefined
                 ? <h6>No reviews yet...</h6>
                 :
-                  <>
-                    <h5>Score {bookInfo.volumeInfo.averageRating}/5</h5>
+                  <>  
+                    <StarRating avgRating={bookInfo.volumeInfo.averageRating} />
                     <h6><i>Based on {bookInfo.volumeInfo.ratingsCount} reviews</i></h6>
                   </>
               }

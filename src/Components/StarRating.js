@@ -1,41 +1,52 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { FaStar } from 'react-icons/fa'
-import { tryBookUpdate } from '../Reducers/userReducer'
-import '../custom-css.css'
+import { FaStarHalfAlt } from 'react-icons/fa' 
 
-const StarRating = ({ book }) => {
-  // const book = useSelector(state => state.ownedBook.bookInfo)
-  const dispatch = useDispatch()
-  const token = useSelector(state => state.login.token)
-  const [score, setScore] = useState(book.rating)
-  const [paintedStars, setPaintedStars] = useState(book.rating)
-  const stars = 5
 
-  // useEffect(() => {
-  //   setPaintedStars(book.rating)
-  //   setScore(book.rating)
-  // }, [book])
-
-  const handleScore = (value) => {
-    setScore(value)
-    book.rating = value
-    dispatch(tryBookUpdate(book, token))
+const StarRating = ({ avgRating }) => {
+  console.log(`saatu rating: ${avgRating}`)
+  const isOddNumber = (number) => {
+    if (number % 2 === 1) {
+      return true
+    }
+    return false
   }
+  let rating = avgRating
+  
+  if (isOddNumber(rating / 0.5 )) {
+    const halfStarIndex = rating - 0.5
 
+    return (
+      <div>
+        {[...Array(5)].map((value, i) => {
+          if (i === halfStarIndex ) {
+            console.log(`tässä puolikas: ${i} `)
+            return (
+              <FaStarHalfAlt 
+              key={i}
+              size={30}
+              color={'orange'}
+            />
+            )
+          }
+          return (
+            <FaStar 
+              key={i} 
+              size={30}
+              color={halfStarIndex > i ? 'orange' : 'gray'}
+            />
+          )
+        })}
+      </div>
+    )
+  }
   return (
     <div>
-      {[...Array(stars)].map((value, i) => {
-        const currentScore = i + 1
+      {[...Array(5)].map((value, i) => {
         return (
           <FaStar 
-            className="pointer" 
             key={i} 
-            size={30} 
-            color={paintedStars >= currentScore  ? 'orange' : 'gray'} 
-            onClick={() => handleScore(currentScore)} 
-            onMouseEnter={() => setPaintedStars(currentScore)}
-            onMouseLeave={() => setPaintedStars(score)}
+            size={30}
+            color={i < rating ? 'orange' : 'gray'}
           />
         )
       })}

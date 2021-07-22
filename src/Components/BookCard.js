@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
-import StarRating from './StarRating'
+import StarRatingUser from './StarRatingUser'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
@@ -40,7 +40,7 @@ const BookCard = ({ book, targetPageTop }) => {
       </Card.Body>
       <Card.Footer>
         <Row className="float-right pr-2">
-          <StarRating book={book} />
+          <StarRatingUser book={book} />
         </Row>
       </Card.Footer>
     </Card>
