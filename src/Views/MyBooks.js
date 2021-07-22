@@ -70,7 +70,6 @@ const MyBooks = () => {
   }
 
   return (
-    <>
     <Container fluid className="bookshelf" >
       <div ref={topRef}></div>
       <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
@@ -90,7 +89,7 @@ const MyBooks = () => {
       </Row>
       <div ref={bottomRef}></div>
     </Container>
-    </>
+  
   )
 }
 

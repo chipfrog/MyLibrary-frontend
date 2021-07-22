@@ -61,8 +61,8 @@ html, body {
 
 .bookshelf {
   background-image: url('./Images/wood.jpeg');
-  min-width: 100%;
-  width: 100%;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .taulukko {
