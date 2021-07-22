@@ -10,21 +10,28 @@ import { resetLibraryView } from '../Reducers/libraryReducer'
 const MyBooks = () => {
   const dispatch = useDispatch()
   const books = useSelector(state => state.login.user_books)
-  const targetedBook = useSelector(state => state.library)
+  const targetedView = useSelector(state => state.library)
   const [sortedBooks, setSortedBooks] = useState([...books])
   const [showAlert, setShowAlert] = useState(false)
+  const topRef = useRef()
   const bottomRef = useRef()
 
   useEffect(() => {
     sortDesc('rating')
-    highlightBook()
-  }, [books, targetedBook])
+    targetAddedBook()
+  }, [books, targetedView])
 
-  const highlightBook = () => {
-    if (bottomRef.current !== undefined && targetedBook.scrollToBottom === true) {
+  const targetAddedBook = () => {
+    if (bottomRef.current !== undefined && targetedView.scrollToBottom === true) {
       bottomRef.current.scrollIntoView({ behavior: 'smooth' })
       dispatch(resetLibraryView())
       setShowAlert(true)
+    }
+  }
+
+  const targetTopRef = () => {
+    if (topRef.current !== (undefined || null ) && !targetedView.scrollToBottom) {
+      topRef.current.scrollIntoView()
     }
   }
 
@@ -65,6 +72,7 @@ const MyBooks = () => {
   return (
     <>
     <Container fluid className="bookshelf" >
+      <div ref={topRef}></div>
       <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
       <Row>
         {showAlert === true &&
@@ -75,13 +83,12 @@ const MyBooks = () => {
         {sortedBooks.map((book => {
           return (
             <Col sm={12} md={6} xl={4} className="pt-3" key={book.id} >
-              <BookCard book={book} />
+              <BookCard book={book} targetPageTop={targetTopRef}  />
             </Col>
           )
         }))}
       </Row>
-      <div ref={bottomRef}>
-      </div>
+      <div ref={bottomRef}></div>
     </Container>
     </>
   )

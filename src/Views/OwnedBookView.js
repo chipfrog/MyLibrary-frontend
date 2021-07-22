@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom'
 import StarRating from '../Components/StarRating'
 import Review from '../Components/Review'
 import DeleteConfirmation from '../Components/DeleteConfirmation'
-import Category from '../Components/Category'
 import '../custom-css.css'
 
 const OwnedBookView = () => {
