@@ -75,29 +75,6 @@ const BookInfo = () => {
       </Container>
     </>
   )
-
-  // return (
-  //   <Container className="bookinfo">
-  //     <h2>{bookInfo.volumeInfo.title}</h2>
-  //     <h3>{bookInfo.volumeInfo.subtitle}</h3>
-  //     <h5><i>{bookInfo.volumeInfo.authors}</i></h5>
-  //     <Row className="pt-4">
-  //       <Col md={6}>
-  //         <Image src={bookInfo.volumeInfo.imageLinks.thumbnail} />
-  //       </Col>
-  //       <Col className="text-justify">
-  //         {bookInfo.volumeInfo.description}
-  //       </Col>
-  //     </Row>
-  //     <Row className="pt-4">
-  //       <Col>
-  //         <Button onClick={() => handleBookAdding()}>Add book</Button>
-  //       </Col>
-  //       <Col>
-  //       </Col>
-  //     </Row>
-  //   </Container>  
-  // )
 }
 
 export default BookInfo

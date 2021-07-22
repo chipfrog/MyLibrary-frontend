@@ -7,12 +7,6 @@ import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
 
 const BookCard = ({ book, targetPageTop }) => {
   const dispatch = useDispatch()
-
-  // const setInfo = (info) => {
-  //   console.log('setting info')
-  //   console.log(info)
-  //   dispatch(setOwnedBookInfo(info))
-  // }
   
   const handleClick = (info) => {
     dispatch(setOwnedBookInfo(info))
@@ -39,8 +33,13 @@ const BookCard = ({ book, targetPageTop }) => {
         </Row>
       </Card.Body>
       <Card.Footer>
-        <Row className="float-right pr-2">
-          <StarRatingUser book={book} />
+        <Row>
+          <Col className="text-muted" >
+            Date added: {new Date(book.date).toLocaleString().split(',')[0]}
+          </Col>
+          <Col>
+            <StarRatingUser className="ml-auto" book={book} />
+          </Col>
         </Row>
       </Card.Footer>
     </Card>

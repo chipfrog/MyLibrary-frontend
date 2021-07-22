@@ -49,6 +49,7 @@ export const addBook = async (bookInfo, token) => {
   }
 
   const bookData = {
+    date: new Date(),
     title: bookInfo.volumeInfo.title,
     author: bookInfo.volumeInfo.authors[0],
     linkToCoverImage: bookInfo.volumeInfo.imageLinks.thumbnail,
