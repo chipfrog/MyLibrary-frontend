@@ -1,9 +1,10 @@
 import React from 'react'
-import { Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap'
+import { NavLink, Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { tryLogout } from '../Reducers/userReducer'
 import { searchBooks, startSearch, initSearchResults } from '../Reducers/bookSearchReducer'
+import { FaCog } from 'react-icons/fa'
 import '../custom-css.css'
 
 const Navigation = ({ showSort, sortDesc, sortAsc }) => {
@@ -13,6 +14,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const handleLogout = () => {
     dispatch(initSearchResults())
     dispatch(tryLogout())
+    history.push('/')
   }
 
   const fetchBooks = (event) => {
@@ -45,11 +47,13 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
         <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
       </Nav>
       <Nav className="ml-auto">
-        <Form onSubmit={fetchBooks} inline id={'search bar'}>
-          <Form.Control name="filter" type="text" placeholder="Search from Google Books" className="mr-2" />
+        <Form className="mr-1" onSubmit={fetchBooks} inline id={'search bar'}>
+          <Form.Control name="filter" type="text" placeholder="Search from Google Books"/>
           <Button type="submit">Search</Button>
         </Form>
-        <Nav.Link className="pl-5" as={Link} to={"/"} onClick={handleLogout}>Logout</Nav.Link>
+        <NavLink to={"/"} onClick={handleLogout}>
+          <FaCog size={50}/>
+        </NavLink>
       </Nav>
     </Navbar>  
   )
