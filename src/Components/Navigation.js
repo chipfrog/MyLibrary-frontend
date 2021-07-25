@@ -1,10 +1,12 @@
 import React from 'react'
-import { NavLink, Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { tryLogout } from '../Reducers/userReducer'
 import { searchBooks, startSearch, initSearchResults } from '../Reducers/bookSearchReducer'
 import { FaCog } from 'react-icons/fa'
+import { FaSignOutAlt } from 'react-icons/fa'
+import { FaTrashAlt } from 'react-icons/fa'
 import '../custom-css.css'
 
 const Navigation = ({ showSort, sortDesc, sortAsc }) => {
@@ -55,7 +57,21 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
         </Form>
         <NavDropdown alignRight title={navDropDownIcon} >
           <NavDropdown.Item onClick={handleLogout} >
-            Logout
+            <Row>
+              <Col>
+                <span className="mr-2" >Logout</span>
+                <FaSignOutAlt />
+              </Col>
+            </Row>            
+          </NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item className="text-danger">
+            <Row>
+              <Col>
+                <span className="mr-2">Delete Account</span>
+                <FaTrashAlt  />
+              </Col>
+            </Row>
           </NavDropdown.Item>
         </NavDropdown>
       </Nav>
