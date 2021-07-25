@@ -30,6 +30,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
     document.getElementById('search bar').reset()
   }
 
+  const navDropDownIcon = (<FaCog size={35} />)
+
   return (
     <Navbar className="navigation" fixed="top" bg="dark" variant="dark" >
       <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
@@ -51,9 +53,11 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
           <Form.Control name="filter" type="text" placeholder="Search from Google Books"/>
           <Button type="submit">Search</Button>
         </Form>
-        <NavLink to={"/"} onClick={handleLogout}>
-          <FaCog size={50}/>
-        </NavLink>
+        <NavDropdown alignRight title={navDropDownIcon} >
+          <NavDropdown.Item onClick={handleLogout} >
+            Logout
+          </NavDropdown.Item>
+        </NavDropdown>
       </Nav>
     </Navbar>  
   )
