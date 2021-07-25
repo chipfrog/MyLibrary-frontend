@@ -1,6 +1,6 @@
 import { login } from '../Services/login'
 import { addBook, updateBook, deleteBook, addQuote } from '../Services/books'
-import { createUser } from '../Services/user'
+import { createUser, deleteUser } from '../Services/user'
 import { setNotification } from './notificationReducer'
 import { setOwnedBookInfo, resetOwnedBookInfo } from '../Reducers/ownedBookReducer'
 import { targetAddedBook } from './libraryReducer'
@@ -17,6 +17,8 @@ const userReducer = (state = initialState, action) => {
       return action.data
     case 'CREATE_USER':
       return action.data
+    case 'DELETE_USER':
+      return initialState 
     case 'ADD_BOOK':
       return {
         ...state, 
@@ -154,6 +156,19 @@ export const deleteBookFromLibrary = (id, token) => {
       })
     }
     catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const tryUserDeletion = (token) => {
+  return async dispatch => {
+    try {
+      await deleteUser(token)
+      dispatch({
+        type: 'DELETE_USER'
+      })
+    } catch (error) {
       console.log(error)
     }
   }

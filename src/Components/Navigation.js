@@ -1,17 +1,21 @@
-import React from 'react'
-import { Navbar, Nav, NavDropdown, Form, Button, Row, Col } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
-import { tryLogout } from '../Reducers/userReducer'
+import { tryLogout, tryUserDeletion } from '../Reducers/userReducer'
 import { searchBooks, startSearch, initSearchResults } from '../Reducers/bookSearchReducer'
 import { FaCog } from 'react-icons/fa'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { FaTrashAlt } from 'react-icons/fa'
 import '../custom-css.css'
+import DeleteConfirmationUser from './DeleteConfirmationUser'
 
 const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const dispatch = useDispatch()
   const history = useHistory()
+  const token = useSelector(state => state.login.token)
+
+  const [show, setShow] = useState(false)
   
   const handleLogout = () => {
     dispatch(initSearchResults())
@@ -28,6 +32,10 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
     clearSearhBar()
   }
 
+  const handleDelete = () => {
+    dispatch(tryUserDeletion(token))
+  }
+
   const clearSearhBar = () => {
     document.getElementById('search bar').reset()
   }
@@ -35,6 +43,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const navDropDownIcon = (<FaCog size={35} />)
 
   return (
+    <>
     <Navbar className="navigation" fixed="top" bg="dark" variant="dark" >
       <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
       <Nav className="mr-auto">
@@ -65,17 +74,21 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
             </Row>            
           </NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item className="text-danger">
+          <NavDropdown.Item className="text-danger" onClick={() => setShow(true)}  >
             <Row>
               <Col>
-                <span className="mr-2">Delete Account</span>
+                <span className="mr-2" >Delete Account</span>
                 <FaTrashAlt  />
               </Col>
             </Row>
           </NavDropdown.Item>
         </NavDropdown>
       </Nav>
-    </Navbar>  
+    </Navbar>
+    <Container>
+      <DeleteConfirmationUser show={show} setShow={setShow} handleDelete={handleDelete} />  
+    </Container>
+    </>
   )
 }
 
