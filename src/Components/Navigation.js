@@ -8,6 +8,7 @@ import { FaCog } from 'react-icons/fa'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { FaTrashAlt } from 'react-icons/fa'
 import { FaBars } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
 import '../custom-css.css'
 import DeleteConfirmationUser from './DeleteConfirmationUser'
 import DropdownItem from 'react-bootstrap/esm/DropdownItem'
@@ -72,7 +73,9 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
               <DropdownItem onClick={() => setFilter('Author') } >Author</DropdownItem>
             </DropdownButton>
             <Form.Control name="searchWords" type="text" placeholder="Search from Google Books"/>
-            <Button type="submit">Search</Button>
+            <Button type="submit">
+              <FaSearch />
+            </Button>
           </InputGroup>
         </Form>
         <NavDropdown alignRight title={navDropDownIcon} >
