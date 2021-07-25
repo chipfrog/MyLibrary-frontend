@@ -40,9 +40,10 @@ export const initSearchResults = () => {
   }
 }
 
-export const searchBooks = (filter) => {
+export const searchBooks = (filter, searchWords) => {
+  console.log(searchWords)
   return async dispatch => {
-    const books = await getBooks(filter)
+    const books = await getBooks(filter, searchWords)
     dispatch({
       type: 'BOOK_SEARCH',
       data: { books, filter }

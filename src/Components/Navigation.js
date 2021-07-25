@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
-import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, NavItem, InputGroup, DropdownButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, NavLink, useHistory } from 'react-router-dom'
 import { tryLogout, tryUserDeletion } from '../Reducers/userReducer'
 import { searchBooks, startSearch, initSearchResults } from '../Reducers/bookSearchReducer'
 import { FaCog } from 'react-icons/fa'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { FaTrashAlt } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa'
 import '../custom-css.css'
 import DeleteConfirmationUser from './DeleteConfirmationUser'
+import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 
 const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const token = useSelector(state => state.login.token)
+  const [filter, setFilter] = useState('Filter by')
 
   const [show, setShow] = useState(false)
   
@@ -25,10 +28,10 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
 
   const fetchBooks = (event) => {
     event.preventDefault()
-    const filter = event.target.filter.value
+    const searchWords = event.target.searchWords.value
     dispatch(startSearch())
     history.push('/search')
-    dispatch(searchBooks(filter))
+    dispatch(searchBooks(filter, searchWords))
     clearSearhBar()
   }
 
@@ -41,6 +44,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   }
 
   const navDropDownIcon = (<FaCog size={35} />)
+  const navBarsIcon = (<FaBars size={20} />)
 
   return (
     <>
@@ -60,9 +64,16 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
         <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
       </Nav>
       <Nav className="ml-auto">
-        <Form className="mr-1" onSubmit={fetchBooks} inline id={'search bar'}>
-          <Form.Control name="filter" type="text" placeholder="Search from Google Books"/>
-          <Button type="submit">Search</Button>
+        <Form className="mr-5" onSubmit={fetchBooks} inline id={'search bar'}>
+          <InputGroup>
+            <DropdownButton variant="secondary" title={filter} >
+              <DropdownItem onClick={() => setFilter('Filter by')} >No filter</DropdownItem>
+              <DropdownItem  onClick={() => setFilter('Title')} >Title</DropdownItem>
+              <DropdownItem onClick={() => setFilter('Author') } >Author</DropdownItem>
+            </DropdownButton>
+            <Form.Control name="searchWords" type="text" placeholder="Search from Google Books"/>
+            <Button type="submit">Search</Button>
+          </InputGroup>
         </Form>
         <NavDropdown alignRight title={navDropDownIcon} >
           <NavDropdown.Item onClick={handleLogout} >
