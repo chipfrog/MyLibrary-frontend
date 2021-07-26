@@ -3,6 +3,7 @@ import { Container, Jumbotron, Row, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteBookFromLibrary, tryBookUpdate } from '../Reducers/userReducer'
 import { Redirect } from 'react-router-dom'
+import { TwitterPicker } from 'react-color'
 import StarRatingUser from '../Components/StarRatingUser'
 import Review from '../Components/Review'
 import DeleteConfirmation from '../Components/DeleteConfirmation'
@@ -14,6 +15,8 @@ const OwnedBookView = () => {
   const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
   const [bookOwned, setBookOwned] = useState(() => book === null ? null : book.owned)
   const [show, setShow] = useState(false)
+  const [openColor, setOpenColor] = useState(false)
+  const [color, setColor] = useState('yellow')
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -51,10 +54,19 @@ const OwnedBookView = () => {
       <Redirect to='/' />
     )
   }
+
+  const handleColorOpen = () => {
+    setOpenColor(!openColor)
+  }
+
+  const jumboColor = {
+    'background-color': color,
+    'transition': 'ease all 300ms'
+  }
  
   return (
     <>
-    <Jumbotron fluid>
+    <Jumbotron fluid style={jumboColor} >
       <Container className="jumbo">
         <Row>
           <Col xs={7}>
@@ -84,13 +96,21 @@ const OwnedBookView = () => {
             <img src={book.linkToCoverImage} alt="cover"/>
           </Col>
         </Row>
+        <span className="float-right" >
+          {openColor && 
+            <TwitterPicker 
+              color={color}
+              onChangeComplete={(color) => setColor(color.hex)}
+            />
+          }
+        </span>
       </Container>
     </Jumbotron>
     <Container>
       <DeleteConfirmation show={show} setShow={setShow} book={book} handleDelete={handleDelete} />
       <Row>
         <Col xs={9} >
-          <Review setShow={setShow} />
+          <Review setShow={setShow} handleColorOpen={handleColorOpen} />
         </Col>
       </Row>
     </Container>

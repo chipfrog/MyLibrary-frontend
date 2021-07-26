@@ -6,7 +6,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { FaPlus } from 'react-icons/fa'
 import Category from './Category'
 
-const Review = ({ setShow }) => {
+const Review = ({ setShow, handleColorOpen }) => {
   const book = useSelector(state => state.ownedBook.bookInfo)
   const token = useSelector(state => state.login.token)
   
@@ -208,7 +208,14 @@ const Review = ({ setShow }) => {
       </Tab>
       <Tab eventKey="options" title="Options">
         <Row>
-          <Col className="pt-5 text-center">
+          <Col>
+            <Button variant="link" onClick={() => handleColorOpen()} >
+              Change background color
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <Button variant="link" style={{ color: 'red' }} onClick={() => setShow(true)} >
               Delete Book
             </Button>
