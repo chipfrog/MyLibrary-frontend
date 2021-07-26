@@ -60,7 +60,6 @@ export const addBook = async (bookInfo, token) => {
     review: bookInfo.review,
     rating: bookInfo.rating,
     read: bookInfo.read,
-    color: '#dce2e3',
     quotes: bookInfo.quotes,
     categories: bookInfo.volumeInfo.categories
   }
