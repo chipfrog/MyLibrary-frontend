@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, NavItem, InputGroup, DropdownButton } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, InputGroup, DropdownButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, NavLink, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { tryLogout, tryUserDeletion } from '../Reducers/userReducer'
 import { searchBooks, startSearch, initSearchResults } from '../Reducers/bookSearchReducer'
 import { FaCog } from 'react-icons/fa'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { FaTrashAlt } from 'react-icons/fa'
-import { FaBars } from 'react-icons/fa'
 import { FaSearch } from 'react-icons/fa'
 import '../custom-css.css'
 import DeleteConfirmationUser from './DeleteConfirmationUser'
@@ -18,7 +17,6 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   const history = useHistory()
   const token = useSelector(state => state.login.token)
   const [filter, setFilter] = useState('Filter by')
-
   const [show, setShow] = useState(false)
   
   const handleLogout = () => {
@@ -45,7 +43,6 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
   }
 
   const navDropDownIcon = (<FaCog size={35} />)
-  const navBarsIcon = (<FaBars size={20} />)
 
   return (
     <>

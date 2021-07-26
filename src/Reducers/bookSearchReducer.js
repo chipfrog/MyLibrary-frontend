@@ -41,9 +41,11 @@ export const initSearchResults = () => {
 }
 
 export const searchBooks = (filter, searchWords) => {
-  console.log(searchWords)
   return async dispatch => {
-    const books = await getBooks(filter, searchWords)
+    let books = await getBooks(filter, searchWords)
+    if (!Array.isArray(books)) {
+      books = []
+    }
     dispatch({
       type: 'BOOK_SEARCH',
       data: { books, filter }

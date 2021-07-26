@@ -51,20 +51,6 @@ const BookGrid = () => {
           })}
         </div>
       }
-      {/* <h3 className="text-center pb-5">Search results for <i>"{bookSearch.filter}"</i></h3>
-      {rows.map(row => {
-        return (
-        <Row className='text-center' key={rowKey ++}>
-          {row.map(book => {
-            return (
-              <Col sm={6} md={4} lg={2} key={book.etag}>
-                <Book info={book} key={book.etag}/>
-              </Col>
-            )
-          })}
-        </Row>
-        )
-      })} */}
     </Container>
   )
 }
