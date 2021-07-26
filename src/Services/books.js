@@ -8,7 +8,6 @@ export const getBooks = async (filter, keyWords) => {
   } else {
     result = await axios.get(`/api/googlebooks/${keyWords}`)
   }
-  //console.log(result.data)
   return result.data
 }
 
@@ -25,6 +24,7 @@ export const updateBook = async (bookInfo, token) => {
     rating: bookInfo.rating,
     read: bookInfo.read,
     owned: bookInfo.owned,
+    color: bookInfo.color,
     quotes: bookInfo.quotes,
     categories: bookInfo.categories
   }
@@ -41,10 +41,8 @@ export const addQuote = async (id, quote, token) => {
     book_id: id,
     quote: quote
   }
-
   const response = await axios.post(`/api/googleBooks/addquote`, data, config)
   return response
-
 }
 
 export const addBook = async (bookInfo, token) => {
@@ -62,6 +60,7 @@ export const addBook = async (bookInfo, token) => {
     review: bookInfo.review,
     rating: bookInfo.rating,
     read: bookInfo.read,
+    color: '#dce2e3',
     quotes: bookInfo.quotes,
     categories: bookInfo.volumeInfo.categories
   }

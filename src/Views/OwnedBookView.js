@@ -14,9 +14,9 @@ const OwnedBookView = () => {
   const token = useSelector(state => state.login.token)
   const [bookRead, setBookRead] = useState(() => book === null ? null : book.read)
   const [bookOwned, setBookOwned] = useState(() => book === null ? null : book.owned)
+  const [color, setColor] = useState(() => book === null ? null : book.color)
   const [show, setShow] = useState(false)
   const [openColor, setOpenColor] = useState(false)
-  const [color, setColor] = useState('yellow')
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -49,19 +49,30 @@ const OwnedBookView = () => {
     dispatch(tryBookUpdate(updatedBook, token))
   }
 
-  if (book === null) {
-    return (
-      <Redirect to='/' />
-    )
-  }
-
   const handleColorOpen = () => {
     setOpenColor(!openColor)
   }
 
+  const handleColorChange = (newColor) => {
+    console.log(newColor)
+    setColor(newColor)
+    const updatedBook = {
+      ...book,
+      color: newColor
+    }
+    console.log(updatedBook)
+    dispatch(tryBookUpdate(updatedBook, token))
+  }
+
   const jumboColor = {
-    'background-color': color,
+    backgroundColor: color,
     'transition': 'ease all 300ms'
+  }
+
+  if (book === null) {
+    return (
+      <Redirect to='/' />
+    )
   }
  
   return (
@@ -100,7 +111,8 @@ const OwnedBookView = () => {
           {openColor && 
             <TwitterPicker 
               color={color}
-              onChangeComplete={(color) => setColor(color.hex)}
+              onChangeComplete={(newColor) => handleColorChange(newColor.hex)}
+              // onChangeComplete={(color) => setColor(color.hex)}
             />
           }
         </span>
@@ -110,7 +122,7 @@ const OwnedBookView = () => {
       <DeleteConfirmation show={show} setShow={setShow} book={book} handleDelete={handleDelete} />
       <Row>
         <Col xs={9} >
-          <Review setShow={setShow} handleColorOpen={handleColorOpen} />
+          <Review setShow={setShow} openColor={openColor} handleColorOpen={handleColorOpen} />
         </Col>
       </Row>
     </Container>

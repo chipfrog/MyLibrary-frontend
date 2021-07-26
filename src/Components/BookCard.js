@@ -8,7 +8,7 @@ import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
 const BookCard = ({ book, targetPageTop }) => {
   const dispatch = useDispatch()
   
-  const handleClick = (info) => {
+  const handleClick = async (info) => {
     dispatch(setOwnedBookInfo(info))
     targetPageTop()
   }
