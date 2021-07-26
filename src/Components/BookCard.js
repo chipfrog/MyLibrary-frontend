@@ -37,8 +37,8 @@ const BookCard = ({ book, targetPageTop }) => {
           <Col className="text-muted" >
             Date added: {new Date(book.date).toLocaleString().split(',')[0]}
           </Col>
-          <Col>
-            <StarRatingUser className="ml-auto" book={book} />
+          <Col className="text-right" >
+            <StarRatingUser book={book} />
           </Col>
         </Row>
       </Card.Footer>

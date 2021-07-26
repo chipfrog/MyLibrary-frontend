@@ -6,7 +6,7 @@ const Category = ({ name, handleCategoryDelete, owned }) => {
 
   return (
     <h4>
-      <Badge pill className="mr-2" variant="success">
+      <Badge pill className="mr-2" variant="light">
         {owned
           ?
           <Row>

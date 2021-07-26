@@ -112,7 +112,6 @@ const OwnedBookView = () => {
             <TwitterPicker 
               color={color}
               onChangeComplete={(newColor) => handleColorChange(newColor.hex)}
-              // onChangeComplete={(color) => setColor(color.hex)}
             />
           }
         </span>
