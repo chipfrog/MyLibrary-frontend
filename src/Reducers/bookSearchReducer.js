@@ -3,6 +3,7 @@ import { getBooks } from '../Services/books'
 const initialState = {
   books: [],
   filter: undefined,
+  keyWords: undefined,
   searching: false
 }
 
@@ -12,6 +13,7 @@ const bookSearchReducer = (state = initialState, action) => {
       return {
         books: action.data.books,
         filter: action.data.filter,
+        keyWords: action.data.keyWords,
         searching: false
       }
     case 'SEARCH_STARTED':
@@ -40,15 +42,15 @@ export const initSearchResults = () => {
   }
 }
 
-export const searchBooks = (filter, searchWords) => {
+export const searchBooks = (filter, keyWords) => {
   return async dispatch => {
-    let books = await getBooks(filter, searchWords)
+    let books = await getBooks(filter, keyWords)
     if (!Array.isArray(books)) {
       books = []
     }
     dispatch({
       type: 'BOOK_SEARCH',
-      data: { books, filter }
+      data: { books, filter, keyWords }
     })
   }
 }

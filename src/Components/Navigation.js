@@ -27,10 +27,10 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
 
   const fetchBooks = (event) => {
     event.preventDefault()
-    const searchWords = event.target.searchWords.value
+    const keyWords = event.target.keyWords.value
     dispatch(startSearch())
     history.push('/search')
-    dispatch(searchBooks(filter, searchWords))
+    dispatch(searchBooks(filter, keyWords))
     clearSearhBar()
   }
 
@@ -69,7 +69,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
               <DropdownItem  onClick={() => setFilter('Title')} >Title</DropdownItem>
               <DropdownItem onClick={() => setFilter('Author') } >Author</DropdownItem>
             </DropdownButton>
-            <Form.Control name="searchWords" type="text" placeholder="Search from Google Books"/>
+            <Form.Control name="keyWords" type="text" placeholder="Search from Google Books"/>
             <Button type="submit">
               <FaSearch />
             </Button>

@@ -24,7 +24,7 @@ const BookGrid = () => {
   }
   
   return (
-    <Container fluid className="pt-3">
+    <Container fluid className="pt-3 mt-5">
       {bookSearch.searching ?
         <div 
           style={{ 
@@ -35,7 +35,7 @@ const BookGrid = () => {
         </div>
         :
         <div>
-          <h3 className="text-center pb-5">Search results for <i>"{bookSearch.filter}"</i></h3>
+          <h3 className="text-center pb-5 mt-5">Search results for <i>"{bookSearch.keyWords}"</i></h3>
           {rows.map(row => {
             return (
               <Row className='text-center' key={rowKey ++}>

@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-export const getBooks = async (filter, searchWords) => {
+export const getBooks = async (filter, keyWords) => {
   let result = null
   const lowFilter = filter.toLowerCase()
   if (filter !== 'Filter by') {
-    result = await axios.get(`/api/googlebooks/in${lowFilter}:${searchWords}`)
+    result = await axios.get(`/api/googlebooks/in${lowFilter}:${keyWords}`)
   } else {
-    result = await axios.get(`/api/googlebooks/${searchWords}`)
+    result = await axios.get(`/api/googlebooks/${keyWords}`)
   }
   //console.log(result.data)
   return result.data
