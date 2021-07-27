@@ -4,6 +4,7 @@ import StarRatingUser from './StarRatingUser'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setOwnedBookInfo } from '../Reducers/ownedBookReducer'
+import { FaArchive, FaBook } from 'react-icons/fa'
 
 const BookCard = ({ book, targetPageTop }) => {
   const dispatch = useDispatch()
@@ -36,6 +37,12 @@ const BookCard = ({ book, targetPageTop }) => {
         <Row>
           <Col className="text-muted" >
             Date added: {new Date(book.date).toLocaleString().split(',')[0]}
+          </Col> 
+        </Row>
+        <Row className="mb-1" >
+          <Col className="text-left" style={{color: 'green'}} >
+            {book.read &&  <FaBook className="mr-1" />}
+            {book.owned && <FaArchive/> }
           </Col>
           <Col className="text-right" >
             <StarRatingUser book={book} />

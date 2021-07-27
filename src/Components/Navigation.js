@@ -56,7 +56,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
     document.getElementById('search bar').reset()
   }
 
-  const navDropDownIcon = (<FaCog size={35} />)
+  const navDropDownIcon = (<FaCog size={25} />)
 
   return (
     <>
