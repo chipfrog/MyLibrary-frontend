@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, InputGroup, DropdownButton } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, InputGroup, DropdownButton, NavItem } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { tryLogout, tryUserDeletion } from '../Reducers/userReducer'
@@ -16,6 +16,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const token = useSelector(state => state.login.token)
+  const username = useSelector(state => state.login.username)
   const [filter, setFilter] = useState('Filter by')
   const [show, setShow] = useState(false)
   const [owned, setOwned] = useState(false)
@@ -114,7 +115,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
         }
         <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
       </Nav>
-      <Nav className="ml-auto">
+      <Nav className="ml-auto" xs={12} sm={6} >
         <Form className="mr-5" onSubmit={fetchBooks} inline id={'search bar'}>
           <InputGroup>
             <DropdownButton variant="secondary" title={filter} >
@@ -128,6 +129,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
             </Button>
           </InputGroup>
         </Form>
+        <Nav.Link disabled className="text-white" inline >{username}</Nav.Link>
         <NavDropdown alignRight title={navDropDownIcon} >
           <NavDropdown.Item onClick={handleLogout} >
             <Row>
