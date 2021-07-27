@@ -79,6 +79,9 @@ const MyBooks = () => {
     else if (owned === false && read === true) {
       filterRead()
     }
+    else if (owned === true && read === true) {
+      filterReadAndOwned()
+    }
   }
 
   const filterOwned = () => {
@@ -95,6 +98,16 @@ const MyBooks = () => {
     let tempArr = []
     for (let i=0; i < books.length; i ++) {
       if (books[i].read === true) {
+        tempArr.push(books[i])
+      }
+    setSortedBooks(tempArr)
+    }
+  }
+
+  const filterReadAndOwned = () => {
+    let tempArr = []
+    for (let i=0; i < books.length; i ++) {
+      if (books[i].read === true && books[i].owned === true) {
         tempArr.push(books[i])
       }
     setSortedBooks(tempArr)
