@@ -20,12 +20,14 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
   const [show, setShow] = useState(false)
   const [owned, setOwned] = useState(false)
   const [read, setRead] = useState(false)
+  const [notOwned, setNotOwned] = useState(false)
+  const [unread, setUnread] = useState(false)
 
   useEffect(() => {
     if (filterBooks) {
       handleFilter()
     }
-  }, [owned, read])
+  }, [owned, read, notOwned, unread])
   
   const handleLogout = () => {
     dispatch(initSearchResults())
@@ -46,18 +48,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
     dispatch(tryUserDeletion(token))
   }
 
-  // const handleOwned = () => {
-  //   filterOwned(!owned)
-  //   setOwned(!owned)
-  // }
-
-  // const handleRead = () => {
-  //   filterRead(!read)
-  //   setRead(!read)
-  // }
-
   const handleFilter = () => {
-    filterBooks(owned, read)
+    filterBooks(owned, read, notOwned, unread)
   }
 
   const clearSearhBar = () => {
@@ -92,11 +84,25 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
                 onChange={() => setOwned(!owned)}
               />
               <Form.Check 
+                id="not-owned"
+                inline
+                type="checkbox"
+                label="Not owned"
+                onChange={() => setNotOwned(!notOwned)}
+              />
+              <Form.Check 
                 id="read"
                 inline
                 type="checkbox"
                 label="Read"
                 onChange={() => setRead(!read)}
+              />
+              <Form.Check 
+                id="unread"
+                inline
+                type="checkbox"
+                label="Unread"
+                onChange={() => setUnread(!unread)}
               />   
             </Form>
           </NavDropdown>

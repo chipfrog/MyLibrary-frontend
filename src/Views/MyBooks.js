@@ -69,49 +69,54 @@ const MyBooks = () => {
     setSortedBooks(tempArr)
   }
 
-  const filterBooks = (owned, read) => {
-    if (owned === false && read === false) {
-      setSortedBooks(books)
-    } 
-    else if (owned === true && read === false) {
-      filterOwned()
-    }
-    else if (owned === false && read === true) {
-      filterRead()
-    }
-    else if (owned === true && read === true) {
-      filterReadAndOwned()
-    }
+  const filterBooks = (owned, read, notOwned, unread) => {
+    let tempArr = [...books]
+    if (owned) tempArr = filterOwned(tempArr)
+    if (read) tempArr = filterRead(tempArr)
+    if (notOwned) tempArr = filterNotOwned(tempArr)
+    if (unread) tempArr = filterUnread(tempArr) 
+    setSortedBooks(tempArr)
   }
 
-  const filterOwned = () => {
+  const filterOwned = (array) => {
     let tempArr = []
-    for (let i=0; i < books.length; i ++) {
-      if (books[i].owned === true) {
-        tempArr.push(books[i])
+    for (let i=0; i < array.length; i ++) {
+      if (array[i].owned) {
+        tempArr.push(array[i])
       }
-    setSortedBooks(tempArr)
     }
+    return tempArr
   }
 
-  const filterRead = () => {
+  const filterRead = (array) => {
     let tempArr = []
-    for (let i=0; i < books.length; i ++) {
-      if (books[i].read === true) {
-        tempArr.push(books[i])
+    for (let i=0; i < array.length; i ++) {
+      if (array[i].read) {
+        tempArr.push(array[i])
       }
-    setSortedBooks(tempArr)
     }
+    return tempArr
   }
 
-  const filterReadAndOwned = () => {
+  const filterNotOwned = (array) => {
     let tempArr = []
-    for (let i=0; i < books.length; i ++) {
-      if (books[i].read === true && books[i].owned === true) {
-        tempArr.push(books[i])
+    for (let i=0; i < array.length; i ++) {
+      if (!array[i].owned) {
+        tempArr.push(array[i])
       }
-    setSortedBooks(tempArr)
     }
+    return tempArr
+  }
+
+  const filterUnread = (array) => {
+    console.log('filtering unread')
+    let tempArr = []
+    for (let i=0; i < array.length; i ++) {
+      if (!array[i].read) {
+        tempArr.push(array[i])
+      }
+    }
+    return tempArr
   }
 
   return (
