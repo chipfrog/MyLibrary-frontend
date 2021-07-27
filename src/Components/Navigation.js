@@ -75,13 +75,14 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
           </NavDropdown>
 
           <NavDropdown title="Filter by" >
-            <Form className="px-4 py-3" >
+            <Form className="px-4 py-3" > 
               <Form.Check
                 id="owned"
                 inline
                 type="checkbox"
                 label="Owned"
                 onChange={() => setOwned(!owned)}
+                disabled={notOwned}
               />
               <Form.Check 
                 id="not-owned"
@@ -89,6 +90,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
                 type="checkbox"
                 label="Not owned"
                 onChange={() => setNotOwned(!notOwned)}
+                disabled={owned}
               />
               <Form.Check 
                 id="read"
@@ -96,6 +98,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
                 type="checkbox"
                 label="Read"
                 onChange={() => setRead(!read)}
+                disabled={unread}
               />
               <Form.Check 
                 id="unread"
@@ -103,6 +106,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
                 type="checkbox"
                 label="Unread"
                 onChange={() => setUnread(!unread)}
+                disabled={read}
               />   
             </Form>
           </NavDropdown>
