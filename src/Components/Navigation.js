@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, InputGroup, DropdownButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
@@ -12,12 +12,20 @@ import '../custom-css.css'
 import DeleteConfirmationUser from './DeleteConfirmationUser'
 import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 
-const Navigation = ({ showSort, sortDesc, sortAsc }) => {
+const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const token = useSelector(state => state.login.token)
   const [filter, setFilter] = useState('Filter by')
   const [show, setShow] = useState(false)
+  const [owned, setOwned] = useState(false)
+  const [read, setRead] = useState(false)
+
+  useEffect(() => {
+    if (filterBooks) {
+      handleFilter()
+    }
+  }, [owned, read])
   
   const handleLogout = () => {
     dispatch(initSearchResults())
@@ -38,6 +46,20 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
     dispatch(tryUserDeletion(token))
   }
 
+  // const handleOwned = () => {
+  //   filterOwned(!owned)
+  //   setOwned(!owned)
+  // }
+
+  // const handleRead = () => {
+  //   filterRead(!read)
+  //   setRead(!read)
+  // }
+
+  const handleFilter = () => {
+    filterBooks(owned, read)
+  }
+
   const clearSearhBar = () => {
     document.getElementById('search bar').reset()
   }
@@ -49,7 +71,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
     <Navbar className="navigation" fixed="top" bg="dark" variant="dark" >
       <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
       <Nav className="mr-auto">
-        {showSort && 
+        {showSort &&
+          <> 
           <NavDropdown className="ml-auto" title="Sort by" id="basic-nav-dropdown">
             <NavDropdown.Item onClick={() => sortDesc('rating')} >Rating: Highest-Lowest</NavDropdown.Item>
             <NavDropdown.Item onClick={() => sortAsc('rating')}>Rating: Lowest-Highest</NavDropdown.Item>
@@ -58,6 +81,26 @@ const Navigation = ({ showSort, sortDesc, sortAsc }) => {
             <NavDropdown.Item onClick={() => sortAsc('author')}>Author: A-Z</NavDropdown.Item>
             <NavDropdown.Item onClick={() => sortDesc('author')}>Author: Z-A</NavDropdown.Item>
           </NavDropdown>
+
+          <NavDropdown title="Filter by" >
+            <Form className="px-4 py-3" >
+              <Form.Check
+                id="owned"
+                inline
+                type="checkbox"
+                label="Owned"
+                onChange={() => setOwned(!owned)}
+              />
+              <Form.Check 
+                id="read"
+                inline
+                type="checkbox"
+                label="Read"
+                onChange={() => setRead(!read)}
+              />   
+            </Form>
+          </NavDropdown>
+          </>
         }
         <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
       </Nav>

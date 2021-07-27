@@ -69,10 +69,42 @@ const MyBooks = () => {
     setSortedBooks(tempArr)
   }
 
+  const filterBooks = (owned, read) => {
+    if (owned === false && read === false) {
+      setSortedBooks(books)
+    } 
+    else if (owned === true && read === false) {
+      filterOwned()
+    }
+    else if (owned === false && read === true) {
+      filterRead()
+    }
+  }
+
+  const filterOwned = () => {
+    let tempArr = []
+    for (let i=0; i < books.length; i ++) {
+      if (books[i].owned === true) {
+        tempArr.push(books[i])
+      }
+    setSortedBooks(tempArr)
+    }
+  }
+
+  const filterRead = () => {
+    let tempArr = []
+    for (let i=0; i < books.length; i ++) {
+      if (books[i].read === true) {
+        tempArr.push(books[i])
+      }
+    setSortedBooks(tempArr)
+    }
+  }
+
   return (
     <Container fluid className="bookshelf" >
       <div ref={topRef}></div>
-      <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} />
+      <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} filterBooks={filterBooks} />
       <Row>
         {showAlert === true &&
           <Notification setShowAlert={setShowAlert} />
