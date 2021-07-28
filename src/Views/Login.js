@@ -127,9 +127,9 @@ const Login = () => {
                 <Form.Label>Username</Form.Label>
               </Form.Row>
               <Form.Row>
-                <Form.Control 
+                <Form.Control
+                  id="usernameRegister" 
                   type="text" 
-                  name="usernameRegister" 
                   value={newUsername} 
                   placeholder="Choose your username" 
                   onChange={({ target }) => handleNewUsernameInput(target.value)} 
@@ -144,9 +144,9 @@ const Login = () => {
                 <Form.Label>Password</Form.Label>
               </Form.Row>
               <Form.Row>
-                <Form.Control 
+                <Form.Control
+                  id="passwordRegister"  
                   type="password" 
-                  name="passwordRegister" 
                   value={newPassword} 
                   placeholder="Choose a secure password" 
                   onChange={({ target }) => handleNewPasswordInput(target.value)} 
@@ -156,14 +156,8 @@ const Login = () => {
                 <Form.Row style={{color: 'red'}}>Password must be at least 5 characters long!</Form.Row>
               } 
             </Form.Group>
-            <Form.Group as={Row} >
-              <Col xs={3}>
-                <Button type="submit">Submit</Button>
-              </Col>
-              <Col xs={3} >
-                <Button variant="danger" onClick={handleClose} >Cancel</Button>
-              </Col>
-            </Form.Group>
+            <Button id="submit-button" type="submit">Submit</Button>
+            <Button id="cancel-button" variant="danger" onClick={handleClose} >Cancel</Button>
           </Form>
         </Modal.Body>
       </Modal>

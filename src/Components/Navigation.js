@@ -123,8 +123,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
               <DropdownItem  onClick={() => setFilter('Title')} >Title</DropdownItem>
               <DropdownItem onClick={() => setFilter('Author') } >Author</DropdownItem>
             </DropdownButton>
-            <Form.Control name="keyWords" type="text" placeholder="Search from Google Books"/>
-            <Button type="submit">
+            <Form.Control id="keyWords" type="text" placeholder="Search from Google Books"/>
+            <Button id="search_books-button" type="submit">
               <FaSearch />
             </Button>
           </InputGroup>
