@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, InputGroup, DropdownButton, NavItem } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown, Form, Button, Row, Col, Container, InputGroup, DropdownButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import { tryLogout, tryUserDeletion } from '../Reducers/userReducer'

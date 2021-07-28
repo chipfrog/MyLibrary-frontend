@@ -82,7 +82,8 @@ const Login = () => {
             <Form onSubmit={handleLogin}>
               <Form.Group controlId="formBasicText">
                 <Form.Label>Username</Form.Label>             
-                <Form.Control 
+                <Form.Control
+                  id="username-field" 
                   type="text" 
                   name="usernameLogin"
                   value={username} 
@@ -92,7 +93,8 @@ const Login = () => {
               </Form.Group>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control 
+                <Form.Control
+                  id="password-field" 
                   type="password" 
                   name="passwordLogin"
                   value={password} 
@@ -100,10 +102,10 @@ const Login = () => {
                   onChange={({ target }) => setPassword(target.value)}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button id="login-button" variant="primary" type="submit">
                 Login
               </Button>{' '}
-              <Button variant="success" onClick={handleShow} >
+              <Button id="create_user-button" variant="success" onClick={handleShow} >
                 Create User
               </Button>
             </Form> 
