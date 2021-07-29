@@ -12,17 +12,27 @@ import '../custom-css.css'
 import DeleteConfirmationUser from './DeleteConfirmationUser'
 import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 
-const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
+const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, notOwned, unread, setRead, setOwned, setUnread, setNotOwned }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const token = useSelector(state => state.login.token)
   const username = useSelector(state => state.login.username)
-  const [filter, setFilter] = useState('Filter by')
+  
   const [show, setShow] = useState(false)
-  const [owned, setOwned] = useState(false)
-  const [read, setRead] = useState(false)
-  const [notOwned, setNotOwned] = useState(false)
-  const [unread, setUnread] = useState(false)
+  const [filter, setFilter] = useState('Filter by')
+  // const [ratingDesc, setRatingDesc] = useState(true)
+  // const [ratingAsc, setRatingAsc] = useState(false)
+  // const [titleAsc, setTitleAsc] = useState(false)
+  // const [titleDesc, setTitleDesc] = useState(false)
+  // const [authorAsc, setAuthosAsc] = useState(false)
+  // const [authorDesc, setAuthorDesc] = useState(false)
+
+  // const boxes = {
+  //   ratingDesc: 'ratingDesc',
+  //   ratingAsc: 'ratingAsc',
+  //   titleAsc: 'titleAsc',
+  //   titleDesc: 'titleDesc'
+  // }
 
   useEffect(() => {
     if (filterBooks) {
@@ -35,6 +45,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
     dispatch(tryLogout())
     history.push('/')
   }
+
+
 
   const fetchBooks = (event) => {
     event.preventDefault()
@@ -67,12 +79,63 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks }) => {
         {showSort &&
           <> 
           <NavDropdown className="ml-auto" title="Sort by" id="basic-nav-dropdown">
-            <NavDropdown.Item onClick={() => sortDesc('rating')} >Rating: Highest-Lowest</NavDropdown.Item>
+            <Form className="px-2 py-3">
+              <Form.Check 
+                id="Rating Desc"
+                name="sortingRadio"
+                inline
+                type="radio"
+                label="Rating Desc."
+                onClick={() => sortDesc('rating')}
+              />
+              <Form.Check 
+                id="Rating Asc"
+                name="sortingRadio"
+                inline
+                type="radio"
+                label="Rating Asc."
+                onClick={() => sortAsc('rating')}
+              />
+              <Form.Check 
+                id="Title Asc"
+                name="sortingRadio"
+                inline
+                type="radio"
+                label="Title Asc."
+                onClick={() => sortAsc('title')}
+              />
+              <Form.Check 
+                id="Title Desc."
+                name="sortingRadio"
+                inline
+                type="radio"
+                label="Title Desc."
+                onClick={() => sortDesc('title')}
+              />
+              <Form.Check 
+                id="Author Asc."
+                name="sortingRadio"
+                inline
+                type="radio"
+                label="Author Asc."
+                onClick={() => sortAsc('author')}
+              />
+              <Form.Check 
+                id="Author Desc."
+                name="sortingRadio"
+                inline
+                type="radio"
+                label="Author Desc."
+                onClick={() => sortDesc('author')}
+              />
+
+            </Form>
+            {/* <NavDropdown.Item onClick={() => sortDesc('rating')} >Rating: Highest-Lowest</NavDropdown.Item>
             <NavDropdown.Item onClick={() => sortAsc('rating')}>Rating: Lowest-Highest</NavDropdown.Item>
             <NavDropdown.Item onClick={() => sortAsc('title')}>Title: A-Z</NavDropdown.Item>
             <NavDropdown.Item onClick={() => sortDesc('title')}>Title: Z-A</NavDropdown.Item>
             <NavDropdown.Item onClick={() => sortAsc('author')}>Author: A-Z</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => sortDesc('author')}>Author: Z-A</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => sortDesc('author')}>Author: Z-A</NavDropdown.Item> */}
           </NavDropdown>
 
           <NavDropdown title="Filter by" >

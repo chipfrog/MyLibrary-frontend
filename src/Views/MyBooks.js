@@ -13,11 +13,19 @@ const MyBooks = () => {
   const targetedView = useSelector(state => state.library)
   const [sortedBooks, setSortedBooks] = useState([...books])
   const [showAlert, setShowAlert] = useState(false)
+
+  const [owned, setOwned] = useState(false)
+  const [read, setRead] = useState(false)
+  const [notOwned, setNotOwned] = useState(false)
+  const [unread, setUnread] = useState(false)
+  
   const topRef = useRef()
   const bottomRef = useRef()
 
+  
+
   useEffect(() => {
-    sortDesc('rating')
+    sortDesc('rating', books)
     targetAddedBook()
   }, [books, targetedView])
 
@@ -41,9 +49,12 @@ const MyBooks = () => {
     rating: 'rating'
   }
 
-  const sortDesc= (field) => {
+  const sortDesc= (field, booksToBeSorted) => {
+    let tempArr = [...sortedBooks]
+    if (booksToBeSorted !== undefined) {
+      tempArr = [...booksToBeSorted]
+    }
     const type = types[field]
-    const tempArr = [...books]
     tempArr.sort((bookA, bookB) => {
       if (bookA[type] > bookB[type]) {
         return -1
@@ -57,7 +68,7 @@ const MyBooks = () => {
 
   const sortAsc = (field) => {
     const type = types[field]
-    const tempArr = [...books]
+    const tempArr = [...sortedBooks]
     tempArr.sort((bookA, bookB) => {
       if (bookA[type] > bookB[type]) {
         return 1
@@ -122,7 +133,20 @@ const MyBooks = () => {
   return (
     <Container fluid className="bookshelf" >
       <div ref={topRef}></div>
-      <Navigation showSort={true} sortDesc={sortDesc} sortAsc={sortAsc} filterBooks={filterBooks} />
+      <Navigation 
+        showSort={true} 
+        sortDesc={sortDesc} 
+        sortAsc={sortAsc} 
+        filterBooks={filterBooks}
+        read={read}
+        setRead={setRead}
+        unread={unread}
+        setUnread={setUnread}
+        owned={owned}
+        setOwned={setOwned}
+        notOwned={notOwned}
+        setNotOwned={setNotOwned}
+      />
       <Row>
         {showAlert === true &&
           <Notification setShowAlert={setShowAlert} />

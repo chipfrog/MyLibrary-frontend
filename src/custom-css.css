@@ -6,10 +6,9 @@ html, body {
   z-index: 998;
 }
 
-.pylly {
-  width: 500px;
-  height: 200px;
-}
+/* [type="checkbox"] {
+  text-align: center;
+} */
 
 .jumbo {
   margin-top: 4rem;

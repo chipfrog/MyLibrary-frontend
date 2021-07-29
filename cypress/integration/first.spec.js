@@ -55,26 +55,26 @@ describe('Login', function() {
   })
 })
 
-describe('When logged in...', function() {
+describe.only('When logged in...', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000')
-    cy.get('#username-field').type('new_user')
-    cy.get('#password-field').type('new_password')
-    cy.get('#login-button').click()
-    // cy.login({ username: 'new_user', password: 'new_password' })
+    // cy.visit('http://localhost:3000')
+    // cy.get('#username-field').type('new_user')
+    // cy.get('#password-field').type('new_password')
+    // cy.get('#login-button').click()
+    cy.login({ username: 'new_user', password: 'new_password' })
   })
 
   it('books can be searched', function() {
+    cy.visit('http://localhost:3000')
     cy.get('#keyWords').type('Prince of Thorns')
     cy.get('#search_books-button').click()
 
     cy.contains('Search results for "Prince of Thorns"')
   })
 
-  it.only('book info can be viewed', function() {
-    cy.get_search_results()
-    cy.position(100, 100)
-  })
+  // it('book info can be viewed', function() {
+  //   cy.get_search_results()
+  // })
 })
 
 
