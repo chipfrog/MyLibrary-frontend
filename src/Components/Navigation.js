@@ -12,7 +12,9 @@ import '../custom-css.css'
 import DeleteConfirmationUser from './DeleteConfirmationUser'
 import DropdownItem from 'react-bootstrap/esm/DropdownItem'
 
-const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, notOwned, unread, setRead, setOwned, setUnread, setNotOwned }) => {
+const Navigation = ({ showSort, sortDesc, sortAsc, 
+  filterBooks, owned, read, notOwned, unread, setRead, setOwned, setUnread, setNotOwned,
+  currentSorting, setCurrentSorting }) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const token = useSelector(state => state.login.token)
@@ -37,7 +39,9 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
   useEffect(() => {
     if (filterBooks) {
       handleFilter()
+      console.log('filtering!')
     }
+    console.log(currentSorting)
   }, [owned, read, notOwned, unread])
   
   const handleLogout = () => {
@@ -65,6 +69,11 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
     filterBooks(owned, read, notOwned, unread)
   }
 
+  const handleSort = (sortMethod, target, currentSort) => {
+    sortMethod(target)
+    setCurrentSorting(currentSort)
+  }
+
   const clearSearhBar = () => {
     document.getElementById('search bar').reset()
   }
@@ -86,7 +95,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
                 inline
                 type="radio"
                 label="Rating Desc."
-                onClick={() => sortDesc('rating')}
+                onClick={() => handleSort(sortDesc, 'rating', 'ratingDesc')}
+                //onClick={() => sortDesc('rating')}
               />
               <Form.Check 
                 id="Rating Asc"
@@ -94,7 +104,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
                 inline
                 type="radio"
                 label="Rating Asc."
-                onClick={() => sortAsc('rating')}
+                onClick={() => handleSort(sortAsc, 'rating', 'ratingAsc')}
+                //onClick={() => sortAsc('rating')}
               />
               <Form.Check 
                 id="Title Asc"
@@ -102,7 +113,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
                 inline
                 type="radio"
                 label="Title Asc."
-                onClick={() => sortAsc('title')}
+                onClick={() => handleSort(sortAsc, 'title', 'titleAsc')}
+                // onClick={() => sortAsc('title')}
               />
               <Form.Check 
                 id="Title Desc."
@@ -110,7 +122,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
                 inline
                 type="radio"
                 label="Title Desc."
-                onClick={() => sortDesc('title')}
+                onClick={() => handleSort(sortDesc, 'title', 'titleDesc')}
+                //onClick={() => sortDesc('title')}
               />
               <Form.Check 
                 id="Author Asc."
@@ -118,7 +131,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
                 inline
                 type="radio"
                 label="Author Asc."
-                onClick={() => sortAsc('author')}
+                onClick={() => handleSort(sortAsc ,'author', 'authorAsc')}
+                //onClick={() => sortAsc('author')}
               />
               <Form.Check 
                 id="Author Desc."
@@ -126,7 +140,8 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
                 inline
                 type="radio"
                 label="Author Desc."
-                onClick={() => sortDesc('author')}
+                onClick={() => handleSort(sortDesc, 'author', 'authorDesc')}
+                //onClick={() => sortDesc('author')}
               />
 
             </Form>
