@@ -22,7 +22,16 @@ const MyBooks = () => {
   const topRef = useRef()
   const bottomRef = useRef()
 
-  
+  const types = {
+    title: 'title',
+    author: 'author',
+    rating: 'rating'
+  }
+
+  const fields = {
+    read: 'read',
+    owned: 'owned'  
+  }
 
   useEffect(() => {
     sortDesc('rating', books)
@@ -41,12 +50,6 @@ const MyBooks = () => {
     if (topRef.current !== (undefined || null ) && !targetedView.scrollToBottom) {
       topRef.current.scrollIntoView()
     }
-  }
-
-  const types = {
-    title: 'title',
-    author: 'author',
-    rating: 'rating'
   }
 
   const sortDesc= (field, booksToBeSorted) => {
@@ -82,50 +85,24 @@ const MyBooks = () => {
 
   const filterBooks = (owned, read, notOwned, unread) => {
     let tempArr = [...books]
-    if (owned) tempArr = filterOwned(tempArr)
-    if (read) tempArr = filterRead(tempArr)
-    if (notOwned) tempArr = filterNotOwned(tempArr)
-    if (unread) tempArr = filterUnread(tempArr) 
+    if (owned) tempArr = conditionalFilter(true, 'owned', tempArr)
+    if (read) tempArr = conditionalFilter (true, 'read', tempArr)
+    if (notOwned) tempArr = conditionalFilter (false, 'owned', tempArr)
+    if (unread) tempArr = conditionalFilter (false, 'read', tempArr)
     setSortedBooks(tempArr)
   }
 
-  const filterOwned = (array) => {
+  const conditionalFilter = (trueOrFalse, condition, array) => {
     let tempArr = []
-    for (let i=0; i < array.length; i ++) {
-      if (array[i].owned) {
-        tempArr.push(array[i])
+    const field = fields[condition]
+    if (trueOrFalse) {
+      for (let i = 0; i < array.length; i ++) {
+        if (array[i][field]) tempArr.push(array[i])
       }
+      return tempArr
     }
-    return tempArr
-  }
-
-  const filterRead = (array) => {
-    let tempArr = []
-    for (let i=0; i < array.length; i ++) {
-      if (array[i].read) {
-        tempArr.push(array[i])
-      }
-    }
-    return tempArr
-  }
-
-  const filterNotOwned = (array) => {
-    let tempArr = []
-    for (let i=0; i < array.length; i ++) {
-      if (!array[i].owned) {
-        tempArr.push(array[i])
-      }
-    }
-    return tempArr
-  }
-
-  const filterUnread = (array) => {
-    console.log('filtering unread')
-    let tempArr = []
-    for (let i=0; i < array.length; i ++) {
-      if (!array[i].read) {
-        tempArr.push(array[i])
-      }
+    for (let i = 0; i < array.length; i ++) {
+      if (!array[i][field]) tempArr.push(array[i])
     }
     return tempArr
   }
