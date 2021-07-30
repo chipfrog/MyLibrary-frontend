@@ -18,17 +18,12 @@ const MyBooks = () => {
   const [read, setRead] = useState(false)
   const [notOwned, setNotOwned] = useState(false)
   const [unread, setUnread] = useState(false)
-  const [currentSorting, setCurrentSorting] = useState('ratingDesc')
   
   const topRef = useRef()
   const bottomRef = useRef()
+
   
-  const types = {
-    title: 'title',
-    author: 'author',
-    rating: 'rating'
-  }
-  
+
   useEffect(() => {
     sortDesc('rating', books)
     targetAddedBook()
@@ -46,6 +41,12 @@ const MyBooks = () => {
     if (topRef.current !== (undefined || null ) && !targetedView.scrollToBottom) {
       topRef.current.scrollIntoView()
     }
+  }
+
+  const types = {
+    title: 'title',
+    author: 'author',
+    rating: 'rating'
   }
 
   const sortDesc= (field, booksToBeSorted) => {
@@ -79,29 +80,13 @@ const MyBooks = () => {
     setSortedBooks(tempArr)
   }
 
-  const sortTypes = {
-    ratingDesc: () => sortDesc('rating'),
-    ratingAsc: () => sortAsc('rating'),
-    titleAsc: () => sortAsc('title'),
-    titleDesc: () => sortDesc('title'),
-    authorAsc: () => sortAsc('author'),
-    authorDesc: () => sortDesc('author')
-
-  }
-
-
   const filterBooks = (owned, read, notOwned, unread) => {
-    
     let tempArr = [...books]
     if (owned) tempArr = filterOwned(tempArr)
     if (read) tempArr = filterRead(tempArr)
     if (notOwned) tempArr = filterNotOwned(tempArr)
-    if (unread) tempArr = filterUnread(tempArr)
-    sortTypes[currentSorting](tempArr)
-
-    console.log(tempArr)
-    //setSortedBooks(tempArr)
-
+    if (unread) tempArr = filterUnread(tempArr) 
+    setSortedBooks(tempArr)
   }
 
   const filterOwned = (array) => {
@@ -135,6 +120,7 @@ const MyBooks = () => {
   }
 
   const filterUnread = (array) => {
+    console.log('filtering unread')
     let tempArr = []
     for (let i=0; i < array.length; i ++) {
       if (!array[i].read) {
@@ -160,8 +146,6 @@ const MyBooks = () => {
         setOwned={setOwned}
         notOwned={notOwned}
         setNotOwned={setNotOwned}
-        currentSorting={currentSorting}
-        setCurrentSorting={setCurrentSorting}
       />
       <Row>
         {showAlert === true &&
