@@ -55,7 +55,7 @@ describe('Login', function() {
   })
 })
 
-describe('When logged in...', function() {
+describe('Searching and adding books', function() {
   beforeEach(function() {
     cy.login({ username: 'new_user', password: 'new_password' })
   })
@@ -78,13 +78,51 @@ describe('When logged in...', function() {
     cy.get('#book_cover').click()
     cy.contains('Review')
   })
-
-  // it('review can be written', function() {
-  //   cy.get('#book_cover').click()
-  //   cy.get()
-  // })
-
 })
+
+describe('Editing book information', function() {
+  it('review can be written and saved', function() {
+    cy.get('#edit_review').click()
+    cy.get('#review_box').type('This is a test review!')
+    cy.get('#save_review-button').click()
+
+    cy.contains('This is a test review!')
+  })
+
+  it('quote can be written and saved', function() {
+    cy.get('#quotes_tab').click()
+    cy.get('#add_quote-button').click()
+    cy.get('#quote_box').type('This is a test quote!')
+    cy.get('#save_quote-button').click()
+    cy.contains('This is a test quote!')
+  })
+
+  it('quote can be deleted', function() {
+    cy.get('#delete_quote-button').click()
+    cy.contains('This is a test quote!').should('not.exist')
+    
+  })
+
+  it('category can written and saved', function() {
+    cy.get('#categories_tab').click()
+    cy.get('#add_category-button').click()
+    cy.get('#category_box').type('fantasy')
+    cy.get('#save_category-button').click()
+
+    cy.contains('fantasy')
+  })
+
+  it('category can be deleted', function() {
+    cy.get('#delete_category-button').click()
+    cy.contains('fiction').should('not.exist')
+  })
+
+  // it('book can be marked as read and owned', function() {
+
+  // })
+})
+
+
 
 
 

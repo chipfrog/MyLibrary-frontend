@@ -88,7 +88,7 @@ const Review = ({ setShow, openColor ,handleColorOpen }) => {
         {!editReview ?
           <Row className="pt-3">
             <Col xs={12} sm={2}>
-              <Button variant="link" onClick={() => setEditReview(!editReview)}>Edit</Button>
+              <Button id="edit_review" variant="link" onClick={() => setEditReview(!editReview)}>Edit</Button>
             </Col>
             <Col xs={12} sm={10}>
               {review}
@@ -102,24 +102,25 @@ const Review = ({ setShow, openColor ,handleColorOpen }) => {
             <Col sm={12} md={10} >
               <Form onSubmit={handleReview} >
                 <Form.Group>
-                  <Form.Control 
+                  <Form.Control
+                    id="review_box"
                     as="textarea" 
                     rows={10} 
                     value={review} 
                     onChange={e => setReview(e.target.value)} 
                   />
                 </Form.Group>
-                <Button type="submit" className="mr-1">Save changes</Button>
+                <Button id="save_review-button" type="submit" className="mr-1">Save changes</Button>
               </Form>
             </Col>
           </Row>
         }
       </Tab>
-      <Tab eventKey="quotes" title="Quotes">
+      <Tab id="quotes_tab" eventKey="quotes" title="Quotes">
         {!quoteAdding ?
         <Row className="pt-3">
           <Col xs={12} sm={2}>
-            <Button variant="link" onClick={() => setQuoteAdding(!quoteAdding)} >
+            <Button id="add_quote-button" variant="link" onClick={() => setQuoteAdding(!quoteAdding)} >
               <FaPlus size={35} />
             </Button>
           </Col>
@@ -132,7 +133,7 @@ const Review = ({ setShow, openColor ,handleColorOpen }) => {
                       <Card.Header>
                         <Row>
                           <Col className="pr-0 text-right">
-                            <AiOutlineClose className="pointer" onClick={() => handleQuoteDelete(quote.id)} />
+                            <AiOutlineClose id="delete_quote-button" className="pointer" onClick={() => handleQuoteDelete(quote.id)} />
                           </Col>
                         </Row>
                       </Card.Header>
@@ -154,24 +155,25 @@ const Review = ({ setShow, openColor ,handleColorOpen }) => {
             <Col sm={12} md={10} >
               <Form onSubmit={handleNewQuote}>
                 <Form.Group>
-                  <Form.Control 
+                  <Form.Control
+                    id="quote_box"
                     as="textarea" 
                     rows={8} 
                     onChange={e => setNewQuote(e.target.value)} 
                     placeholder="Write your quote here."
                   />
                 </Form.Group>
-                <Button type="submit" className="mr-1">Save quote</Button>
+                <Button id="save_quote-button" type="submit" className="mr-1">Save quote</Button>
               </Form>
             </Col>
           </Row>
         }
       </Tab>
-      <Tab eventKey="categories" title="Categories" >
+      <Tab id="categories_tab" eventKey="categories" title="Categories" >
         {!categoryAdding ?
         <Row className="pt-3">
           <Col xs={12} sm={2}>
-            <Button variant="link" onClick={() => setCategoryAdding(!categoryAdding)} >
+            <Button id="add_category-button" variant="link" onClick={() => setCategoryAdding(!categoryAdding)} >
               <FaPlus size={35} />
             </Button>
           </Col>
@@ -195,12 +197,13 @@ const Review = ({ setShow, openColor ,handleColorOpen }) => {
           <Col sm={12} md={10} >
             <Form onSubmit={handleNewCategory} >
               <Form.Group>
-                <Form.Control 
+                <Form.Control
+                  id="category_box" 
                   type="input"
                   onChange={e => setNewCategory(e.target.value)}
                 />
               </Form.Group>
-              <Button type="submit" className="mr-1">Save category</Button>
+              <Button  id="save_category-button" type="submit" className="mr-1">Save category</Button>
             </Form>
           </Col>
         </Row>

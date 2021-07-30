@@ -14,7 +14,7 @@ const Category = ({ name, handleCategoryDelete, owned }) => {
               {name}  
             </Col>
             <Col className="pr-1 mb-1 text-right">
-              <AiOutlineClose size={20} className="pointer" onClick={handleCategoryDelete} />
+              <AiOutlineClose id="delete_category-button" size={20} className="pointer" onClick={handleCategoryDelete} />
             </Col>                    
           </Row>
           :
