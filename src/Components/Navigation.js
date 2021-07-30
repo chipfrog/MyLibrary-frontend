@@ -19,25 +19,12 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
   const username = useSelector(state => state.login.username)
   
   const [show, setShow] = useState(false)
-  const [filter, setFilter] = useState('Filter by')
-  const [sort, setSort] = useState('Sort by')
-  // const [ratingDesc, setRatingDesc] = useState(true)
-  // const [ratingAsc, setRatingAsc] = useState(false)
-  // const [titleAsc, setTitleAsc] = useState(false)
-  // const [titleDesc, setTitleDesc] = useState(false)
-  // const [authorAsc, setAuthosAsc] = useState(false)
-  // const [authorDesc, setAuthorDesc] = useState(false)
-
-  // const boxes = {
-  //   ratingDesc: 'ratingDesc',
-  //   ratingAsc: 'ratingAsc',
-  //   titleAsc: 'titleAsc',
-  //   titleDesc: 'titleDesc'
-  // }
-
+  const [filter, setFilter] = useState('Search by')
+  const [sort, setSort] = useState('Rating Desc')
+  
   useEffect(() => {
     if (filterBooks) {
-      filterBooks(owned, read, notOwned, unread)
+      filterBooks(owned, read, notOwned, unread, sort)
     }
   }, [owned, read, notOwned, unread])
   
@@ -84,7 +71,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
       <Nav className="mr-auto">
         {showSort &&
           <>
-          
+
           <NavDropdown className="ml-auto" title={sort} id="basic-nav-dropdown">
             <NavDropdown.Item onClick={() => handleSort ('Desc', 'rating')} >Rating: Highest-Lowest</NavDropdown.Item>
             <NavDropdown.Item onClick={() => handleSort ('Asc', 'rating')}>Rating: Lowest-Highest</NavDropdown.Item>
@@ -138,7 +125,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
         <Form className="mr-5" onSubmit={fetchBooks} inline="true" id={'search bar'}>
           <InputGroup>
             <DropdownButton variant="secondary" title={filter} >
-              <DropdownItem onClick={() => setFilter('Filter by')} >No filter</DropdownItem>
+              <DropdownItem onClick={() => setFilter('Search by')} >No filter</DropdownItem>
               <DropdownItem  onClick={() => setFilter('Title')} >Title</DropdownItem>
               <DropdownItem onClick={() => setFilter('Author') } >Author</DropdownItem>
             </DropdownButton>

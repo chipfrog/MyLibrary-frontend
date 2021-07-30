@@ -76,9 +76,12 @@ const MyBooks = () => {
     setSortedBooks(tempArr)
   }
 
-  const sortAsc = (field) => {
+  const sortAsc = (field, booksToBeSorted) => {
+    let tempArr = [...sortedBooks]
+    if (booksToBeSorted !== undefined) {
+      tempArr = [...booksToBeSorted]
+    }
     const type = types[field]
-    const tempArr = [...sortedBooks]
     tempArr.sort((bookA, bookB) => {
       let bookFieldA = bookA[type]
       let bookFieldB = bookB[type]
@@ -103,13 +106,36 @@ const MyBooks = () => {
     return surname
   }
 
-  const filterBooks = (owned, read, notOwned, unread) => {
+  const filterBooks = (owned, read, notOwned, unread, currentSort) => {
     let tempArr = [...books]
     if (owned) tempArr = conditionalFilter(true, 'owned', tempArr)
     if (read) tempArr = conditionalFilter (true, 'read', tempArr)
     if (notOwned) tempArr = conditionalFilter (false, 'owned', tempArr)
     if (unread) tempArr = conditionalFilter (false, 'read', tempArr)
-    setSortedBooks(tempArr)
+
+    switch (currentSort) {
+      case 'Rating Desc':
+        sortDesc('rating', tempArr)
+        break
+      case 'Rating Asc':
+        sortAsc('rating', tempArr)
+        break
+      case 'Title Asc':
+        sortAsc('title', tempArr)
+        break
+      case 'Title Desc':
+        sortDesc('title', tempArr)
+        break
+      case 'Author Asc':
+        sortAsc('author', tempArr)
+        break
+      case 'Author Desc':
+        sortDesc('author', tempArr)
+        break      
+      default: 
+        break  
+    }
+    //setSortedBooks(tempArr)
   }
 
   const conditionalFilter = (trueOrFalse, condition, array) => {
