@@ -26,8 +26,6 @@ const App = () => {
         </Route>
         <Route path="/search">
           <Navigation showSort={false}/>
-          {/* <h2 className="mt-3 text-center">Google Books Search</h2>
-          <Searchbar /> */}
           <BookGrid />
         </Route>
         <Route path="/:title">

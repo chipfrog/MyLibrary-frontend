@@ -117,9 +117,34 @@ describe('Editing book information', function() {
     cy.contains('fiction').should('not.exist')
   })
 
-  // it('book can be marked as read and owned', function() {
+  it('book can be marked as read', function() {
+    cy.get('#read').click()
+  })
 
-  // })
+  it('book can be marked as owned', function() {
+    cy.get('#owned').click()
+  })
+
+  it('book can be deleted', function() {
+    cy.get('#options-button').click()
+    cy.get('#delete_book-button').click()
+    cy.get('#final_book_delete-button').click()
+
+    cy.contains('Prince of Thorns').should('not.exist')
+  })
+})
+
+describe('Deleting account', function() {
+  it('a confirmation is asked before deletion', function() {
+    cy.get('#settings-menu').click()
+    cy.get('#begin_delete-button').click()
+
+    cy.contains('Do you want delete your account and all your books?')
+  })
+  it('account can be deleted', function() {
+    cy.get('#delete_book-button').click()
+    cy.contains('Login')
+  })
 })
 
 

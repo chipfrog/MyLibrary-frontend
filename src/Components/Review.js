@@ -209,7 +209,7 @@ const Review = ({ setShow, openColor ,handleColorOpen }) => {
         </Row>
         }  
       </Tab>
-      <Tab eventKey="options" title="Options">
+      <Tab id="options-button" eventKey="options" title="Options">
         <Row className="pt-3">
           <Col>
             {openColor ?
@@ -225,7 +225,7 @@ const Review = ({ setShow, openColor ,handleColorOpen }) => {
         </Row>
         <Row>
           <Col>
-            <Button variant="link" style={{ color: 'red' }} onClick={() => setShow(true)} >
+            <Button id="delete_book-button" variant="link" style={{ color: 'red' }} onClick={() => setShow(true)} >
               Delete Book
             </Button>
           </Col>

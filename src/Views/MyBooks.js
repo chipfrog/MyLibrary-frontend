@@ -135,7 +135,6 @@ const MyBooks = () => {
       default: 
         break  
     }
-    //setSortedBooks(tempArr)
   }
 
   const conditionalFilter = (trueOrFalse, condition, array) => {

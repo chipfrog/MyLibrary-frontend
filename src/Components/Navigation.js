@@ -136,7 +136,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
           </InputGroup>
         </Form>
         <Nav.Link disabled className="text-white" inline="true" >{username}</Nav.Link>
-        <NavDropdown alignRight title={navDropDownIcon} >
+        <NavDropdown id="settings-menu" alignRight title={navDropDownIcon} >
           <NavDropdown.Item onClick={handleLogout} >
             <Row>
               <Col>
@@ -146,7 +146,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
             </Row>            
           </NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item className="text-danger" onClick={() => setShow(true)}  >
+          <NavDropdown.Item id='begin_delete-button' className="text-danger" onClick={() => setShow(true)}  >
             <Row>
               <Col>
                 <span className="mr-2" >Delete Account</span>

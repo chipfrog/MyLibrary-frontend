@@ -19,7 +19,7 @@ const DeleteConfirmationUser = ({ show, setShow, handleDelete }) => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button className="mr-1" variant="danger" onClick={handleDelete}>Delete my account</Button>
+        <Button id="delete_book-button" className="mr-1" variant="danger" onClick={handleDelete}>Delete my account</Button>
         <Button variant="secondary" onClick={() => setShow(false)}>Cancel</Button>
       </Modal.Footer>
     </Modal>
