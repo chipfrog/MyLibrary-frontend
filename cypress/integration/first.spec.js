@@ -38,14 +38,6 @@ describe('Login', function() {
     cy.contains('Create User')
   })
 
-  it('login works with correct credentials', function() {
-    cy.get('#username-field').type('new_user')
-    cy.get('#password-field').type('new_password')
-    cy.get('#login-button').click()
-
-    cy.contains('My Library')
-  })
-
   it(`login doesn't work wiht wrong password`, function() {
     cy.get('#username-field').type('test_user')
     cy.get('#password-field').type('wrong_password')
@@ -53,28 +45,26 @@ describe('Login', function() {
 
     cy.contains('Oops!')
   })
+
+  it('login works with correct credentials', function() {
+    cy.get('#username-field').type('new_user')
+    cy.get('#password-field').type('new_password')
+    cy.get('#login-button').click()
+
+    cy.contains('My Library')
+  })
 })
 
-describe.only('When logged in...', function() {
+describe('When logged in...', function() {
   beforeEach(function() {
-    // cy.visit('http://localhost:3000')
-    // cy.get('#username-field').type('new_user')
-    // cy.get('#password-field').type('new_password')
-    // cy.get('#login-button').click()
     cy.login({ username: 'new_user', password: 'new_password' })
   })
 
   it('books can be searched', function() {
-    cy.visit('http://localhost:3000')
     cy.get('#keyWords').type('Prince of Thorns')
     cy.get('#search_books-button').click()
-
     cy.contains('Search results for "Prince of Thorns"')
   })
-
-  // it('book info can be viewed', function() {
-  //   cy.get_search_results()
-  // })
 })
 
 
