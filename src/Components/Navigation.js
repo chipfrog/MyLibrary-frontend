@@ -20,6 +20,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
   
   const [show, setShow] = useState(false)
   const [filter, setFilter] = useState('Filter by')
+  const [sort, setSort] = useState('Sort by')
   // const [ratingDesc, setRatingDesc] = useState(true)
   // const [ratingAsc, setRatingAsc] = useState(false)
   // const [titleAsc, setTitleAsc] = useState(false)
@@ -36,7 +37,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
 
   useEffect(() => {
     if (filterBooks) {
-      handleFilter()
+      filterBooks(owned, read, notOwned, unread)
     }
   }, [owned, read, notOwned, unread])
   
@@ -45,8 +46,6 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
     dispatch(tryLogout())
     history.push('/')
   }
-
-
 
   const fetchBooks = (event) => {
     event.preventDefault()
@@ -61,14 +60,21 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
     dispatch(tryUserDeletion(token))
   }
 
-  const handleFilter = () => {
-    filterBooks(owned, read, notOwned, unread)
-  }
-
   const clearSearhBar = () => {
     document.getElementById('search bar').reset()
   }
 
+  const handleSort = (DescOrAsc, field) => {
+    const name = field.charAt(0).toUpperCase() + field.slice(1)
+
+    setSort(name + ' ' + DescOrAsc)
+    if (DescOrAsc === 'Desc') {
+      sortDesc(field)
+    } else {
+      sortAsc(field)
+    }
+  }
+ 
   const navDropDownIcon = (<FaCog size={25} />)
 
   return (
@@ -77,72 +83,22 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
       <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
       <Nav className="mr-auto">
         {showSort &&
-          <> 
-          <NavDropdown className="ml-auto" title="Sort by" id="basic-nav-dropdown">
-            <Form className="px-2 py-3">
-              <Form.Check 
-                id="Rating Desc"
-                name="sortingRadio"
-                inline
-                type="radio"
-                label="Rating Desc."
-                onClick={() => sortDesc('rating')}
-              />
-              <Form.Check 
-                id="Rating Asc"
-                name="sortingRadio"
-                inline
-                type="radio"
-                label="Rating Asc."
-                onClick={() => sortAsc('rating')}
-              />
-              <Form.Check 
-                id="Title Asc"
-                name="sortingRadio"
-                inline
-                type="radio"
-                label="Title Asc."
-                onClick={() => sortAsc('title')}
-              />
-              <Form.Check 
-                id="Title Desc."
-                name="sortingRadio"
-                inline
-                type="radio"
-                label="Title Desc."
-                onClick={() => sortDesc('title')}
-              />
-              <Form.Check 
-                id="Author Asc."
-                name="sortingRadio"
-                inline
-                type="radio"
-                label="Author Asc."
-                onClick={() => sortAsc('author')}
-              />
-              <Form.Check 
-                id="Author Desc."
-                name="sortingRadio"
-                inline
-                type="radio"
-                label="Author Desc."
-                onClick={() => sortDesc('author')}
-              />
-
-            </Form>
-            {/* <NavDropdown.Item onClick={() => sortDesc('rating')} >Rating: Highest-Lowest</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => sortAsc('rating')}>Rating: Lowest-Highest</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => sortAsc('title')}>Title: A-Z</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => sortDesc('title')}>Title: Z-A</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => sortAsc('author')}>Author: A-Z</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => sortDesc('author')}>Author: Z-A</NavDropdown.Item> */}
+          <>
+          
+          <NavDropdown className="ml-auto" title={sort} id="basic-nav-dropdown">
+            <NavDropdown.Item onClick={() => handleSort ('Desc', 'rating')} >Rating: Highest-Lowest</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleSort ('Asc', 'rating')}>Rating: Lowest-Highest</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleSort ('Asc', 'title')}>Title: A-Z</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleSort ('Desc', 'title')}>Title: Z-A</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleSort ('Asc', 'author')}>Author: A-Z</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => handleSort ('Desc', 'author')}>Author: Z-A</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Filter by" >
             <Form className="px-4 py-3" > 
               <Form.Check
                 id="owned"
-                inline
+                inline="true"
                 type="checkbox"
                 label="Owned"
                 onChange={() => setOwned(!owned)}
@@ -150,7 +106,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
               />
               <Form.Check 
                 id="not-owned"
-                inline
+                inline="true"
                 type="checkbox"
                 label="Not owned"
                 onChange={() => setNotOwned(!notOwned)}
@@ -158,7 +114,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
               />
               <Form.Check 
                 id="read"
-                inline
+                inline="true"
                 type="checkbox"
                 label="Read"
                 onChange={() => setRead(!read)}
@@ -166,7 +122,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
               />
               <Form.Check 
                 id="unread"
-                inline
+                inline="true"
                 type="checkbox"
                 label="Unread"
                 onChange={() => setUnread(!unread)}
@@ -179,7 +135,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
         <Nav.Link as={Link} to={"/search"}>Book finder</Nav.Link>
       </Nav>
       <Nav className="ml-auto" xs={12} sm={6} >
-        <Form className="mr-5" onSubmit={fetchBooks} inline id={'search bar'}>
+        <Form className="mr-5" onSubmit={fetchBooks} inline="true" id={'search bar'}>
           <InputGroup>
             <DropdownButton variant="secondary" title={filter} >
               <DropdownItem onClick={() => setFilter('Filter by')} >No filter</DropdownItem>
@@ -192,7 +148,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
             </Button>
           </InputGroup>
         </Form>
-        <Nav.Link disabled className="text-white" inline >{username}</Nav.Link>
+        <Nav.Link disabled className="text-white" inline="true" >{username}</Nav.Link>
         <NavDropdown alignRight title={navDropDownIcon} >
           <NavDropdown.Item onClick={handleLogout} >
             <Row>
