@@ -59,9 +59,16 @@ const MyBooks = () => {
     }
     const type = types[field]
     tempArr.sort((bookA, bookB) => {
-      if (bookA[type] > bookB[type]) {
+      let bookFieldA = bookA[type]
+      let bookFieldB = bookB[type]
+
+      if (type === 'author') {
+        bookFieldA = getSurname(bookA)
+        bookFieldB = getSurname(bookB)
+      }
+      if (bookFieldA > bookFieldB) {
         return -1
-      } else if (bookA[type] < bookB[type]) {
+      } else if (bookFieldA < bookFieldB) {
         return 1
       }
       return 0
@@ -73,14 +80,27 @@ const MyBooks = () => {
     const type = types[field]
     const tempArr = [...sortedBooks]
     tempArr.sort((bookA, bookB) => {
-      if (bookA[type] > bookB[type]) {
+      let bookFieldA = bookA[type]
+      let bookFieldB = bookB[type]
+
+      if (type === 'author') {
+        bookFieldA = getSurname(bookA)
+        bookFieldB = getSurname(bookB)
+      }
+      if (bookFieldA > bookFieldB) {
         return 1
-      } else if (bookA[type] < bookB[type]) {
+      } else if (bookFieldA < bookFieldB) {
         return -1
       }
       return 0
     })
     setSortedBooks(tempArr)
+  }
+
+  const getSurname = (book) => {
+    const stringArr = book.author.split(" ")
+    const surname = stringArr[stringArr.length - 1]
+    return surname
   }
 
   const filterBooks = (owned, read, notOwned, unread) => {
