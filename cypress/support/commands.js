@@ -29,12 +29,16 @@ Cypress.Commands.add('login', ({ username, password }) => {
   cy.request('POST', 'http://localhost:3001/api/login', {
     username, password
   }).then(({ body }) => {
-    console.log(body)
     localStorage.setItem('userState', JSON.stringify(body))
   })
 })
 
-Cypress.Commands.add('get_search_results', () => {
+Cypress.Commands.add('getSearchResults', () => {
   cy.get('#keyWords').type('Prince of Thorns')
   cy.get('#search_books-button').click()
+})
+
+Cypress.Commands.add('openInfoView', () => {
+  cy.get('#book_cover').click()
+
 })

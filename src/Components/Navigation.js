@@ -67,7 +67,7 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
   return (
     <>
     <Navbar className="navigation" fixed="top" bg="dark" variant="dark" >
-      <Navbar.Brand as={Link} to={"/"}>My Library</Navbar.Brand>
+      <Navbar.Brand id="nav_brand" as={Link} to={"/"}>My Library</Navbar.Brand>
       <Nav className="mr-auto">
         {showSort &&
           <>

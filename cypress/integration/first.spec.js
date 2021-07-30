@@ -65,6 +65,25 @@ describe('When logged in...', function() {
     cy.get('#search_books-button').click()
     cy.contains('Search results for "Prince of Thorns"')
   })
+
+  it('book can be added', function() {
+    cy.getSearchResults()
+    cy.get('#1').click()
+    cy.get('#add_book-button').click()
+    
+    cy.contains(`You're awesome!`)
+  })
+
+  it('book info can be opened', function() {
+    cy.get('#book_cover').click()
+    cy.contains('Review')
+  })
+
+  // it('review can be written', function() {
+  //   cy.get('#book_cover').click()
+  //   cy.get()
+  // })
+
 })
 
 

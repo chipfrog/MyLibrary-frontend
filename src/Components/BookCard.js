@@ -19,7 +19,7 @@ const BookCard = ({ book, targetPageTop }) => {
       <Card.Body className="genre">
         <Row>
           <Col className="pr-0">
-            <Link to={`/${book.title}`} onClick={() => handleClick(book)} >
+            <Link id="book_cover" to={`/${book.title}`} onClick={() => handleClick(book)} >
               <img src={book.linkToCoverImage} alt="book cover"/>
             </Link>
           </Col>

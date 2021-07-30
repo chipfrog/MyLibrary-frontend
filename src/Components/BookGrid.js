@@ -22,11 +22,13 @@ const BookGrid = () => {
       itemCounter ++
     }
   }
+
+  let bookNum = 0
   
   return (
     <Container fluid className="pt-3 mt-5">
       {bookSearch.searching ?
-        <div 
+        <div
           style={{ 
             position: 'absolute', left: '50%', top: '50%',
             transform: 'translate(-50%, -50%)'
@@ -34,14 +36,15 @@ const BookGrid = () => {
           <Spinner animation="border" variant="info"  />
         </div>
         :
-        <div>
+        <div id="search_results" >
           <h3 className="text-center pb-5 mt-5">Search results for <i>"{bookSearch.keyWords}"</i></h3>
           {rows.map(row => {
             return (
               <Row className='text-center' key={rowKey ++}>
                 {row.map(book => {
+                  bookNum = +1
                   return (
-                    <Col sm={6} md={4} lg={2} key={book.etag}>
+                    <Col id={bookNum} sm={6} md={4} lg={2} key={book.etag}>
                       <Book info={book} key={book.etag}/>
                     </Col>
                   )

@@ -31,7 +31,6 @@ const BookInfo = () => {
     )
   }
 
-  // Korjaa näkymä, kun kirjalijoita enemmän kuin yksi!
   return (
     <>
       <Jumbotron fluid>
@@ -49,7 +48,7 @@ const BookInfo = () => {
                     <h6><i>Based on {bookInfo.volumeInfo.ratingsCount} reviews</i></h6>
                   </>
               }
-              <Button onClick={() => handleBookAdding()}>Add book to library</Button>
+              <Button id="add_book-button" onClick={() => handleBookAdding()}>Add book to library</Button>
             </Col>
             <Col xs={5} >
               <img src={bookInfo.volumeInfo.imageLinks.thumbnail} alt="cover"/>
