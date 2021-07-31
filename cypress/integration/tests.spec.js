@@ -102,6 +102,33 @@ describe('Searching and adding books', function() {
     cy.contains(`You're awesome!`)
   })
 
+  it('multiple books can be added', function() {
+    cy.addBook('joe abercrombie')
+    cy.addBook('homo deus')
+    cy.addBook('Kafka on the shore')
+  })
+
+  it('books can be sorted', function() {
+    cy.get('#basic-nav-dropdown').click()
+    cy.get('#ratingAsc').click()
+
+    cy.get('#basic-nav-dropdown').click()
+    cy.get('#ratingDesc').click()
+
+    cy.get('#basic-nav-dropdown').click()
+    cy.get('#titleDesc').click()
+
+    cy.get('#basic-nav-dropdown').click()
+    cy.get('#authorAsc').click()
+
+    cy.get('#basic-nav-dropdown').click()
+    cy.get('#authorDesc').click()
+
+    cy.get('#basic-nav-dropdown').click()
+    cy.get('#titleAsc').click()
+  })
+
+
   it('book info can be opened', function() {
     cy.get('#book_cover').click()
     cy.contains('Review')

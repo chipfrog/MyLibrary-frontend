@@ -42,3 +42,10 @@ Cypress.Commands.add('openInfoView', () => {
   cy.get('#book_cover').click()
 
 })
+
+Cypress.Commands.add('addBook', (keyword) => {
+  cy.get('#keyWords').type(keyword)
+  cy.get('#search_books-button').click()
+  cy.get('#1').click()
+  cy.get('#add_book-button').click()
+})

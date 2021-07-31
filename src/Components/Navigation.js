@@ -73,12 +73,12 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
           <>
 
           <NavDropdown className="ml-auto" title={sort} id="basic-nav-dropdown">
-            <NavDropdown.Item onClick={() => handleSort ('Desc', 'rating')} >Rating: Highest-Lowest</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleSort ('Asc', 'rating')}>Rating: Lowest-Highest</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleSort ('Asc', 'title')}>Title: A-Z</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleSort ('Desc', 'title')}>Title: Z-A</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleSort ('Asc', 'author')}>Author: A-Z</NavDropdown.Item>
-            <NavDropdown.Item onClick={() => handleSort ('Desc', 'author')}>Author: Z-A</NavDropdown.Item>
+            <NavDropdown.Item id="ratingDesc" onClick={() => handleSort ('Desc', 'rating')} >Rating: Highest-Lowest</NavDropdown.Item>
+            <NavDropdown.Item id="ratingAsc" onClick={() => handleSort ('Asc', 'rating')}>Rating: Lowest-Highest</NavDropdown.Item>
+            <NavDropdown.Item id="titleAsc" onClick={() => handleSort ('Asc', 'title')}>Title: A-Z</NavDropdown.Item>
+            <NavDropdown.Item id="titleDesc" onClick={() => handleSort ('Desc', 'title')}>Title: Z-A</NavDropdown.Item>
+            <NavDropdown.Item id="authorAsc" onClick={() => handleSort ('Asc', 'author')}>Author: A-Z</NavDropdown.Item>
+            <NavDropdown.Item id="authorDesc" onClick={() => handleSort ('Desc', 'author')}>Author: Z-A</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Filter by" >
