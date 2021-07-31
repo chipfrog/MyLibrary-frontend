@@ -18,6 +18,8 @@ describe('User creation', function() {
     cy.get('#usernameRegister').type('new_user')
     cy.get('#passwordRegister').type('new_password')
     cy.get('#submit-button').click()
+
+    cy.contains(`You're awesome!`)
   })
 
   it(`user can't be created if username already exists`, function() {
@@ -25,7 +27,9 @@ describe('User creation', function() {
     cy.get('#usernameRegister').type('new_user')
     cy.get('#passwordRegister').type('new_password')
     cy.get('#submit-button').click()
-  }) 
+
+    cy.contains('Oops!')
+  })
 })
 
 describe('Login', function() {
@@ -66,8 +70,32 @@ describe('Searching and adding books', function() {
     cy.contains('Search results for "Prince of Thorns"')
   })
 
+  it('book can be searche by author', function() {
+    cy.get('#search_category-button').click()
+    cy.get('#by_author-button').click()
+    cy.get('#keyWords').type('Mark Lawrence')
+    cy.get('#search_books-button').click()
+
+    cy.contains('Search results for "Mark Lawrence"')
+  })
+
+  it('search filter can be reset', function() {
+    cy.get('#search_category-button').click()
+    cy.get('#reset_search_category-button').click()
+
+    cy.get('#keyWords').contains('Dune').should('not.exist')
+  })
+
+  it('book can searched by title', function() {
+    cy.get('#search_category-button').click()
+    cy.get('#by_title-button').click()
+    cy.get('#keyWords').type('Dune')
+    cy.get('#search_books-button').click()
+
+    cy.contains('Search results for "Dune"')
+  })
+
   it('book can be added', function() {
-    cy.getSearchResults()
     cy.get('#1').click()
     cy.get('#add_book-button').click()
     
@@ -78,6 +106,7 @@ describe('Searching and adding books', function() {
     cy.get('#book_cover').click()
     cy.contains('Review')
   })
+
 })
 
 describe('Editing book information', function() {
@@ -130,7 +159,7 @@ describe('Editing book information', function() {
     cy.get('#delete_book-button').click()
     cy.get('#final_book_delete-button').click()
 
-    cy.contains('Prince of Thorns').should('not.exist')
+    cy.contains('Dune').should('not.exist')
   })
 })
 

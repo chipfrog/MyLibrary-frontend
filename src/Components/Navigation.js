@@ -124,10 +124,10 @@ const Navigation = ({ showSort, sortDesc, sortAsc, filterBooks, owned, read, not
       <Nav className="ml-auto" xs={12} sm={6} >
         <Form className="mr-5" onSubmit={fetchBooks} inline="true" id={'search bar'}>
           <InputGroup>
-            <DropdownButton variant="secondary" title={filter} >
-              <DropdownItem onClick={() => setFilter('Search by')} >No filter</DropdownItem>
-              <DropdownItem  onClick={() => setFilter('Title')} >Title</DropdownItem>
-              <DropdownItem onClick={() => setFilter('Author') } >Author</DropdownItem>
+            <DropdownButton id="search_category-button" variant="secondary" title={filter} >
+              <DropdownItem id="reset_search_category-button" onClick={() => setFilter('Search by')} >No filter</DropdownItem>
+              <DropdownItem id="by_title-button" onClick={() => setFilter('Title')} >Title</DropdownItem>
+              <DropdownItem id="by_author-button" onClick={() => setFilter('Author') } >Author</DropdownItem>
             </DropdownButton>
             <Form.Control id="keyWords" type="text" placeholder="Search from Google Books"/>
             <Button id="search_books-button" type="submit">

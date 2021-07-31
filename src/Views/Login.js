@@ -49,7 +49,6 @@ const Login = () => {
       setPasswordError(true)
     }
     else {
-      console.log(`Username: ${newUsername}, Password: ${newPassword}`)
       dispatch(tryUserCreation({ newUsername, newPassword }))
       handleClose()
     }
@@ -80,7 +79,7 @@ const Login = () => {
           <Card.Header className="text-center"><h2>Login</h2></Card.Header>
           <Card.Body>
             <Form onSubmit={handleLogin}>
-              <Form.Group controlId="formBasicText">
+              <Form.Group >
                 <Form.Label>Username</Form.Label>             
                 <Form.Control
                   id="username-field" 
@@ -91,7 +90,7 @@ const Login = () => {
                   onChange={({ target }) => setUsername(target.value)}
                 />
               </Form.Group>
-              <Form.Group controlId="formBasicPassword">
+              <Form.Group >
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                   id="password-field" 
