@@ -116,8 +116,7 @@ export const tryBookUpdate = (book, token) => {
   return async dispatch => {
     try {
       const updatedBook = await updateBook(book, token)
-      console.log('Reducerissa:')
-      console.log(updatedBook)
+
       await dispatch(setOwnedBookInfo(updatedBook.data)) 
       dispatch({
         type: 'UPDATE_BOOK',
@@ -138,7 +137,7 @@ export const addBookToLibrary = (book, token) => {
         type: 'ADD_BOOK',
         data: addedBook.data
       })
-      console.log(addedBook.data)
+      
       dispatch(setNotification('success', `${addedBook.data.title} added to the library!`))
       dispatch(targetAddedBook(addedBook.data.id))
 

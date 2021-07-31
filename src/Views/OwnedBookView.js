@@ -54,13 +54,11 @@ const OwnedBookView = () => {
   }
 
   const handleColorChange = (newColor) => {
-    console.log(newColor)
     setColor(newColor)
     const updatedBook = {
       ...book,
       color: newColor
     }
-    console.log(updatedBook)
     dispatch(tryBookUpdate(updatedBook, token))
   }
 

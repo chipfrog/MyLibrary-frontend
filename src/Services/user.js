@@ -2,7 +2,6 @@ import axios from 'axios'
 
 export const getUser = async (token) => {
   const bearerToken = `bearer ${token}`
-  console.log(`token: ${bearerToken}`)
 
   const config = {
     headers: { Authorization: bearerToken }
@@ -13,14 +12,11 @@ export const getUser = async (token) => {
 
 export const createUser = async (userInfo) => {
   const user = await axios.post(`/api/user`, userInfo)
-  console.log(`User creation: ${user.data}`)
   return user.data
 }
 
 export const deleteUser = async (token) => {
   const bearerToken = `bearer ${token}`
-  console.log('poisto frontissa')
-  console.log(bearerToken)
 
   const config = {
     headers: { Authorization: bearerToken }

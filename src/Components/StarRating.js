@@ -3,7 +3,6 @@ import { FaStarHalfAlt } from 'react-icons/fa'
 
 
 const StarRating = ({ avgRating }) => {
-  console.log(`saatu rating: ${avgRating}`)
   const isOddNumber = (number) => {
     if (number % 2 === 1) {
       return true
@@ -19,7 +18,6 @@ const StarRating = ({ avgRating }) => {
       <div>
         {[...Array(5)].map((value, i) => {
           if (i === halfStarIndex ) {
-            console.log(`tässä puolikas: ${i} `)
             return (
               <FaStarHalfAlt 
               key={i}

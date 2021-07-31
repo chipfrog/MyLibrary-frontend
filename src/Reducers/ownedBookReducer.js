@@ -21,7 +21,6 @@ export const setOwnedBookInfo = (bookInfo) => {
 }
 
 export const resetOwnedBookInfo = () => {
-  console.log('reseting book...')
   return {
     type: 'RESET_OWNED_BOOK_INFO',
     data: initialState
